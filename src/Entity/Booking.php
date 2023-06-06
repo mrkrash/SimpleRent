@@ -20,17 +20,8 @@ class Booking
     #[ORM\Column(type: Types::DATE_IMMUTABLE)]
     private ?\DateTimeImmutable $dateEnd = null;
 
-    #[ORM\Column]
-    private ?int $productId = null;
-
-    #[ORM\Column]
-    private ?int $customerId = null;
-
     #[ORM\Column(length: 5000, nullable: true)]
     private ?string $notes = null;
-
-    #[ORM\Column]
-    private ?int $transactionId = null;
 
     #[ORM\Column]
     private ?\DateTimeImmutable $createdAt = null;
@@ -40,6 +31,18 @@ class Booking
 
     #[ORM\Column(nullable: true)]
     private ?\DateTimeImmutable $deletedAt = null;
+
+    #[ORM\ManyToOne(inversedBy: 'bookings')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Product $product = null;
+
+    #[ORM\ManyToOne(inversedBy: 'bookings')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Customer $customer = null;
+
+    #[ORM\OneToOne(inversedBy: 'booking', cascade: ['persist', 'remove'])]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Transaction $paymentTransaction = null;
 
     public function getId(): ?int
     {
@@ -70,30 +73,6 @@ class Booking
         return $this;
     }
 
-    public function getProductId(): ?int
-    {
-        return $this->productId;
-    }
-
-    public function setProductId(int $productId): self
-    {
-        $this->productId = $productId;
-
-        return $this;
-    }
-
-    public function getCustomerId(): ?int
-    {
-        return $this->customerId;
-    }
-
-    public function setCustomerId(int $customerId): self
-    {
-        $this->customerId = $customerId;
-
-        return $this;
-    }
-
     public function getNotes(): ?string
     {
         return $this->notes;
@@ -102,18 +81,6 @@ class Booking
     public function setNotes(?string $notes): self
     {
         $this->notes = $notes;
-
-        return $this;
-    }
-
-    public function getTransactionId(): ?int
-    {
-        return $this->transactionId;
-    }
-
-    public function setTransactionId(int $transactionId): self
-    {
-        $this->transactionId = $transactionId;
 
         return $this;
     }
@@ -150,6 +117,42 @@ class Booking
     public function setDeletedAt(?\DateTimeImmutable $deletedAt): self
     {
         $this->deletedAt = $deletedAt;
+
+        return $this;
+    }
+
+    public function getProduct(): ?Product
+    {
+        return $this->product;
+    }
+
+    public function setProduct(?Product $product): self
+    {
+        $this->product = $product;
+
+        return $this;
+    }
+
+    public function getCustomer(): ?Customer
+    {
+        return $this->customer;
+    }
+
+    public function setCustomer(?Customer $customer): self
+    {
+        $this->customer = $customer;
+
+        return $this;
+    }
+
+    public function getPaymentTransaction(): ?Transaction
+    {
+        return $this->paymentTransaction;
+    }
+
+    public function setPaymentTransaction(Transaction $paymentTransaction): self
+    {
+        $this->paymentTransaction = $paymentTransaction;
 
         return $this;
     }

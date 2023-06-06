@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\TransactionRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: TransactionRepository::class)]
@@ -33,6 +35,17 @@ class Transaction
 
     #[ORM\Column(nullable: true)]
     private ?\DateTimeImmutable $deletedAt = null;
+
+    #[ORM\OneToMany(mappedBy: 'paymentTransaction', targetEntity: Booking::class)]
+    private Collection $bookings;
+
+    #[ORM\OneToOne(mappedBy: 'paymentTransaction', cascade: ['persist', 'remove'])]
+    private ?Booking $booking = null;
+
+    public function __construct()
+    {
+        $this->bookings = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -119,6 +132,23 @@ class Transaction
     public function setDeletedAt(?\DateTimeImmutable $deletedAt): self
     {
         $this->deletedAt = $deletedAt;
+
+        return $this;
+    }
+
+    public function getBooking(): ?Booking
+    {
+        return $this->booking;
+    }
+
+    public function setBooking(Booking $booking): self
+    {
+        // set the owning side of the relation if necessary
+        if ($booking->getPaymentTransaction() !== $this) {
+            $booking->setPaymentTransaction($this);
+        }
+
+        $this->booking = $booking;
 
         return $this;
     }
