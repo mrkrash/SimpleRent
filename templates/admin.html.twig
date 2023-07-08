@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>{% block title %}Welcome!{% endblock %}</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
+  {% block stylesheets %}
+    {{ encore_entry_link_tags('app') }}
+  {% endblock %}
+
+  {% block javascripts %}
+    {{ encore_entry_script_tags('app') }}
+  {% endblock %}
+</head>
+<body>
+
+{% block body %}
+  <div class="columns">
+    <div class="column is-2">
+      <aside class="menu">
+        <section class="section">
+          <div class="container">
+            <div class="navbar-brand">
+              <a class="navbar-item" href="/">
+                <img
+                    srcset="/imgs/mc_rent_bike.webp, /imgs/mc_rent_bike@1.5x.webp 1.5x, /imgs/mc_rent_bike@2x.webp 2x"
+                    src="/imgs/mc_rent_bike.webp"
+                    alt="MC Rent Bike Ragusa"/>
+              </a>
+
+              <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+              </a>
+            </div>
+            <p class="menu-label">
+              --------------
+            </p>
+            <p class="menu-label">
+              General
+            </p>
+            <ul class="menu-list">
+              <li><a>Dashboard</a></li>
+              <li><a>Customers</a></li>
+            </ul>
+            <p class="menu-label">
+              Administration
+            </p>
+            <ul class="menu-list">
+              <li><a href="{{ path('app_product_index') }}">Prodotti</a></li>
+              <li><a href="{{ path('app_price_list_index') }}">Listini</a></li>
+            </ul>
+            {#  <p class="menu-label">#}
+            {#    Transactions#}
+            {#  </p>#}
+            {#  <ul class="menu-list">#}
+            {#    <li><a>Payments</a></li>#}
+            {#    <li><a>Transfers</a></li>#}
+            {#    <li><a>Balance</a></li>#}
+            {#  </ul>#}
+            <p class="menu-label">
+              --------------
+            </p>
+            <a class="button is-danger" href="#">
+              Logout
+            </a>
+          </div>
+        </section>
+      </aside>
+    </div>
+    <div class="column">
+      {% block content %}This is a block content{% endblock %}
+    </div>
+  </div>
+{% endblock %}
+
+<footer class="footer mt-6">
+  <div class="content has-text-centered">
+  </div>
+</footer>
+</body>
+</html>

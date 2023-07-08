@@ -1,0 +1,53 @@
+@charset "UTF-8";
+@import url('https://fonts.googleapis.com/css?family=Nunito:400,700');
+$family-sans-serif: "Nunito", sans-serif;
+
+$fa-font-path: "../../public/webfonts";
+@import "../fontawesome/fontawesome.scss";
+@import "../fontawesome/solid.scss";
+
+@import "~bulma/sass/utilities/_all.sass";
+@import "~bulma/sass/base/_all.sass";
+@import "~bulma/sass/grid/_all.sass";
+@import "~bulma/sass/elements/box.sass";
+@import "~bulma/sass/elements/button.sass";
+@import "~bulma/sass/elements/container.sass";
+@import "~bulma/sass/elements/icon.sass";
+@import "~bulma/sass/elements/image.sass";
+@import "~bulma/sass/elements/notification.sass";
+@import "~bulma/sass/elements/progress.sass";
+@import "~bulma/sass/elements/table.sass";
+@import "~bulma/sass/elements/title.sass";
+@import "~bulma/sass/form/_all.sass";
+@import "~bulma/sass/components/level.sass";
+@import "~bulma/sass/components/menu.sass";
+@import "~bulma/sass/components/navbar.sass";
+@import "~bulma/sass/components/pagination.sass";
+@import "~bulma/sass/layout/hero.sass";
+@import "~bulma/sass/layout/section.sass";
+@import "~bulma/sass/helpers/color.sass";
+@import "~bulma/sass/helpers/other.sass";
+@import "~bulma/sass/helpers/spacing.sass";
+@import "~bulma/sass/helpers/typography.sass";
+@import "~bulma/sass/helpers/visibility.sass";
+
+@import "~bulma-carousel";
+
+.navbar {
+  background-color: transparent;
+}
+a.navbar-item {
+  font-size: 1.2rem;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+.navbar-item img {
+  max-height: 100%;
+}
+a.navbar-item:focus, a.navbar-item:focus-within, a.navbar-item:hover, a.navbar-item.is-active, .navbar-link:focus, .navbar-link:focus-within, .navbar-link:hover, .navbar-link.is-active {
+  background-color: transparent;
+  color: #49b964;
+}
+.carousel {
+  margin-top: -3rem;
+}

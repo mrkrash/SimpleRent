@@ -1,0 +1,27 @@
+{# read and display just one flash message type #}
+{% for message in app.flashes('notice') %}
+  <div class="notification is-info is-light">
+    <button class="delete"></button>
+    {{ message }}
+  </div>
+{% endfor %}
+
+{# read and display several types of flash messages #}
+{% for label, messages in app.flashes(['success', 'warning', 'danger']) %}
+  {% for message in messages %}
+    <div class="notification is-{{ label }} is-light">
+      <button class="delete"></button>
+      {{ message }}
+    </div>
+  {% endfor %}
+{% endfor %}
+
+{# read and display all flash messages #}
+{% for label, messages in app.flashes %}
+  {% for message in messages %}
+    <div class="notification is-primary is-light">
+      <button class="delete"></button>
+      {{ message }}
+    </div>
+  {% endfor %}
+{% endfor %}
