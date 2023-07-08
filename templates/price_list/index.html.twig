@@ -1,0 +1,51 @@
+{% extends 'admin.html.twig' %}
+
+{% block title %}Listino Prezzi{% endblock %}
+
+{% block content %}
+    <section class="section">
+        <div class="container">
+            <div class="level">
+                <div class="level-left">
+                    <div class="level-item">
+                        <h1 class="title">Listini</h1>
+                    </div>
+                </div>
+                <div class="level-right">
+                    <div class="level-item">
+                        <a href="{{ path('app_price_list_new') }}" class="button is-primary">Aggiungi un nuovo listino</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Prezzo Giornaliero</th>
+                <th>Prezzo a 3 giorni</th>
+                <th>Prezzo a 7 giorni</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for price_list in price_lists %}
+                <tr>
+                    <td>{{ price_list.name }}</td>
+                    <td>{{ (price_list.price/100)|format_currency('EUR') }}</td>
+                    <td>{{ (price_list.price3days/100)|format_currency('EUR') }}</td>
+                    <td>{{ (price_list.price7days/100)|format_currency('EUR') }}</td>
+                    <td>
+                        <a href="{{ path('app_price_list_edit', {'id': price_list.id}) }}">Modifica</a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="9">no records found</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+    </section>
+{% endblock %}
