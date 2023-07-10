@@ -1,0 +1,84 @@
+name: Deploy
+
+on:
+  workflow_run:
+    workflows:
+      - BuildAndTest
+    types:
+      - completed
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  symfony-tests:
+    runs-on: ubuntu-latest
+    env:
+      extensions: grpc
+      key: cache-v1
+      php-version: '8.2'
+    steps:
+      - name: 🚚 Get latest code
+        uses: actions/checkout@v3
+
+      - name: Setup cache environment
+        id: extcache
+        uses: shivammathur/cache-extensions@v1
+        with:
+          php-version: ${{ env.php-versions }}
+          extensions: ${{ env.extensions }}
+          key: ${{ env.key }}
+
+      - name: Cache extensions
+        uses: actions/cache@v3
+        with:
+          path: ${{ steps.extcache.outputs.dir }}
+          key: ${{ steps.extcache.outputs.key }}
+          restore-keys: ${{ steps.extcache.outputs.key }}
+
+      - name: Cache Composer packages
+        id: composer-cache
+        uses: actions/cache@v3
+        with:
+          path: vendor
+          key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-php-
+
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ env.php-versions }}
+          extensions: ${{ env.extensions }}
+
+      - name: Remove Development Dependencies
+        run: APP_ENV=prod composer install --no-ansi --no-interaction --no-progress --prefer-dist --no-dev --optimize-autoloader
+
+      - name: Build .env
+        run: composer dump-env prod
+
+      - name: Use Node.js 16
+        uses: actions/setup-node@v2
+        with:
+          node-version: '16'
+
+      - name: 🔨 Build Project
+        run: |
+          yarn install
+          yarn build
+
+      - name: 📂 Sync files
+        uses: easingthemes/ssh-deploy@main
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.RSA_PRIVATE_KEY }}
+          ARGS: "-rltgoDzvO --delete"
+          SOURCE: "./"
+          REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
+          REMOTE_USER: ${{ secrets.REMOTE_USER }}
+          TARGET: ${{ secrets.REMOTE_TARGET }}
+          EXCLUDE: "/.git/, /.github/, /var/cache/, /node_modules/"
+          SCRIPT_AFTER: |
+            ${{ secrets.EXECUTER }} /usr/bin/php bin/console doctrine:migrations:migrate --no-interaction --allow-no-migration
+            ${{ secrets.EXECUTER }} /usr/bin/php bin/console cache:clear
+            ${{ secrets.EXECUTER }} /usr/bin/php bin/console cache:warmup
