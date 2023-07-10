@@ -6,6 +6,7 @@ use App\Entity\Product;
 use App\Form\ProductType;
 use App\Repository\PriceListRepository;
 use App\Repository\ProductRepository;
+use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
@@ -24,6 +25,9 @@ class ProductController extends AbstractController
         ]);
     }
 
+    /**
+     * @throws Exception
+     */
     #[Route('/new', name: 'app_product_new', methods: ['GET', 'POST'])]
     public function new(
         Request $request,
@@ -38,13 +42,13 @@ class ProductController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->saveImage($form, $uploadDir);
+            $product->setImage($this->saveImage($form, $uploadDir));
             $productRepository->save($product, true);
 
             return $this->redirectToRoute('app_product_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->renderForm('product/new.html.twig', [
+        return $this->render('product/new.html.twig', [
             'product' => $product,
             'form' => $form,
         ]);
@@ -58,6 +62,9 @@ class ProductController extends AbstractController
         ]);
     }
 
+    /**
+     * @throws Exception
+     */
     #[Route('/{id}/edit', name: 'app_product_edit', methods: ['GET', 'POST'])]
     public function edit(
         Request $request,
@@ -72,7 +79,7 @@ class ProductController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->saveImage($form, $uploadDir);
+            $product->setImage($this->saveImage($form, $uploadDir));
             $productRepository->save($product, true);
 
             return $this->redirectToRoute('app_product_index', [], Response::HTTP_SEE_OTHER);
@@ -94,10 +101,19 @@ class ProductController extends AbstractController
         return $this->redirectToRoute('app_product_index', [], Response::HTTP_SEE_OTHER);
     }
 
-    private function saveImage(FormInterface $form, string $uploadDir): void
+    /**
+     * @throws Exception
+     */
+    private function saveImage(FormInterface $form, string $uploadDir): ?string
     {
+        $filename = null;
         /** @var UploadedFile $file */
         $file = $form['image']->getData();
-        $file?->move($uploadDir . DIRECTORY_SEPARATOR . $file->getFilename());
+        if ($file) {
+            $filename = bin2hex(random_bytes(6)) . '.' . $file->guessExtension();
+            $file->move($uploadDir, $filename);
+        }
+
+        return $filename;
     }
 }
