@@ -77,8 +77,9 @@ jobs:
           REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
           REMOTE_USER: ${{ secrets.REMOTE_USER }}
           TARGET: ${{ secrets.REMOTE_TARGET }}
-          EXCLUDE: "/.git/, /.github/, /var/cache/, /node_modules/"
+          EXCLUDE: "/.git/, /.github/, /var/cache/, /node_modules/, /.env.local"
           SCRIPT_AFTER: |
+            ${{ secrets.EXECUTER }} /usr/local/bin/composer dump-env prod
             ${{ secrets.EXECUTER }} /usr/bin/php bin/console doctrine:migrations:migrate --no-interaction --allow-no-migration
             ${{ secrets.EXECUTER }} /usr/bin/php bin/console cache:clear
             ${{ secrets.EXECUTER }} /usr/bin/php bin/console cache:warmup
