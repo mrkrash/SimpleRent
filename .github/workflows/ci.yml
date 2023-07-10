@@ -10,10 +10,9 @@ permissions:
   contents: read
 
 jobs:
-  symfony-tests:
+  tests:
     runs-on: ubuntu-latest
     env:
-      extensions: grpc
       key: cache-v1
       php-version: '8.2'
     steps:
