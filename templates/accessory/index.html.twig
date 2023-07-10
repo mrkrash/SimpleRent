@@ -1,0 +1,49 @@
+{% extends 'admin.html.twig' %}
+
+{% block title %}Accessori{% endblock %}
+
+{% block content %}
+<section class="section">
+    <div class="container">
+        <div class="level">
+            <div class="level-left">
+                <div class="level-item">
+                    <h1 class="title">Accessori</h1>
+                </div>
+            </div>
+            <div class="level-right">
+                <div class="level-item">
+                    <a href="{{ path('app_accessory_new') }}" class="button is-primary">Aggiungi un nuovo accessorio</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Descrizione</th>
+                <th>Prezzo</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for accessory in accessories %}
+            <tr>
+                <td>{{ accessory.name }}</td>
+                <td>{{ accessory.description }}</td>
+                <td>{{ (accessory.price/100)|format_currency('EUR') }}</td>
+                <td>
+                    <a href="{{ path('app_accessory_edit', {'id': accessory.id}) }}">Modifica</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="8">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</section>
+{% endblock %}
