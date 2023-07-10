@@ -28,6 +28,9 @@ class Product
     #[ORM\Column(length: 1500, nullable: true)]
     private ?string $description = null;
 
+    #[ORM\Column(length: 255)]
+    private string $image;
+
     #[ORM\Column()]
     private int $qty;
 
@@ -82,6 +85,16 @@ class Product
         $this->qty = $qty;
 
         return $this;
+    }
+
+    public function getImage(): string
+    {
+        return $this->image;
+    }
+
+    public function setImage(string $image): void
+    {
+        $this->image = $image;
     }
 
     public function getPriceList(): ?PriceList

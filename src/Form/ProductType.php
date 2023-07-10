@@ -10,6 +10,7 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\UX\Dropzone\Form\DropzoneType;
 
 class ProductType extends AbstractType
 {
@@ -17,7 +18,8 @@ class ProductType extends AbstractType
     {
         $builder
             ->add('name', TextType::class, ['label' => 'Nome'])
-            ->add('description', TextType::class, ['label' => 'Descrizione'])
+            ->add('description', TextType::class, ['label' => 'Descrizione', 'required' => false,])
+            ->add('image', DropzoneType::class, ['required' => $options['require_main_image'],])
             ->add('priceList', ChoiceType::class, [
                 'choices' => $options['priceList_choices'],
                 'choice_label' => 'name',
@@ -31,7 +33,8 @@ class ProductType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Product::class,
-            'priceList_choices' => []
+            'priceList_choices' => [],
+            'require_main_image' => true,
         ]);
     }
 }
