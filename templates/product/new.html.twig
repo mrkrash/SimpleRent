@@ -1,0 +1,20 @@
+{% extends 'admin.html.twig' %}
+
+{% block title %}Nuovo Prodotto{% endblock %}
+
+{% block body %}
+    <section class="section">
+        <div class="container">
+            <div class="level">
+                <div class="level-left">
+                    <div class="level-item">
+                        <h1 class="title">Nuovo Prodotto</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {{ include('product/_form.html.twig') }}
+
+    </section>
+{% endblock %}

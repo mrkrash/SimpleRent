@@ -2,14 +2,21 @@
 
 namespace App\Entity;
 
+use App\Entity\Traits\AutoCreatedAtTrait;
+use App\Entity\Traits\AutoDeletedAtTrait;
+use App\Entity\Traits\AutoUpdatedAtTrait;
 use App\Repository\ProductRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ProductRepository::class)]
+#[ORM\HasLifecycleCallbacks]
 class Product
 {
+    use AutoCreatedAtTrait;
+    use AutoUpdatedAtTrait;
+    use AutoDeletedAtTrait;
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
@@ -21,14 +28,8 @@ class Product
     #[ORM\Column(length: 1500, nullable: true)]
     private ?string $description = null;
 
-    #[ORM\Column]
-    private ?\DateTimeImmutable $createdAt = null;
-
-    #[ORM\Column]
-    private ?\DateTimeImmutable $updatedAt = null;
-
-    #[ORM\Column(nullable: true)]
-    private ?\DateTimeImmutable $deletedAt = null;
+    #[ORM\Column()]
+    private int $qty;
 
     #[ORM\ManyToOne(inversedBy: 'products')]
     #[ORM\JoinColumn(nullable: false)]
@@ -71,38 +72,26 @@ class Product
         return $this;
     }
 
-    public function getCreatedAt(): ?\DateTimeImmutable
+    public function getQty(): int
     {
-        return $this->createdAt;
+        return $this->qty;
     }
 
-    public function setCreatedAt(\DateTimeImmutable $createdAt): self
+    public function setQty(int $qty): self
     {
-        $this->createdAt = $createdAt;
+        $this->qty = $qty;
 
         return $this;
     }
 
-    public function getUpdatedAt(): ?\DateTimeImmutable
+    public function getPriceList(): ?PriceList
     {
-        return $this->updatedAt;
+        return $this->priceList;
     }
 
-    public function setUpdatedAt(\DateTimeImmutable $updatedAt): self
+    public function setPriceList(PriceList $priceList): self
     {
-        $this->updatedAt = $updatedAt;
-
-        return $this;
-    }
-
-    public function getDeletedAt(): ?\DateTimeImmutable
-    {
-        return $this->deletedAt;
-    }
-
-    public function setDeletedAt(?\DateTimeImmutable $deletedAt): self
-    {
-        $this->deletedAt = $deletedAt;
+        $this->priceList = $priceList;
 
         return $this;
     }
