@@ -19,7 +19,7 @@ class ProductType extends AbstractType
         $builder
             ->add('name', TextType::class, ['label' => 'Nome'])
             ->add('description', TextType::class, ['label' => 'Descrizione', 'required' => false,])
-            ->add('image', DropzoneType::class, ['required' => $options['require_main_image'],])
+            ->add('image', DropzoneType::class, ['data_class' => null, 'required' => $options['require_main_image'],])
             ->add('priceList', ChoiceType::class, [
                 'choices' => $options['priceList_choices'],
                 'choice_label' => 'name',
