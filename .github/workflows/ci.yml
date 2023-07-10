@@ -13,6 +13,7 @@ jobs:
   tests:
     runs-on: ubuntu-latest
     env:
+      extensions: gd intl zip
       key: cache-v1
       php-version: '8.2'
     steps:
