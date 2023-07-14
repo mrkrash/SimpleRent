@@ -1,0 +1,65 @@
+{% extends 'admin.html.twig' %}
+
+{% block title %}Prenotazioni{% endblock %}
+
+{% block content %}
+<section class="section">
+    <div class="container">
+        <div class="level">
+            <div class="level-left">
+                <div class="level-item">
+                    <h1 class="title">Prenotazioni</h1>
+                </div>
+            </div>
+            <div class="level-right">
+                <div class="level-item">
+                    <a href="{{ path('app_booking_new') }}" class="button is-primary">Aggiungi una nuova prenotazione</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Data Ritiro</th>
+                <th>Date Consegna</th>
+                <th>Cliente</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for booking in bookings %}
+            <tr>
+                <td>{{ booking.id }}</td>
+                <td>{{ booking.dateStart ? booking.dateStart|date('d/m/Y') : '' }}</td>
+                <td>{{ booking.dateEnd ? booking.dateEnd|date('d/m/Y') : '' }}</td>
+                <td>{{ booking.customer.fullname }}</td>
+                <td class="has-addons">
+                    <p class="control">
+                        <a class="button" href="{{ path('app_booking_show', {'id': booking.id}) }}">
+                                <span class="icon is-small">
+                                    <i class="fas fa-pencil"></i>
+                                </span>
+                            <span>Visualizza</span>
+                        </a>
+                    </p>
+                    <p class="control">
+                        <a class="button" href="{{ path('app_booking_edit', {'id': booking.id}) }}">
+                                <span class="icon is-small">
+                                    <i class="fas fa-pencil"></i>
+                                </span>
+                            <span>Modifica</span>
+                        </a>
+                    </p>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="8">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
