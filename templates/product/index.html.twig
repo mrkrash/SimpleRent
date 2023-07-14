@@ -22,6 +22,7 @@
         <table class="table">
             <thead>
             <tr>
+                <th></th>
                 <th>Nome</th>
                 <th>Descrizione</th>
                 <th>Listino</th>
@@ -32,12 +33,24 @@
             <tbody>
             {% for product in products %}
                 <tr>
+                    <td>
+                        <figure class="image is-64x64">
+                            <img src="/images/{{ product.image }}">
+                        </figure>
+                    </td>
                     <td>{{ product.name }}</td>
                     <td>{{ product.description }}</td>
                     <td>{{ product.priceList.name }}</td>
                     <td>{{ product.qty }}</td>
                     <td>
-                        <a href="{{ path('app_product_edit', {'id': product.id}) }}">Modifica</a>
+                        <p class="control">
+                            <a class="button" href="{{ path('app_product_edit', {'id': product.id}) }}">
+                                <span class="icon is-small">
+                                    <i class="fas fa-pencil"></i>
+                                </span>
+                                <span>Modifica</span>
+                            </a>
+                        </p>
                     </td>
                 </tr>
             {% else %}

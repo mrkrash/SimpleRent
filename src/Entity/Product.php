@@ -9,6 +9,7 @@ use App\Repository\ProductRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\File;
 
 #[ORM\Entity(repositoryClass: ProductRepository::class)]
 #[ORM\HasLifecycleCallbacks]
@@ -37,6 +38,8 @@ class Product
     #[ORM\ManyToOne(inversedBy: 'products')]
     #[ORM\JoinColumn(nullable: false)]
     private ?PriceList $priceList = null;
+
+    private ?File $uploadImage;
 
     #[ORM\OneToMany(mappedBy: 'product', targetEntity: Booking::class)]
     private Collection $bookings;
@@ -105,6 +108,18 @@ class Product
     public function setPriceList(PriceList $priceList): self
     {
         $this->priceList = $priceList;
+
+        return $this;
+    }
+
+    public function getUploadImage(): ?File
+    {
+        return $this->uploadImage;
+    }
+
+    public function setUploadImage(File $uploadImage): self
+    {
+        $this->uploadImage = $uploadImage;
 
         return $this;
     }

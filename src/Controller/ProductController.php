@@ -75,11 +75,15 @@ class ProductController extends AbstractController
     ): Response {
         $form = $this->createForm(ProductType::class, $product, [
             'priceList_choices' => $priceListRepository->findAll(),
+            'require_main_image' => false,
         ]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $product->setImage($this->saveImage($form, $uploadDir));
+            $filename = $this->saveImage($form, $uploadDir);
+            if (null !== $filename) {
+                $product->setImage($filename);
+            }
             $productRepository->save($product, true);
 
             return $this->redirectToRoute('app_product_index', [], Response::HTTP_SEE_OTHER);
@@ -108,7 +112,7 @@ class ProductController extends AbstractController
     {
         $filename = null;
         /** @var UploadedFile $file */
-        $file = $form['image']->getData();
+        $file = $form['uploadImage']->getData();
         if ($file) {
             $filename = bin2hex(random_bytes(6)) . '.' . $file->guessExtension();
             $file->move($uploadDir, $filename);
