@@ -7,6 +7,7 @@ use App\Entity\Traits\AutoDeletedAtTrait;
 use App\Entity\Traits\AutoUpdatedAtTrait;
 use App\Repository\AccessoryRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\File;
 
 #[ORM\Entity(repositoryClass: AccessoryRepository::class)]
 #[ORM\HasLifecycleCallbacks]
@@ -27,8 +28,13 @@ class Accessory
     #[ORM\Column(length: 1000, nullable: true)]
     private ?string $description = null;
 
+    #[ORM\Column(length: 255)]
+    private string $image;
+
     #[ORM\Column]
     private ?int $price = null;
+
+    private ?File $uploadImage;
 
     public function getId(): ?int
     {
@@ -59,6 +65,17 @@ class Accessory
         return $this;
     }
 
+    public function getImage(): string
+    {
+        return $this->image;
+    }
+
+    public function setImage(string $image): Accessory
+    {
+        $this->image = $image;
+        return $this;
+    }
+
     public function getPrice(): ?int
     {
         return $this->price;
@@ -67,6 +84,18 @@ class Accessory
     public function setPrice(int $price): self
     {
         $this->price = $price;
+
+        return $this;
+    }
+
+    public function getUploadImage(): ?File
+    {
+        return $this->uploadImage;
+    }
+
+    public function setUploadImage(File $uploadImage): self
+    {
+        $this->uploadImage = $uploadImage;
 
         return $this;
     }

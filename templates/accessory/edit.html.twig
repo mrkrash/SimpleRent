@@ -2,7 +2,7 @@
 
 {% block title %}Modifica Accessorio{% endblock %}
 
-{% block body %}
+{% block content %}
     <section class="section">
         <div class="container">
             <div class="level">
@@ -18,8 +18,17 @@
                 </div>
             </div>
         </div>
-
-        {{ include('accessory/_form.html.twig') }}
-
+    </section>
+    <section class="section">
+        <div class="columns">
+            <div class="column">
+                {{ include('accessory/_form.html.twig') }}
+            </div>
+            <div class="column is-one-quarter">
+                <figure class="image is-128x128">
+                    <img src="/images/{{ accessory.image }}">
+                </figure>
+            </div>
+        </div>
     </section>
 {% endblock %}

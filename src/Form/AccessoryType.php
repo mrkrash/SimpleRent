@@ -9,6 +9,7 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\UX\Dropzone\Form\DropzoneType;
 
 class AccessoryType extends AbstractType
 {
@@ -18,6 +19,7 @@ class AccessoryType extends AbstractType
             ->add('name', TextType::class, ['label' => 'Nome'])
             ->add('description', TextType::class, ['label' => 'Descrizione', 'required' => false,])
             ->add('price', MoneyType::class, ['label' => 'Prezzo Giornaliero', 'divisor' => 100])
+            ->add('uploadImage', DropzoneType::class, ['data_class' => null, 'required' => $options['require_main_image'],])
             ->add('save', SubmitType::class)
         ;
     }
@@ -26,6 +28,7 @@ class AccessoryType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Accessory::class,
+            'require_main_image' => true,
         ]);
     }
 }

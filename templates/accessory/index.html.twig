@@ -22,6 +22,7 @@
     <table class="table">
         <thead>
             <tr>
+                <th></th>
                 <th>Nome</th>
                 <th>Descrizione</th>
                 <th>Prezzo</th>
@@ -31,11 +32,23 @@
         <tbody>
         {% for accessory in accessories %}
             <tr>
+                <td>
+                    <figure class="image is-64x64">
+                        <img src="/images/{{ accessory.image }}">
+                    </figure>
+                </td>
                 <td>{{ accessory.name }}</td>
                 <td>{{ accessory.description }}</td>
                 <td>{{ (accessory.price/100)|format_currency('EUR') }}</td>
                 <td>
-                    <a href="{{ path('app_accessory_edit', {'id': accessory.id}) }}">Modifica</a>
+                    <p class="control">
+                        <a class="button" href="{{ path('app_accessory_edit', {'id': accessory.id}) }}">
+                                <span class="icon is-small">
+                                    <i class="fas fa-pencil"></i>
+                                </span>
+                            <span>Modifica</span>
+                        </a>
+                    </p>
                 </td>
             </tr>
         {% else %}
