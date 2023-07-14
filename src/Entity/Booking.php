@@ -3,6 +3,9 @@
 namespace App\Entity;
 
 use App\Repository\BookingRepository;
+use DateTimeImmutable;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -15,26 +18,13 @@ class Booking
     private ?int $id = null;
 
     #[ORM\Column(type: Types::DATE_IMMUTABLE)]
-    private ?\DateTimeImmutable $dateStart = null;
+    private ?DateTimeImmutable $dateStart = null;
 
     #[ORM\Column(type: Types::DATE_IMMUTABLE)]
-    private ?\DateTimeImmutable $dateEnd = null;
+    private ?DateTimeImmutable $dateEnd = null;
 
     #[ORM\Column(length: 5000, nullable: true)]
     private ?string $notes = null;
-
-    #[ORM\Column]
-    private ?\DateTimeImmutable $createdAt = null;
-
-    #[ORM\Column]
-    private ?\DateTimeImmutable $updatedAt = null;
-
-    #[ORM\Column(nullable: true)]
-    private ?\DateTimeImmutable $deletedAt = null;
-
-    #[ORM\ManyToOne(inversedBy: 'bookings')]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?Product $product = null;
 
     #[ORM\ManyToOne(inversedBy: 'bookings')]
     #[ORM\JoinColumn(nullable: false)]
@@ -44,29 +34,41 @@ class Booking
     #[ORM\JoinColumn(nullable: false)]
     private ?Transaction $paymentTransaction = null;
 
+    #[ORM\ManyToMany(targetEntity: Product::class, inversedBy: 'bookings')]
+    private Collection $products;
+
+    #[ORM\ManyToMany(targetEntity: Accessory::class, inversedBy: 'bookings')]
+    private Collection $accessories;
+
+    public function __construct()
+    {
+        $this->products = new ArrayCollection();
+        $this->accessories = new ArrayCollection();
+    }
+
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getDateStart(): ?\DateTimeImmutable
+    public function getDateStart(): ?DateTimeImmutable
     {
         return $this->dateStart;
     }
 
-    public function setDateStart(\DateTimeImmutable $dateStart): self
+    public function setDateStart(DateTimeImmutable $dateStart): self
     {
         $this->dateStart = $dateStart;
 
         return $this;
     }
 
-    public function getDateEnd(): ?\DateTimeImmutable
+    public function getDateEnd(): ?DateTimeImmutable
     {
         return $this->dateEnd;
     }
 
-    public function setDateEnd(\DateTimeImmutable $dateEnd): self
+    public function setDateEnd(DateTimeImmutable $dateEnd): self
     {
         $this->dateEnd = $dateEnd;
 
@@ -81,54 +83,6 @@ class Booking
     public function setNotes(?string $notes): self
     {
         $this->notes = $notes;
-
-        return $this;
-    }
-
-    public function getCreatedAt(): ?\DateTimeImmutable
-    {
-        return $this->createdAt;
-    }
-
-    public function setCreatedAt(\DateTimeImmutable $createdAt): self
-    {
-        $this->createdAt = $createdAt;
-
-        return $this;
-    }
-
-    public function getUpdatedAt(): ?\DateTimeImmutable
-    {
-        return $this->updatedAt;
-    }
-
-    public function setUpdatedAt(\DateTimeImmutable $updatedAt): self
-    {
-        $this->updatedAt = $updatedAt;
-
-        return $this;
-    }
-
-    public function getDeletedAt(): ?\DateTimeImmutable
-    {
-        return $this->deletedAt;
-    }
-
-    public function setDeletedAt(?\DateTimeImmutable $deletedAt): self
-    {
-        $this->deletedAt = $deletedAt;
-
-        return $this;
-    }
-
-    public function getProduct(): ?Product
-    {
-        return $this->product;
-    }
-
-    public function setProduct(?Product $product): self
-    {
-        $this->product = $product;
 
         return $this;
     }
@@ -153,6 +107,54 @@ class Booking
     public function setPaymentTransaction(Transaction $paymentTransaction): self
     {
         $this->paymentTransaction = $paymentTransaction;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Product>
+     */
+    public function getProducts(): Collection
+    {
+        return $this->products;
+    }
+
+    public function addProduct(Product $product): self
+    {
+        if (!$this->products->contains($product)) {
+            $this->products->add($product);
+        }
+
+        return $this;
+    }
+
+    public function removeProduct(Product $product): self
+    {
+        $this->products->removeElement($product);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Accessory>
+     */
+    public function getAccessories(): Collection
+    {
+        return $this->accessories;
+    }
+
+    public function addAccessory(Accessory $accessory): self
+    {
+        if (!$this->accessories->contains($accessory)) {
+            $this->accessories->add($accessory);
+        }
+
+        return $this;
+    }
+
+    public function removeAccessory(Accessory $accessory): self
+    {
+        $this->accessories->removeElement($accessory);
 
         return $this;
     }

@@ -41,7 +41,7 @@ class Product
 
     private ?File $uploadImage;
 
-    #[ORM\OneToMany(mappedBy: 'product', targetEntity: Booking::class)]
+    #[ORM\ManyToMany(targetEntity: Booking::class, mappedBy: 'products')]
     private Collection $bookings;
 
     public function __construct()
@@ -136,7 +136,7 @@ class Product
     {
         if (!$this->bookings->contains($booking)) {
             $this->bookings->add($booking);
-            $booking->setProduct($this);
+            $booking->addProduct($this);
         }
 
         return $this;
@@ -145,10 +145,7 @@ class Product
     public function removeBooking(Booking $booking): self
     {
         if ($this->bookings->removeElement($booking)) {
-            // set the owning side to null (unless already changed)
-            if ($booking->getProduct() === $this) {
-                $booking->setProduct(null);
-            }
+            $booking->removeProduct($this);
         }
 
         return $this;

@@ -6,6 +6,8 @@ use App\Entity\Traits\AutoCreatedAtTrait;
 use App\Entity\Traits\AutoDeletedAtTrait;
 use App\Entity\Traits\AutoUpdatedAtTrait;
 use App\Repository\AccessoryRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
 
@@ -35,6 +37,14 @@ class Accessory
     private ?int $price = null;
 
     private ?File $uploadImage;
+
+    #[ORM\ManyToMany(targetEntity: Booking::class, mappedBy: 'accessories')]
+    private Collection $bookings;
+
+    public function __construct()
+    {
+        $this->bookings = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -96,6 +106,33 @@ class Accessory
     public function setUploadImage(File $uploadImage): self
     {
         $this->uploadImage = $uploadImage;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Booking>
+     */
+    public function getBookings(): Collection
+    {
+        return $this->bookings;
+    }
+
+    public function addBooking(Booking $booking): self
+    {
+        if (!$this->bookings->contains($booking)) {
+            $this->bookings->add($booking);
+            $booking->addAccessory($this);
+        }
+
+        return $this;
+    }
+
+    public function removeBooking(Booking $booking): self
+    {
+        if ($this->bookings->removeElement($booking)) {
+            $booking->removeAccessory($this);
+        }
 
         return $this;
     }
