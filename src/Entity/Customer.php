@@ -2,6 +2,9 @@
 
 namespace App\Entity;
 
+use App\Entity\Traits\AutoCreatedAtTrait;
+use App\Entity\Traits\AutoDeletedAtTrait;
+use App\Entity\Traits\AutoUpdatedAtTrait;
 use App\Repository\CustomerRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -10,6 +13,9 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity(repositoryClass: CustomerRepository::class)]
 class Customer
 {
+    use AutoCreatedAtTrait;
+    use AutoUpdatedAtTrait;
+    use AutoDeletedAtTrait;
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]

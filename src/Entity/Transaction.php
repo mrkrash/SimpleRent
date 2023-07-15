@@ -2,6 +2,9 @@
 
 namespace App\Entity;
 
+use App\Entity\Traits\AutoCreatedAtTrait;
+use App\Entity\Traits\AutoDeletedAtTrait;
+use App\Entity\Traits\AutoUpdatedAtTrait;
 use App\Repository\TransactionRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -10,6 +13,9 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity(repositoryClass: TransactionRepository::class)]
 class Transaction
 {
+    use AutoCreatedAtTrait;
+    use AutoUpdatedAtTrait;
+    use AutoDeletedAtTrait;
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
@@ -26,15 +32,6 @@ class Transaction
 
     #[ORM\Column]
     private ?int $levied = null;
-
-    #[ORM\Column]
-    private ?\DateTimeImmutable $createdAt = null;
-
-    #[ORM\Column]
-    private ?\DateTimeImmutable $updatedAt = null;
-
-    #[ORM\Column(nullable: true)]
-    private ?\DateTimeImmutable $deletedAt = null;
 
     #[ORM\OneToMany(mappedBy: 'paymentTransaction', targetEntity: Booking::class)]
     private Collection $bookings;
@@ -96,42 +93,6 @@ class Transaction
     public function setLevied(int $levied): self
     {
         $this->levied = $levied;
-
-        return $this;
-    }
-
-    public function getCreatedAt(): ?\DateTimeImmutable
-    {
-        return $this->createdAt;
-    }
-
-    public function setCreatedAt(\DateTimeImmutable $createdAt): self
-    {
-        $this->createdAt = $createdAt;
-
-        return $this;
-    }
-
-    public function getUpdatedAt(): ?\DateTimeImmutable
-    {
-        return $this->updatedAt;
-    }
-
-    public function setUpdatedAt(\DateTimeImmutable $updatedAt): self
-    {
-        $this->updatedAt = $updatedAt;
-
-        return $this;
-    }
-
-    public function getDeletedAt(): ?\DateTimeImmutable
-    {
-        return $this->deletedAt;
-    }
-
-    public function setDeletedAt(?\DateTimeImmutable $deletedAt): self
-    {
-        $this->deletedAt = $deletedAt;
 
         return $this;
     }

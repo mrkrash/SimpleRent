@@ -18,6 +18,7 @@ class Product
     use AutoCreatedAtTrait;
     use AutoUpdatedAtTrait;
     use AutoDeletedAtTrait;
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
