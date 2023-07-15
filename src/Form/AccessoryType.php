@@ -18,7 +18,8 @@ class AccessoryType extends AbstractType
         $builder
             ->add('name', TextType::class, ['label' => 'Nome'])
             ->add('description', TextType::class, ['label' => 'Descrizione', 'required' => false,])
-            ->add('price', MoneyType::class, ['label' => 'Prezzo Giornaliero', 'divisor' => 100])
+            ->add('dailyPrice', MoneyType::class, ['label' => 'Prezzo Giornaliero', 'divisor' => 100])
+            ->add('weekPrice', MoneyType::class, ['label' => 'Prezzo Settimanale', 'divisor' => 100])
             ->add('uploadImage', DropzoneType::class, ['data_class' => null, 'required' => $options['require_main_image'],])
             ->add('save', SubmitType::class)
         ;

@@ -25,7 +25,8 @@
                 <th></th>
                 <th>Nome</th>
                 <th>Descrizione</th>
-                <th>Prezzo</th>
+                <th>Prezzo Giornaliero</th>
+                <th>Prezzo Settimanale</th>
                 <th></th>
             </tr>
         </thead>
@@ -39,7 +40,8 @@
                 </td>
                 <td>{{ accessory.name }}</td>
                 <td>{{ accessory.description }}</td>
-                <td>{{ (accessory.price/100)|format_currency('EUR') }}</td>
+                <td>{{ (accessory.dailyPrice/100)|format_currency('EUR') }}</td>
+                <td>{{ (accessory.weekPrice/100)|format_currency('EUR') }}</td>
                 <td>
                     <p class="control">
                         <a class="button" href="{{ path('app_accessory_edit', {'id': accessory.id}) }}">

@@ -27,13 +27,16 @@ class PriceList
     private ?string $name = null;
 
     #[ORM\Column]
-    private ?int $price = null;
+    private ?int $priceHalfDay = null;
 
     #[ORM\Column]
-    private ?int $price3days = null;
+    private ?int $priceOneDay = null;
 
     #[ORM\Column]
-    private ?int $price7days = null;
+    private ?int $priceThreeDays = null;
+
+    #[ORM\Column]
+    private ?int $priceSevenDays = null;
 
     #[ORM\OneToMany(mappedBy: 'priceList', targetEntity: Product::class)]
     private Collection $products;
@@ -60,38 +63,49 @@ class PriceList
         return $this;
     }
 
-    public function getPrice(): ?int
+    public function getPriceHalfDay(): ?int
     {
-        return $this->price;
+        return $this->priceHalfDay;
     }
 
-    public function setPrice(int $price): self
+    public function setPriceHalfDay(?int $price): PriceList
     {
-        $this->price = $price;
+        $this->priceHalfDay = $price;
+        return $this;
+    }
+
+    public function getPriceOneDay(): ?int
+    {
+        return $this->priceOneDay;
+    }
+
+    public function setPriceOneDay(int $price): self
+    {
+        $this->priceOneDay = $price;
 
         return $this;
     }
 
-    public function getPrice3days(): ?int
+    public function getPriceThreeDays(): ?int
     {
-        return $this->price3days;
+        return $this->priceThreeDays;
     }
 
-    public function setPrice3days(int $price3days): self
+    public function setPriceThreeDays(int $price): self
     {
-        $this->price3days = $price3days;
+        $this->priceThreeDays = $price;
 
         return $this;
     }
 
-    public function getPrice7days(): ?int
+    public function getPriceSevenDays(): ?int
     {
-        return $this->price7days;
+        return $this->priceSevenDays;
     }
 
-    public function setPrice7days(int $price7days): self
+    public function setPriceSevenDays(int $price): self
     {
-        $this->price7days = $price7days;
+        $this->priceSevenDays = $price;
 
         return $this;
     }

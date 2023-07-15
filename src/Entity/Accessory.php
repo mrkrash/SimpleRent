@@ -34,7 +34,10 @@ class Accessory
     private string $image;
 
     #[ORM\Column]
-    private ?int $price = null;
+    private ?int $dailyPrice = null;
+
+    #[ORM\Column]
+    private ?int $weekPrice = null;
 
     private ?File $uploadImage;
 
@@ -86,15 +89,26 @@ class Accessory
         return $this;
     }
 
-    public function getPrice(): ?int
+    public function getDailyPrice(): ?int
     {
-        return $this->price;
+        return $this->dailyPrice;
     }
 
-    public function setPrice(int $price): self
+    public function setDailyPrice(int $price): self
     {
-        $this->price = $price;
+        $this->dailyPrice = $price;
 
+        return $this;
+    }
+
+    public function getWeekPrice(): ?int
+    {
+        return $this->weekPrice;
+    }
+
+    public function setWeekPrice(?int $weekPrice): Accessory
+    {
+        $this->weekPrice = $weekPrice;
         return $this;
     }
 
