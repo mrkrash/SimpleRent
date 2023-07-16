@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Common\Size;
 use App\Entity\Traits\AutoCreatedAtTrait;
 use App\Entity\Traits\AutoDeletedAtTrait;
 use App\Entity\Traits\AutoUpdatedAtTrait;
@@ -39,6 +40,12 @@ class Product
     #[ORM\ManyToOne(inversedBy: 'products')]
     #[ORM\JoinColumn(nullable: false)]
     private ?PriceList $priceList = null;
+
+    #[ORM\Column()]
+    private Size $size;
+
+    #[ORM\Column()]
+    private Gender $gender;
 
     private ?File $uploadImage;
 
