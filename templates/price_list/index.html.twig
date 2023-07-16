@@ -38,7 +38,14 @@
                     <td>{{ (price_list.priceThreeDays/100)|format_currency('EUR') }}</td>
                     <td>{{ (price_list.priceSevenDays/100)|format_currency('EUR') }}</td>
                     <td>
-                        <a href="{{ path('app_price_list_edit', {'id': price_list.id}) }}">Modifica</a>
+                        <p class="control">
+                            <a class="button" href="{{ path('app_price_list_edit', {'id': price_list.id}) }}">
+                                <span class="icon is-small">
+                                    <i class="fas fa-pencil"></i>
+                                </span>
+                                <span>Modifica</span>
+                            </a>
+                        </p>
                     </td>
                 </tr>
             {% else %}

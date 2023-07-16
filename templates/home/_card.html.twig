@@ -1,0 +1,54 @@
+<div class="card" style="padding: 3rem;">
+  <div class="card-image">
+    <figure class="image is-4by3">
+      <img src="images/{{ product.image }}" alt="{{ product.name }}">
+    </figure>
+  </div>
+  <div class="card-content">
+    <div class="content has-text-centered">
+      <p class="title pt-4" style="height: 6rem;">{{ product.name }}</p>
+      <div class="price-list">
+        <div class="columns">
+          <div class="column is-half has-text-left">
+            Mezza Giornata
+          </div>
+          <div class="column is-half has-text-right">
+            {{ (product.priceList.priceHalfDay/100)|format_currency('EUR') }}
+          </div>
+        </div>
+        <div class="columns">
+          <div class="column is-half has-text-left">
+            Giornata Intera
+          </div>
+          <div class="column is-half has-text-right">
+            {{ (product.priceList.priceOneDay/100)|format_currency('EUR') }}
+          </div>
+        </div>
+        <div class="columns">
+          <div class="column is-half has-text-left">
+            Tre Giorni
+          </div>
+          <div class="column is-half has-text-right">
+            {{ (product.priceList.priceThreeDays/100)|format_currency('EUR') }}
+          </div>
+        </div>
+        <div class="columns">
+          <div class="column is-half has-text-left">
+            Intera Settimana
+          </div>
+          <div class="column is-half has-text-right">
+            {{ (product.priceList.priceSevenDays/100)|format_currency('EUR') }}
+          </div>
+        </div>
+      </div>
+      <p class="control mt-4">
+        <a class="button" href="#">
+          <span class="icon is-small">
+              <i class="fas fa-share"></i>
+          </span>
+          <span>Scopri di Più</span>
+        </a>
+      </p>
+    </div>
+  </div>
+</div>

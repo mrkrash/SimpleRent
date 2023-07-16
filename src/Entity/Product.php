@@ -48,6 +48,12 @@ class Product
     #[ORM\Column()]
     private Gender $gender;
 
+    #[ORM\Column]
+    private ?bool $enabled = null;
+
+    #[ORM\Column]
+    private ?int $ordering = null;
+
     private ?File $uploadImage;
 
     #[ORM\ManyToMany(targetEntity: Booking::class, mappedBy: 'products')]
@@ -140,6 +146,30 @@ class Product
     public function setGender(Gender $gender): Product
     {
         $this->gender = $gender;
+        return $this;
+    }
+
+    public function isEnabled(): ?bool
+    {
+        return $this->enabled;
+    }
+
+    public function setEnabled(bool $enabled): self
+    {
+        $this->enabled = $enabled;
+
+        return $this;
+    }
+
+    public function getOrdering(): ?int
+    {
+        return $this->ordering;
+    }
+
+    public function setOrdering(int $ordering): self
+    {
+        $this->ordering = $ordering;
+
         return $this;
     }
 

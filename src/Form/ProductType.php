@@ -6,6 +6,7 @@ use App\Common\Gender;
 use App\Common\Size;
 use App\Entity\Product;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\EnumType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
@@ -25,10 +26,13 @@ class ProductType extends AbstractType
             ->add('priceList', ChoiceType::class, [
                 'choices' => $options['priceList_choices'],
                 'choice_label' => 'name',
+                'label' => 'Listino',
             ])
             ->add('qty', NumberType::class, ['label' => 'Quantità'])
             ->add('size', EnumType::class, ['class' => Size::class])
             ->add('gender', EnumType::class, ['class' => Gender::class])
+            ->add('ordering', NumberType::class, ['label' => 'Ordine'])
+            ->add('enabled', CheckboxType::class, ['label' => 'Abilitato'])
             ->add('uploadImage', DropzoneType::class, ['data_class' => null, 'required' => $options['require_main_image'],])
             ->add('save', SubmitType::class)
         ;

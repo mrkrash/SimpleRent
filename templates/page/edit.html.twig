@@ -1,0 +1,24 @@
+{% extends 'admin.html.twig' %}
+
+{% block title %}Modifica Pagina{% endblock %}
+
+{% block content %}
+    <section class="section">
+        <div class="container">
+            <div class="level">
+                <div class="level-left">
+                    <div class="level-item">
+                        <h1 class="title">Modifica Pagina</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="section">
+        <div class="columns">
+            <div class="column">
+                {{ include('page/_form.html.twig') }}
+            </div>
+        </div>
+    </section>
+{% endblock %}
