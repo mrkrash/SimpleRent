@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Common\Gender;
 use App\Common\Size;
 use App\Entity\Traits\AutoCreatedAtTrait;
 use App\Entity\Traits\AutoDeletedAtTrait;
