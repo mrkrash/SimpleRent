@@ -120,6 +120,28 @@ class Product
         return $this;
     }
 
+    public function getSize(): Size
+    {
+        return $this->size;
+    }
+
+    public function setSize(Size $size): Product
+    {
+        $this->size = $size;
+        return $this;
+    }
+
+    public function getGender(): Gender
+    {
+        return $this->gender;
+    }
+
+    public function setGender(Gender $gender): Product
+    {
+        $this->gender = $gender;
+        return $this;
+    }
+
     public function getUploadImage(): ?File
     {
         return $this->uploadImage;

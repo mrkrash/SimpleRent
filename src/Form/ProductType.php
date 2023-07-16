@@ -2,9 +2,12 @@
 
 namespace App\Form;
 
+use App\Common\Gender;
+use App\Common\Size;
 use App\Entity\Product;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\EnumType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -24,6 +27,8 @@ class ProductType extends AbstractType
                 'choice_label' => 'name',
             ])
             ->add('qty', NumberType::class, ['label' => 'Quantità'])
+            ->add('size', EnumType::class, ['class' => Size::class])
+            ->add('gender', EnumType::class, ['class' => Gender::class])
             ->add('uploadImage', DropzoneType::class, ['data_class' => null, 'required' => $options['require_main_image'],])
             ->add('save', SubmitType::class)
         ;
