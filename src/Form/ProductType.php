@@ -3,7 +3,6 @@
 namespace App\Form;
 
 use App\Common\Gender;
-use App\Common\Size;
 use App\Entity\Product;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
@@ -29,10 +28,9 @@ class ProductType extends AbstractType
                 'label' => 'Listino',
             ])
             ->add('qty', NumberType::class, ['label' => 'Quantità'])
-            ->add('size', EnumType::class, ['class' => Size::class])
             ->add('gender', EnumType::class, ['class' => Gender::class])
             ->add('ordering', NumberType::class, ['label' => 'Ordine'])
-            ->add('enabled', CheckboxType::class, ['label' => 'Abilitato'])
+            ->add('enabled', CheckboxType::class, ['label' => 'Abilitato', 'required' => false])
             ->add('uploadImage', DropzoneType::class, ['data_class' => null, 'required' => $options['require_main_image'],])
             ->add('save', SubmitType::class)
         ;
