@@ -4,6 +4,6 @@ namespace App\Common;
 
 enum ProductType: string
 {
-    case BYCICLE = 'Biciclette';
+    case BYCICLE = 'Bycicle';
     case SCOOTER = 'Scooter';
 }
