@@ -3,7 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Booking;
-use App\Form\BookingType;
+use App\Form\BookingFormType;
 use App\Repository\BookingRepository;
 use App\Repository\ProductRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -31,7 +31,7 @@ class BookingController extends AbstractController
         ProductRepository $productRepository
     ): Response {
         $booking = new Booking();
-        $form = $this->createForm(BookingType::class, $booking, [
+        $form = $this->createForm(BookingFormType::class, $booking, [
             'productList_choices' => $productRepository->findAll(),
         ]);
         $form->handleRequest($request);
@@ -59,7 +59,7 @@ class BookingController extends AbstractController
     #[Route('/{id}/edit', name: 'app_booking_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Booking $booking, BookingRepository $bookingRepository): Response
     {
-        $form = $this->createForm(BookingType::class, $booking);
+        $form = $this->createForm(BookingFormType::class, $booking);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

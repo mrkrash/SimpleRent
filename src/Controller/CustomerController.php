@@ -3,7 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Customer;
-use App\Form\CustomerType;
+use App\Form\CustomerFormType;
 use App\Repository\CustomerRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -27,7 +27,7 @@ class CustomerController extends AbstractController
     public function new(Request $request, CustomerRepository $customerRepository): Response
     {
         $customer = new Customer();
-        $form = $this->createForm(CustomerType::class, $customer);
+        $form = $this->createForm(CustomerFormType::class, $customer);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -53,7 +53,7 @@ class CustomerController extends AbstractController
     #[Route('/{id}/edit', name: 'app_customer_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Customer $customer, CustomerRepository $customerRepository): Response
     {
-        $form = $this->createForm(CustomerType::class, $customer);
+        $form = $this->createForm(CustomerFormType::class, $customer);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

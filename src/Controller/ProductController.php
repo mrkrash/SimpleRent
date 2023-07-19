@@ -2,10 +2,14 @@
 
 namespace App\Controller;
 
+use App\Common\ProductType;
 use App\Entity\Product;
-use App\Form\ProductType;
+use App\Entity\ProductQty;
+use App\Form\ProductFormType;
 use App\Repository\PriceListRepository;
+use App\Repository\ProductQtyRepository;
 use App\Repository\ProductRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\FormInterface;
@@ -33,19 +37,32 @@ class ProductController extends AbstractController
     #[Route('/new', name: 'app_product_new', methods: ['GET', 'POST'])]
     public function new(
         Request $request,
+        EntityManagerInterface $entityManager,
         ProductRepository $productRepository,
+        ProductQtyRepository $productQtyRepository,
         PriceListRepository $priceListRepository,
         string $uploadDir
     ): Response {
         $product = new Product();
-        $form = $this->createForm(ProductType::class, $product, [
+        $product->setType(ProductType::BYCICLE);
+        $form = $this->createForm(ProductFormType::class, $product, [
             'priceList_choices' => $priceListRepository->findAll(),
         ]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $productQty = (new ProductQty())
+                ->setSizeXs($form['sizeXS']->getData())
+                ->setSizeS($form['sizeS']->getData())
+                ->setSizeM($form['sizeM']->getData())
+                ->setSizeL($form['sizeL']->getData())
+                ->setSizeXl($form['sizeXL']->getData())
+                ->setProduct($product)
+            ;
             $product->setImage($this->saveImage($form, $uploadDir));
-            $productRepository->save($product, true);
+            $productQtyRepository->save($productQty);
+            $productRepository->save($product);
+            $entityManager->flush();
 
             return $this->redirectToRoute('app_product_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -71,22 +88,37 @@ class ProductController extends AbstractController
     public function edit(
         Request $request,
         Product $product,
+        EntityManagerInterface $entityManager,
         ProductRepository $productRepository,
+        ProductQtyRepository $productQtyRepository,
         PriceListRepository $priceListRepository,
         string $uploadDir
     ): Response {
-        $form = $this->createForm(ProductType::class, $product, [
+        $product->populateQty();
+        $product->setType(ProductType::BYCICLE);
+        $form = $this->createForm(ProductFormType::class, $product, [
             'priceList_choices' => $priceListRepository->findAll(),
             'require_main_image' => false,
         ]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $productQty = $product->getProductQty()
+                ->setSizeXs($form['sizeXS']->getData())
+                ->setSizeS($form['sizeS']->getData())
+                ->setSizeM($form['sizeM']->getData())
+                ->setSizeL($form['sizeL']->getData())
+                ->setSizeXl($form['sizeXL']->getData())
+                ->setProduct($product)
+            ;
+            $product->setProductQty($productQty);
             $filename = $this->saveImage($form, $uploadDir);
             if (null !== $filename) {
                 $product->setImage($filename);
             }
-            $productRepository->save($product, true);
+            $productQtyRepository->save($productQty);
+            $productRepository->save($product);
+            $entityManager->flush();
 
             return $this->redirectToRoute('app_product_index', [], Response::HTTP_SEE_OTHER);
         }

@@ -3,7 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Page;
-use App\Form\PageType;
+use App\Form\PageFormType;
 use App\Repository\PageRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -27,7 +27,7 @@ class PageController extends AbstractController
     public function new(Request $request, PageRepository $pageRepository): Response
     {
         $page = new Page();
-        $form = $this->createForm(PageType::class, $page);
+        $form = $this->createForm(PageFormType::class, $page);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -53,7 +53,7 @@ class PageController extends AbstractController
     #[Route('/{id}/edit', name: 'app_page_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Page $page, PageRepository $pageRepository): Response
     {
-        $form = $this->createForm(PageType::class, $page);
+        $form = $this->createForm(PageFormType::class, $page);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

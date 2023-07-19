@@ -3,7 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Accessory;
-use App\Form\AccessoryType;
+use App\Form\AccessoryFormType;
 use App\Repository\AccessoryRepository;
 use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -33,7 +33,7 @@ class AccessoryController extends AbstractController
         string $uploadDir
     ): Response {
         $accessory = new Accessory();
-        $form = $this->createForm(AccessoryType::class, $accessory);
+        $form = $this->createForm(AccessoryFormType::class, $accessory);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -64,7 +64,7 @@ class AccessoryController extends AbstractController
         AccessoryRepository $accessoryRepository,
         string $uploadDir
     ): Response {
-        $form = $this->createForm(AccessoryType::class, $accessory, [
+        $form = $this->createForm(AccessoryFormType::class, $accessory, [
             'require_main_image' => false,
         ]);
         $form->handleRequest($request);

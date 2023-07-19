@@ -15,7 +15,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\UX\Dropzone\Form\DropzoneType;
 
-class ProductType extends AbstractType
+class ProductFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
@@ -27,7 +27,11 @@ class ProductType extends AbstractType
                 'choice_label' => 'name',
                 'label' => 'Listino',
             ])
-            ->add('qty', NumberType::class, ['label' => 'Quantità'])
+            ->add('sizeXS', NumberType::class, ['label' => 'Qt. XS'])
+            ->add('sizeS', NumberType::class, ['label' => 'Qt. S'])
+            ->add('sizeM', NumberType::class, ['label' => 'Qt. M'])
+            ->add('sizeL', NumberType::class, ['label' => 'Qt. L'])
+            ->add('sizeXL', NumberType::class, ['label' => 'Qt. XL'])
             ->add('gender', EnumType::class, ['class' => Gender::class])
             ->add('ordering', NumberType::class, ['label' => 'Ordine'])
             ->add('enabled', CheckboxType::class, ['label' => 'Abilitato', 'required' => false])

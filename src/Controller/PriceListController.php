@@ -3,7 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\PriceList;
-use App\Form\PriceListType;
+use App\Form\PriceFormListType;
 use App\Repository\PriceListRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -27,7 +27,7 @@ class PriceListController extends AbstractController
     public function new(Request $request, PriceListRepository $priceListRepository): Response
     {
         $priceList = new PriceList();
-        $form = $this->createForm(PriceListType::class, $priceList);
+        $form = $this->createForm(PriceFormListType::class, $priceList);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -53,7 +53,7 @@ class PriceListController extends AbstractController
     #[Route('/{id}/edit', name: 'app_price_list_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, PriceList $priceList, PriceListRepository $priceListRepository): Response
     {
-        $form = $this->createForm(PriceListType::class, $priceList);
+        $form = $this->createForm(PriceFormListType::class, $priceList);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
