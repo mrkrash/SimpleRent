@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\Accessory;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\MoneyType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -20,6 +21,11 @@ class AccessoryFormType extends AbstractType
             ->add('description', TextType::class, ['label' => 'Descrizione', 'required' => false,])
             ->add('dailyPrice', MoneyType::class, ['label' => 'Prezzo Giornaliero', 'divisor' => 100])
             ->add('weekPrice', MoneyType::class, ['label' => 'Prezzo Settimanale', 'divisor' => 100])
+            ->add('sizeXS', NumberType::class, ['label' => 'Qt. XS'])
+            ->add('sizeS', NumberType::class, ['label' => 'Qt. S'])
+            ->add('sizeM', NumberType::class, ['label' => 'Qt. M'])
+            ->add('sizeL', NumberType::class, ['label' => 'Qt. L'])
+            ->add('sizeXL', NumberType::class, ['label' => 'Qt. XL'])
             ->add('uploadImage', DropzoneType::class, ['data_class' => null, 'required' => $options['require_main_image'],])
             ->add('save', SubmitType::class)
         ;

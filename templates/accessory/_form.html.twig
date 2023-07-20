@@ -1,3 +1,53 @@
 {{ form_start(form) }}
-    {{ form_widget(form) }}
+<div class="help is-danger">
+    {{ form_errors(form) }}
+</div>
+
+<div class="columns">
+    <div class="column">
+        {{ form_row(form.name) }}
+    </div>
+    <div class="column is-2">
+
+    </div>
+</div>
+
+<div class="columns">
+    <div class="column">
+        {{ form_row(form.description) }}
+    </div>
+</div>
+
+<div class="columns">
+    <div class="column">
+        {{ form_row(form.dailyPrice) }}
+    </div>
+    <div class="column">
+        {{ form_row(form.weekPrice) }}
+    </div>
+</div>
+
+<div class="columns">
+    <div class="column">
+        {{ form_row(form.sizeXS) }}
+    </div>
+    <div class="column">
+        {{ form_row(form.sizeS) }}
+    </div>
+    <div class="column">
+        {{ form_row(form.sizeM) }}
+    </div>
+    <div class="column">
+        {{ form_row(form.sizeL) }}
+    </div>
+    <div class="column">
+        {{ form_row(form.sizeXL) }}
+    </div>
+</div>
+
+<div class="columns">
+    <div class="column">
+        {{ form_row(form.uploadImage) }}
+    </div>
+</div>
 {{ form_end(form) }}

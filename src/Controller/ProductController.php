@@ -37,7 +37,6 @@ class ProductController extends AbstractController
     #[Route('/new', name: 'app_product_new', methods: ['GET', 'POST'])]
     public function new(
         Request $request,
-        EntityManagerInterface $entityManager,
         ProductRepository $productRepository,
         ProductQtyRepository $productQtyRepository,
         PriceListRepository $priceListRepository,
@@ -60,9 +59,8 @@ class ProductController extends AbstractController
                 ->setProduct($product)
             ;
             $product->setImage($this->saveImage($form, $uploadDir));
-            $productQtyRepository->save($productQty);
-            $productRepository->save($product);
-            $entityManager->flush();
+            $productRepository->save($product, true);
+            $productQtyRepository->save($productQty, true);
 
             return $this->redirectToRoute('app_product_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -88,9 +86,7 @@ class ProductController extends AbstractController
     public function edit(
         Request $request,
         Product $product,
-        EntityManagerInterface $entityManager,
         ProductRepository $productRepository,
-        ProductQtyRepository $productQtyRepository,
         PriceListRepository $priceListRepository,
         string $uploadDir
     ): Response {
@@ -116,9 +112,7 @@ class ProductController extends AbstractController
             if (null !== $filename) {
                 $product->setImage($filename);
             }
-            $productQtyRepository->save($productQty);
-            $productRepository->save($product);
-            $entityManager->flush();
+            $productRepository->save($product, true);
 
             return $this->redirectToRoute('app_product_index', [], Response::HTTP_SEE_OTHER);
         }

@@ -3,7 +3,9 @@
 namespace App\Controller;
 
 use App\Entity\Accessory;
+use App\Entity\AccessoryQty;
 use App\Form\AccessoryFormType;
+use App\Repository\AccessoryQtyRepository;
 use App\Repository\AccessoryRepository;
 use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -30,6 +32,7 @@ class AccessoryController extends AbstractController
     public function new(
         Request $request,
         AccessoryRepository $accessoryRepository,
+        AccessoryQtyRepository $accessoryQtyRepository,
         string $uploadDir
     ): Response {
         $accessory = new Accessory();
@@ -37,8 +40,17 @@ class AccessoryController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $accessoryQty = (new AccessoryQty())
+                ->setSizeXs($form['sizeXS']->getData())
+                ->setSizeS($form['sizeS']->getData())
+                ->setSizeM($form['sizeM']->getData())
+                ->setSizeL($form['sizeL']->getData())
+                ->setSizeXl($form['sizeXL']->getData())
+                ->setAccessory($accessory)
+            ;
             $accessory->setImage($this->saveImage($form, $uploadDir));
             $accessoryRepository->save($accessory, true);
+            $accessoryQtyRepository->save($accessoryQty, true);
 
             return $this->redirectToRoute('app_accessory_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -64,12 +76,22 @@ class AccessoryController extends AbstractController
         AccessoryRepository $accessoryRepository,
         string $uploadDir
     ): Response {
+        $accessory->populateQty();
         $form = $this->createForm(AccessoryFormType::class, $accessory, [
             'require_main_image' => false,
         ]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $accessoryQty = $accessory->getAccessoryQty()
+                ->setSizeXs($form['sizeXS']->getData())
+                ->setSizeS($form['sizeS']->getData())
+                ->setSizeM($form['sizeM']->getData())
+                ->setSizeL($form['sizeL']->getData())
+                ->setSizeXl($form['sizeXL']->getData())
+                ->setAccessory($accessory)
+            ;
+            $accessory->setAccessoryQty($accessoryQty);
             $filename = $this->saveImage($form, $uploadDir);
             if (null !== $filename) {
                 $accessory->setImage($filename);

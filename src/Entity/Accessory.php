@@ -33,6 +33,9 @@ class Accessory
     #[ORM\Column(length: 255)]
     private string $image;
 
+    #[ORM\OneToOne(mappedBy: 'accessory', targetEntity: AccessoryQty::class)]
+    private ?AccessoryQty $accessoryQty = null;
+
     #[ORM\Column]
     private ?int $dailyPrice = null;
 
@@ -40,6 +43,12 @@ class Accessory
     private ?int $weekPrice = null;
 
     private ?File $uploadImage;
+
+    private int $sizeXS = 0;
+    private int $sizeS = 0;
+    private int $sizeM = 0;
+    private int $sizeL = 0;
+    private int $sizeXL = 0;
 
     #[ORM\ManyToMany(targetEntity: Booking::class, mappedBy: 'accessories')]
     private Collection $bookings;
@@ -98,6 +107,96 @@ class Accessory
     {
         $this->dailyPrice = $price;
 
+        return $this;
+    }
+
+    public function getAccessoryQty(): AccessoryQty
+    {
+        return $this->accessoryQty;
+    }
+
+    public function setAccessoryQty(AccessoryQty $accessoryQty): self
+    {
+        $this->accessoryQty = $accessoryQty;
+
+        return $this;
+    }
+
+    public function getQty(): int
+    {
+        if ($this->accessoryQty) {
+            return $this->accessoryQty->getSizeXS() +
+                $this->accessoryQty->getSizeS() +
+                $this->accessoryQty->getSizeM() +
+                $this->accessoryQty->getSizeL() +
+                $this->accessoryQty->getSizeXL();
+        }
+        return 0;
+    }
+
+    public function populateQty(): void
+    {
+        if ($this->accessoryQty) {
+            $this->sizeXS = $this->accessoryQty->getSizeXs();
+            $this->sizeS = $this->accessoryQty->getSizeS();
+            $this->sizeM = $this->accessoryQty->getSizeM();
+            $this->sizeL = $this->accessoryQty->getSizeL();
+            $this->sizeXL = $this->accessoryQty->getSizeXl();
+        }
+    }
+
+    public function getSizeXS(): int
+    {
+        return $this->sizeXS;
+    }
+
+    public function setSizeXS(int $sizeXS): Accessory
+    {
+        $this->sizeXS = $sizeXS;
+        return $this;
+    }
+
+    public function getSizeS(): int
+    {
+        return $this->sizeS;
+    }
+
+    public function setSizeS(int $sizeS): Accessory
+    {
+        $this->sizeS = $sizeS;
+        return $this;
+    }
+
+    public function getSizeM(): int
+    {
+        return $this->sizeM;
+    }
+
+    public function setSizeM(int $sizeM): Accessory
+    {
+        $this->sizeM = $sizeM;
+        return $this;
+    }
+
+    public function getSizeL(): int
+    {
+        return $this->sizeL;
+    }
+
+    public function setSizeL(int $sizeL): Accessory
+    {
+        $this->sizeL = $sizeL;
+        return $this;
+    }
+
+    public function getSizeXL(): int
+    {
+        return $this->sizeXL;
+    }
+
+    public function setSizeXL(int $sizeXL): Accessory
+    {
+        $this->sizeXL = $sizeXL;
         return $this;
     }
 

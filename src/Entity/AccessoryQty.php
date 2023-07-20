@@ -9,7 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity]
 #[ORM\HasLifecycleCallbacks]
-class ProductQty
+class AccessoryQty
 {
     use AutoCreatedAtTrait;
     use AutoUpdatedAtTrait;
@@ -29,9 +29,10 @@ class ProductQty
     private int $sizeL = 0;
     #[ORM\Column]
     private int $sizeXl = 0;
-    #[ORM\OneToOne(inversedBy: 'productQty', targetEntity: Product::class)]
-    #[ORM\JoinColumn(name: 'product_id', referencedColumnName: 'id')]
-    private Product $product;
+
+    #[ORM\OneToOne(inversedBy: 'accessoryQty', targetEntity: Accessory::class)]
+    #[ORM\JoinColumn(name: 'accessory_id', referencedColumnName: 'id')]
+    private Accessory $accessory;
 
     public function getSizeXS(): int
     {
@@ -58,44 +59,44 @@ class ProductQty
         return $this->sizeXl;
     }
 
-    public function setSizeXs(int $sizeXs): ProductQty
+    public function setSizeXs(int $sizeXs): AccessoryQty
     {
         $this->sizeXs = $sizeXs;
         return $this;
     }
 
-    public function setSizeS(int $sizeS): ProductQty
+    public function setSizeS(int $sizeS): AccessoryQty
     {
         $this->sizeS = $sizeS;
         return $this;
     }
 
-    public function setSizeM(int $sizeM): ProductQty
+    public function setSizeM(int $sizeM): AccessoryQty
     {
         $this->sizeM = $sizeM;
         return $this;
     }
 
-    public function setSizeL(int $sizeL): ProductQty
+    public function setSizeL(int $sizeL): AccessoryQty
     {
         $this->sizeL = $sizeL;
         return $this;
     }
 
-    public function setSizeXl(int $sizeXl): ProductQty
+    public function setSizeXl(int $sizeXl): AccessoryQty
     {
         $this->sizeXl = $sizeXl;
         return $this;
     }
 
-    public function getProduct(): Product
+    public function getAccessory(): Accessory
     {
-        return $this->product;
+        return $this->accessory;
     }
 
-    public function setProduct(Product $product): ProductQty
+    public function setAccessory(Accessory $accessory): AccessoryQty
     {
-        $this->product = $product;
+        $this->accessory = $accessory;
 
         return $this;
     }
