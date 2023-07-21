@@ -34,16 +34,8 @@ class Transaction
     #[ORM\Column]
     private ?int $levied = null;
 
-    #[ORM\OneToMany(mappedBy: 'paymentTransaction', targetEntity: Booking::class)]
-    private Collection $bookings;
-
     #[ORM\OneToOne(mappedBy: 'paymentTransaction', cascade: ['persist', 'remove'])]
     private ?Booking $booking = null;
-
-    public function __construct()
-    {
-        $this->bookings = new ArrayCollection();
-    }
 
     public function getId(): ?int
     {

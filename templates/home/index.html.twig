@@ -29,9 +29,11 @@
     <section class="container">
         <div class="columns product">
             {% for product in products %}
-                <div class="column is-one-third mt-3">
-                    {% include 'home/_card.html.twig' %}
-                </div>
+                {% if product.qty > 0 %}
+                    <div class="column is-one-third mt-3">
+                        {% include 'home/_card.html.twig' %}
+                    </div>
+                {% endif %}
             {% endfor %}
         </div>
     </section>

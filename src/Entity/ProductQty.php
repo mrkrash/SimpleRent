@@ -99,4 +99,48 @@ class ProductQty
 
         return $this;
     }
+
+    public function __toArray(): array
+    {
+        $result = [];
+        if ($this->sizeXs) {
+            $result['XS'] = $this->sizeXs;
+        }
+        if ($this->sizeS) {
+            $result['S'] = $this->sizeS;
+        }
+        if ($this->sizeM) {
+            $result['M'] = $this->sizeM;
+        }
+        if ($this->sizeL) {
+            $result['L'] = $this->sizeL;
+        }
+        if ($this->sizeXl) {
+            $result['XL'] = $this->sizeXL;
+        }
+
+        return $result;
+    }
+
+    public function __toString(): string
+    {
+        $result = [];
+        if ($this->sizeXs) {
+            $result[] = 'XS';
+        }
+        if ($this->sizeS) {
+            $result[] = 'S';
+        }
+        if ($this->sizeM) {
+            $result[] = 'M';
+        }
+        if ($this->sizeL) {
+            $result[] = 'L';
+        }
+        if ($this->sizeXl) {
+            $result[] = 'XL';
+        }
+
+        return implode('/', $result);
+    }
 }

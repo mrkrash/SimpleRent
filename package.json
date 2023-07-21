@@ -23,7 +23,14 @@
         "build": "encore production --progress"
     },
     "dependencies": {
+        "@fullcalendar/core": "^6.1.8",
+        "@fullcalendar/daygrid": "^6.1.8",
+        "@fullcalendar/interaction": "^6.1.8",
+        "@fullcalendar/list": "^6.1.8",
+        "@fullcalendar/timegrid": "^6.1.8",
+        "@paypal/paypal-js": "^6.0.1",
         "bulma": "^0.9.4",
-        "bulma-carousel": "^4.0.24"
+        "bulma-carousel": "^4.0.24",
+        "dotenv": "^16.3.1"
     }
 }
