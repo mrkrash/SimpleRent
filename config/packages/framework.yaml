@@ -18,6 +18,20 @@ framework:
     php_errors:
         log: true
 
+    # https://jolicode.com/blog/tips-for-a-paypal-implementation-with-symfony-in-2022
+    http_client:
+        scoped_clients:
+            paypal.auth:
+                #note that this is a regexp
+                base_uri: '%env(PAYPAL_API_URI)%/v1/oauth2/token'
+                auth_basic: '%env(PAYPAL_CLIENT_ID)%:%env(PAYPAL_SECRET)%'
+                headers:
+                    Content-Type: 'application/x-www-form-urlencoded'
+            paypal.order:
+                base_uri: '%env(PAYPAL_API_URI)%/v2/checkout/orders'
+                headers:
+                    Content-Type: 'application/json'
+
 when@test:
     framework:
         test: true

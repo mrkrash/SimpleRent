@@ -40,13 +40,21 @@
             {{ (product.priceList.priceSevenDays/100)|format_currency('EUR') }}
           </div>
         </div>
+        <div class="columns">
+          <div class="column is-half has-text-left">
+            Dimensioni disponibili
+          </div>
+          <div class="column is-half has-text-right">
+            {{ product.productQty }}
+          </div>
+        </div>
       </div>
-      <p class="control mt-4">
-        <a class="button" href="#">
+      <p class="control mt-6">
+        <a class="button" href="/book/{{ product.id }}">
           <span class="icon is-small">
               <i class="fas fa-share"></i>
           </span>
-          <span>Scopri di Più</span>
+          <span>Prenota</span>
         </a>
       </p>
     </div>

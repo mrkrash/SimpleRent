@@ -2,13 +2,13 @@
 
 namespace App\Entity;
 
+use App\Entity\Dto\AccessoryDto;
+use App\Entity\Dto\ProductDto;
 use App\Entity\Traits\AutoCreatedAtTrait;
 use App\Entity\Traits\AutoDeletedAtTrait;
 use App\Entity\Traits\AutoUpdatedAtTrait;
 use App\Repository\BookingRepository;
 use DateTimeImmutable;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -37,20 +37,16 @@ class Booking
     #[ORM\JoinColumn(nullable: false)]
     private ?Customer $customer = null;
 
-    #[ORM\OneToOne(inversedBy: 'booking', cascade: ['persist', 'remove'])]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?Transaction $paymentTransaction = null;
+    #[ORM\Column(type: Types::JSON)]
+    private ?array $products;
 
-    #[ORM\ManyToMany(targetEntity: Product::class, inversedBy: 'bookings')]
-    private Collection $products;
-
-    #[ORM\ManyToMany(targetEntity: Accessory::class, inversedBy: 'bookings')]
-    private Collection $accessories;
+    #[ORM\Column(type: Types::JSON)]
+    private ?array $accessories;
 
     public function __construct()
     {
-        $this->products = new ArrayCollection();
-        $this->accessories = new ArrayCollection();
+        $this->products = [];
+        $this->accessories = [];
     }
 
     public function getId(): ?int
@@ -106,63 +102,40 @@ class Booking
         return $this;
     }
 
-    public function getPaymentTransaction(): ?Transaction
-    {
-        return $this->paymentTransaction;
-    }
-
-    public function setPaymentTransaction(Transaction $paymentTransaction): self
-    {
-        $this->paymentTransaction = $paymentTransaction;
-
-        return $this;
-    }
-
     /**
-     * @return Collection<int, Product>
+     * @return ProductDto[]
      */
-    public function getProducts(): Collection
+    public function getProducts(): array
     {
         return $this->products;
     }
-
-    public function addProduct(Product $product): self
+    public function setProducts(array $products): self
     {
-        if (!$this->products->contains($product)) {
-            $this->products->add($product);
-        }
+        $this->products = $products;
 
         return $this;
     }
 
-    public function removeProduct(Product $product): self
+    public function addProduct(ProductDto $product): self
     {
-        $this->products->removeElement($product);
+        $this->products[] = $product;
 
         return $this;
     }
 
     /**
-     * @return Collection<int, Accessory>
+     * @return AccessoryDto[]
      */
-    public function getAccessories(): Collection
+    public function getAccessories(): array
     {
         return $this->accessories;
     }
 
-    public function addAccessory(Accessory $accessory): self
+    public function addAccessory(AccessoryDto $accessory): self
     {
-        if (!$this->accessories->contains($accessory)) {
-            $this->accessories->add($accessory);
-        }
+        $this->accessories[] = $accessory;
 
         return $this;
     }
 
-    public function removeAccessory(Accessory $accessory): self
-    {
-        $this->accessories->removeElement($accessory);
-
-        return $this;
-    }
 }

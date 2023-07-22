@@ -55,3 +55,14 @@ a.navbar-item:focus, a.navbar-item:focus-within, a.navbar-item:hover, a.navbar-i
   box-shadow: 0px 10px 9px -3px #1c7430;
   border-radius: 30px;
 }
+
+#calendar {
+  max-width: 500px;
+  margin: 0 auto;
+}
+select:has(option:disabled:checked[hidden]) {
+  color: gray;
+}
+select option {
+  color: black;
+}

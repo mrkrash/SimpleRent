@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Booking;
+use DateTimeImmutable;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -37,6 +38,17 @@ class BookingRepository extends ServiceEntityRepository
         if ($flush) {
             $this->getEntityManager()->flush();
         }
+    }
+
+    public function checkDates(DateTimeImmutable $start, DateTimeImmutable $stop): array
+    {
+        return $this->createQueryBuilder('b')
+            ->where('b.dateStart BETWEEN :start AND :end')
+            ->orWhere('b.dateEnd BETWEEN :start AND :end')
+            ->setParameter('start', $start->format('Y-m-d\T00:00:00'))
+            ->setParameter('end', $stop->format('Y-m-d\T00:00:00'))
+            ->getQuery()
+            ->getResult();
     }
 
 //    /**
