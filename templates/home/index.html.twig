@@ -3,38 +3,62 @@
 {% block title %}MC Rent Bike Ragusa{% endblock %}
 
 {% block body %}
-    <section class="hero is-primary is-small">
+    <section class="hero is-primary is-medium">
         <div class="hero-body" style="padding: 8px 0 0;">
             <div class="columns">
                 <div class="column">
                     <div class="container has-text-centered">
-                        <img
-                            srcset="/imgs/mc_rent_bike.webp, /imgs/mc_rent_bike@1.5x.webp 1.5x, /imgs/mc_rent_bike@2x.webp 2x"
-                            src="/imgs/mc_rent_bike.webp"
-                            alt="MC Rent Bike Ragusa" />
                         <p class="title">NOLEGGIO BICICLETTE E SCOOTER</p>
                         <p class="subtitle">BREVE, MEDIO E LUNGO TERMINE</p>
                         <p class="subtitle">=== STAY TUNED ===</p>
                     </div>
                 </div>
-                <div class="column">
-                    <img
-                        srcset="/imgs/ibla.webp, /imgs/ibla@1.5x.webp 1.5x, /imgs/ibla@2x.webp 2x"
-                        src="/imgs/ibla.webp"
-                        alt="Veduta di Ragusa Ibla da via Mazzini" />
-                </div>
             </div>
         </div>
     </section>
+    <section class="hero is-large has-carousel" data-controller='carousel'>
+        <div class="hero-carousel carousel">
+            <div class="item-1">
+                <figure class="image" style="display: flex; justify-content: center; height: 600px;">
+                    <img src="/imgs/carousel/SanGiorgio.jpeg" alt="MC Rent Bike Ragusa"/>
+                </figure>
+            </div>
+            <div class="item-2">
+                <figure class="image"style="display: flex; justify-content: center; height: 600px;">
+                    <img src="/imgs/carousel/Universita.jpeg" alt="MC Rent Bike Ragusa"/>
+                </figure>
+            </div>
+            <div class="item-3">
+                <figure class="image"style="display: flex; justify-content: center; height: 600px;">
+                    <img src="/imgs/carousel/Idra.jpeg" alt="MC Rent Bike Ragusa"/>
+                </figure>
+            </div>
+        </div>
+        <div class="hero-head"></div>
+        <div class="hero-body"></div>
+        <div class="hero-foot"></div>
+    </section>
+
     <section class="container">
         <div class="columns product">
             {% for product in products %}
                 {% if product.qty > 0 %}
-                    <div class="column is-one-third mt-3">
+                    <div class="column is-one-quarter mt-3">
                         {% include 'home/_card.html.twig' %}
                     </div>
                 {% endif %}
             {% endfor %}
         </div>
     </section>
+    <section class="hero is-medium is-info mt-5">
+        <div class="hero-body has-text-centered">
+            <p class="is-size-3">
+                Le nostre bici sono sempre in eccellenti condizioni, controllate dalla nostra officina autorizzata.
+            </p>
+            <p class="is-size-3">Abbiamo una vasta scelta di bici sia per tipologia che per misura.</p>
+            <p class="is-size-3">A noi sta a cuore che la tua esperienza in bici sia <u>impeccabile</u>.</p>
+        </div>
+    </section>
+    {% include('home/partials/why_section.html.twig') %}
+    {% include('home/partials/map.html.twig') %}
 {% endblock %}

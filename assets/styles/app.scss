@@ -4,6 +4,7 @@ $family-sans-serif: "Nunito", sans-serif;
 
 $fa-font-path: "../../public/webfonts";
 @import "../fontawesome/fontawesome.scss";
+@import "../fontawesome/brands.scss";
 @import "../fontawesome/solid.scss";
 
 @import "~bulma/sass/utilities/_all.sass";

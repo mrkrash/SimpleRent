@@ -5,7 +5,7 @@
         <title>{% block title %}Welcome!{% endblock %}</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="paypal_client_id" content="{{ paypal_client_id }}"
-        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
+        <link rel="icon" type="image/png" href="/favicon.png">
         {% block stylesheets %}
             {{ encore_entry_link_tags('app') }}
         {% endblock %}
@@ -34,25 +34,25 @@
                     </div>
                     <div class="navbar-start">
                         <div class="navbar-item">
-                            <div>
-                                <p class="title">NOLEGGIO BICICLETTE E SCOOTER</p>
-                                <p class="subtitle">BREVE, MEDIO E LUNGO TERMINE</p>
-                            </div>
+                            <img
+                                srcset="/imgs/montain.webp, /imgs/montain@1.5x.webp 1.5x, /imgs/montain@2x.webp 2x"
+                                src="/imgs/montain.webp"
+                                alt="MC Rent Bike Ragusa" />
 
                         </div>
                     </div>
                     <div class="navbar-end">
                         <div class="navbar-item">
-                            <a href="{{ path('app_home') }}" title="Home">Home</a>
+                            <a href="{{ path('app_home') }}" title="Home" class="title is-5 is-capitalized">HOME</a>
                         </div>
                         <div class="navbar-item">
-                            <a href="#" title="Percorsi">Percorsi</a>
+                            <a href="{{ path('cycling_routes') }}" title="Percorsi" class="title is-5 is-capitalized">PERCORSI</a>
                         </div>
                         <div class="navbar-item">
-                            <a href="#" title="Termini e Condizioni">Termini e Condizioni</a>
+                            <a href="{{ path('ragusa_ibla') }}" title="Ragusa Ibla" class="title is-5 is-capitalized">RAGUSA IBLA</a>
                         </div>
                         <div class="navbar-item">
-                            <a href="{{ path('app_login') }}" title="Login" class="button">Login</a>
+                            <a href="{{ path('news') }}" title="Termini e Condizioni" class="title is-5 is-capitalized">NEWS</a>
                         </div>
                         <div class="navbar-item">
                             <div class="buttons">
@@ -74,10 +74,59 @@
         {% block body %}{% endblock %}
 
         <footer class="footer mt-6">
-            <div class="content has-text-centered">
-                <p>
-                    <a href="mailto:info@mcrentbikeragusa.com">info@mcrentbikeragusa.com</a>
-                </p>
+            <div class="content">
+                <section class="hero is-dark">
+                    <div class="hero-body">
+                        <div class="columns">
+                            <div class="column is-one-third" style="font-size: 1.2rem;">
+                                <div class="columns">
+                                    <div class="column">
+                                        <ul>
+                                            <li><a href="{{ path('cycling_routes') }}" title="Percorsi Cicloturistici" class="m-1">Percorsi Cicloturistici</a></li>
+                                            <li><a href="{{ path('bycicle') }}" title="Biciclette" class="m-1">Biciclette</a></li>
+                                            <li><a href="{{ path('scooter') }}" title="Scooter" class="m-1">Scooter Elettrici</a></li>
+                                            <li><a href="{{ path('terms') }}" title="Termini e Condizioni" class="m-1">Termini e Condizioni</a></li>
+                                            <li><a href="{{ path('privacy') }}" title="Privacy Policy" class="m-1">Privacy Policy</a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="column">
+                                        <ul>
+                                            <li><a href="{{ path('who_are') }}" title="Chi Siamo" class="m-1">Chi Siamo</a></li>
+                                            <li><a href="{{ path('ragusa_ibla') }}" title="Ragusa Ibla" class="m-1">Ragusa Ibla</a></li>
+                                            <li><a href="{{ path('news') }}" title="News dal Territorio" class="m-1">News dal Territorio</a></li>
+                                            <li><a href="{{ path('where_to_stay') }}" title="Dove Alloggiare" class="m-1">Dove Alloggiare</a></li>
+                                            <li><a href="{{ path('tours') }}" title="Tour Organizzati" class="m-1">Tour Organizzati</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="column is-one-third">
+                                <div style="height:256px;width: 256px; margin: 0 auto;">
+                                    <img height="256" width="256" src="/imgs/logo.webp" >
+                                </div>
+                            </div>
+                            <div class="column is-one-third">
+                                <div class="block">
+                                    <h3 class="title is-3">MC Rent Bike Ragusa</h3>
+                                    <h5 class="subtitle is-5">Noleggio Biciclette e Scooter<br>Breve, Medio e Lungo Termine</h5>
+                                    <address>
+                                        via del Mercato 210<br>
+                                        Ragusa Ibla<br>
+                                        Ragusa
+                                    </address>
+                                    <p>Tel.0932 518437</p>
+                                    <a href="mailto:info@mcrentbikeragusa.com">info@mcrentbikeragusa.com</a>
+                                    <a href="https://www.facebook.com/ragusamcrentbike" target="_blank" title="Facebook Page" class="mt-4 is-size-4">
+                                        <span class="icon is-large">
+                                            <i class="fa-brands fa-facebook" ></i>
+                                        </span>
+                                    </a>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </section>
             </div>
         </footer>
     </body>

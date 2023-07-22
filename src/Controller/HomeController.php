@@ -5,12 +5,10 @@ namespace App\Controller;
 use App\Entity\Booking;
 use App\Entity\Dto\ProductDto;
 use App\Entity\Product;
-use App\Entity\Transaction;
 use App\Repository\AccessoryRepository;
 use App\Repository\BookingRepository;
 use App\Repository\CustomerRepository;
 use App\Repository\ProductRepository;
-use App\Repository\TransactionRepository;
 use DateTimeImmutable;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -27,6 +25,60 @@ class HomeController extends AbstractController
             'controller_name' => 'HomeController',
             'products' => $productRepository->findEnabled(),
         ]);
+    }
+
+    #[Route('/chi-siamo', name: 'who_are')]
+    public function whoAre(): Response
+    {
+        return $this->render('coming.html.twig');
+    }
+
+    #[Route('/tours', name: 'tours')]
+    public function tours(): Response
+    {
+        return $this->render('coming.html.twig');
+    }
+
+    #[Route('/dove-alloggiare', name: 'where_to_stay')]
+    public function whereToStay(): Response
+    {
+        return $this->render('coming.html.twig');
+    }
+
+    #[Route('/ragusa-ibla', name: 'ragusa_ibla')]
+    public function ragusaIbla(): Response
+    {
+        return $this->render('coming.html.twig');
+    }
+
+    #[Route('/percorsi-cicloturistici', name: 'cycling_routes')]
+    public function cyclingRoutes(): Response
+    {
+        return $this->render('coming.html.twig');
+    }
+
+    #[Route('/terms', name: 'terms')]
+    public function terms(): Response
+    {
+        return $this->render('coming.html.twig');
+    }
+
+    #[Route('/privacy', name: 'privacy')]
+    public function privacy(): Response
+    {
+        return $this->render('home/privacy.html.twig');
+    }
+
+    #[Route('/bycicle', name: 'bycicle')]
+    public function bycicle(): Response
+    {
+        return $this->render('coming.html.twig');
+    }
+
+    #[Route('/scooter', name: 'scooter')]
+    public function scooter(): Response
+    {
+        return $this->render('coming.html.twig');
     }
 
     #[Route('/book/{id}', name: 'view_product', methods: ['GET'])]

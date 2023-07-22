@@ -39,19 +39,19 @@
             <div class="control">
               <label class="radio">
                 <input type="radio" name="delivery" value="onsite" required data-action="paypal#delivery" data-paypal-delivery-param="onsite" checked>
-                Ritiro in negozio
+                Ritiro in agenzia
               </label>
             </div>
             <div class="control">
               <label class="radio">
                 <input type="radio" name="delivery" value="free" required data-action="paypal#delivery" data-paypal-delivery-param="free">
-                Consegna gratuita a Ragusa, Ragusa Ibla, Marina di Ragusa, Casuzze, Caucana
+                Consegna gratuita a Ragusa, Ragusa Ibla, Marina di Ragusa, Punta Secca, Casuzze, Caucana e Santa Croce Camerina (min. 3 giorni)
               </label>
             </div>
             <div class="control">
               <label class="radio">
                 <input type="radio" name="delivery" value="others" required data-action="paypal#delivery" data-paypal-delivery-param="others">
-                Consegna a domicilio (€ 15,00)
+                Consegna all'interno della provincia (€ 15,00)
               </label>
             </div>
           </section>
@@ -153,4 +153,5 @@
       </div>
     </form>
   </section>
+  {% include('home/partials/why_section.html.twig') %}
 {% endblock %}

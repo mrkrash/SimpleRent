@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}MC Rent Bike Ragusa{% endblock %}
+
+{% block body %}
+  <section class="hero is-primary is-small">
+    <div class="hero-body" style="padding: 8px 0 0;">
+      <div class="columns">
+        <div class="column">
+          <div class="container has-text-centered">
+            <img
+                srcset="/imgs/mc_rent_bike.webp, /imgs/mc_rent_bike@1.5x.webp 1.5x, /imgs/mc_rent_bike@2x.webp 2x"
+                src="/imgs/mc_rent_bike.webp"
+                alt="MC Rent Bike Ragusa" />
+            <p class="title">NOLEGGIO BICICLETTE E SCOOTER</p>
+            <p class="subtitle">BREVE, MEDIO E LUNGO TERMINE</p>
+            <p class="subtitle">=== STAY TUNED ===</p>
+          </div>
+        </div>
+        <div class="column">
+          <img
+              srcset="/imgs/ibla.webp, /imgs/ibla@1.5x.webp 1.5x, /imgs/ibla@2x.webp 2x"
+              src="/imgs/ibla.webp"
+              alt="Veduta di Ragusa Ibla da via Mazzini" />
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="hero is-large">
+    <div class="hero-body has-text-centered">
+      <p class="title">Coming Soon</p>
+    </div>
+  </section>
+{% endblock %}
