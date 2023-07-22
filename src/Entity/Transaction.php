@@ -8,9 +8,11 @@ use App\Entity\Traits\AutoUpdatedAtTrait;
 use App\Repository\TransactionRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: TransactionRepository::class)]
+#[ORM\Table(name: 'transations')]
 #[ORM\HasLifecycleCallbacks]
 class Transaction
 {
@@ -22,11 +24,17 @@ class Transaction
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $serial = null;
-
-    #[ORM\Column(length: 10)]
+    #[ORM\Column(length: 6)]
     private ?string $transport = null;
+
+    #[ORM\Column(length: 32)]
+    private ?string $transport_id = null;
+
+    #[ORM\Column(length: 40)]
+    private ?string $transport_status = null;
+
+    #[ORM\Column(type: Types::JSON)]
+    private ?array $transport_details;
 
     #[ORM\Column]
     private ?int $amount = null;
@@ -40,18 +48,6 @@ class Transaction
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getSerial(): ?string
-    {
-        return $this->serial;
-    }
-
-    public function setSerial(string $serial): self
-    {
-        $this->serial = $serial;
-
-        return $this;
     }
 
     public function getTransport(): ?string
@@ -90,6 +86,39 @@ class Transaction
         return $this;
     }
 
+    public function getTransportId(): ?string
+    {
+        return $this->transport_id;
+    }
+
+    public function setTransportId(?string $transport_id): Transaction
+    {
+        $this->transport_id = $transport_id;
+        return $this;
+    }
+
+    public function getTransportStatus(): ?string
+    {
+        return $this->transport_status;
+    }
+
+    public function setTransportStatus(?string $transport_status): Transaction
+    {
+        $this->transport_status = $transport_status;
+        return $this;
+    }
+
+    public function getTransportDetails(): ?array
+    {
+        return $this->transport_details;
+    }
+
+    public function setTransportDetails(?array $transport_details): Transaction
+    {
+        $this->transport_details = $transport_details;
+        return $this;
+    }
+
     public function getBooking(): ?Booking
     {
         return $this->booking;
@@ -97,11 +126,6 @@ class Transaction
 
     public function setBooking(Booking $booking): self
     {
-        // set the owning side of the relation if necessary
-        if ($booking->getPaymentTransaction() !== $this) {
-            $booking->setPaymentTransaction($this);
-        }
-
         $this->booking = $booking;
 
         return $this;

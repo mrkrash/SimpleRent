@@ -6,6 +6,7 @@ use App\Entity\Booking;
 use App\Entity\Dto\ProductDto;
 use App\Entity\Product;
 use App\Entity\Transaction;
+use App\Repository\AccessoryRepository;
 use App\Repository\BookingRepository;
 use App\Repository\CustomerRepository;
 use App\Repository\ProductRepository;
@@ -13,6 +14,7 @@ use App\Repository\TransactionRepository;
 use DateTimeImmutable;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -27,7 +29,7 @@ class HomeController extends AbstractController
         ]);
     }
 
-    #[Route('/book/{id}', name: 'view_product')]
+    #[Route('/book/{id}', name: 'view_product', methods: ['GET'])]
     public function view(Product $product): Response
     {
         return $this->render('home/show.html.twig', [
@@ -35,7 +37,44 @@ class HomeController extends AbstractController
             'product' => $product,
         ]);
     }
+    #[Route('/book', name: 'book_product', methods: ['POST'])]
+    public function book(
+        Request $request,
+        ProductRepository $productRepository,
+        AccessoryRepository $accessoryRepository,
+    ): Response
+    {
+        $product = $productRepository->find($request->getPayload()->get('id'));
+        $size = $request->getPayload()->get('size');
+        $start = (new DateTimeImmutable())->setTimestamp($request->getPayload()->get('start') /1000);
+        $end = (new DateTimeImmutable())->setTimestamp($request->getPayload()->get('end') /1000);
+        $rate = $this->getRate(
+            $end->diff($start)->days,
+            $product->getPriceList()->getPriceOneDay(),
+            $product->getPriceList()->getPriceThreeDays(),
+            $product->getPriceList()->getPriceSevenDays()
+        );
+        $productDto = new ProductDto($product->getId(), $product->getName(), $size, $product->getImage(), 1, $rate);
+        $request->getSession()->set('products', [$productDto]);
+        $request->getSession()->set('rate', $rate);
+        $request->getSession()->set('start', $start);
+        $request->getSession()->set('end', $end);
 
+        return $this->render('home/book.html.twig', [
+            'products' => [$productDto],
+            'products_for_paypal' => json_encode([$productDto->forPaypal()]),
+            'start' => $start,
+            'end' => $end,
+            'rate' => $rate
+        ]);
+    }
+
+    /**
+     * Actually generate a booking for test
+     * @param CustomerRepository $customerRepository
+     * @param BookingRepository $bookingRepository
+     * @return void
+     */
     #[Route('/rest/generate')]
     public function generateRandomValue(
         CustomerRepository $customerRepository,
@@ -51,6 +90,15 @@ class HomeController extends AbstractController
         $bookingRepository->save($booking, true);
     }
 
+    /**
+     * Check Availability of selected product
+     * @param Product $product
+     * @param string $size
+     * @param int $start
+     * @param int $end
+     * @param BookingRepository $bookingRepository
+     * @return Response
+     */
     #[Route('/rest/booked/{id}/{size}/{start}/{end}')]
     public function booked(
         Product $product,
@@ -84,6 +132,13 @@ class HomeController extends AbstractController
         return new JsonResponse($dates);
     }
 
+    /**
+     * Calculate rate for this product
+     * @param Product $product
+     * @param int $start
+     * @param int $end
+     * @return Response
+     */
     #[Route('/rest/calc/{id}/{start}/{end}')]
     public function calc(
         Product $product,

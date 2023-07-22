@@ -27,11 +27,11 @@
             </div>
             <div class="column">
                 <div class="pt-5  has-text-centered">
-                    <form name="booking-rate" action="/book" method="get">
+                    <form name="booking-rate" action="/book" method="post">
                         <div class="field">
                             <div class="control">
                                 <div class="select">
-                                    <select id="size" {{ stimulus_action('booking', 'changeSize', 'change', {'id': product.id}) }}>
+                                    <select {{ stimulus_action('booking', 'changeSize', 'change', {'id': product.id}) }}>
                                         <option selected disabled>Selezionare la Taglia</option>
                                         {% for size, qty in product.productQty.__toArray %}
                                             <option value="{{ size }}">Taglia {{ size }} - Disponibili {{ qty }}</option>
@@ -53,7 +53,6 @@
                             </div>
                         </div>
                         <button id="rentCTA" class="button is-large is-success is-hidden mt-5" type="submit">Noleggia</button>
-                        <input type="hidden" id="rate" name="rate" />
                         <input type="hidden" id="id" name="id" />
                         <input type="hidden" id="size" name="size" />
                         <input type="hidden" id="start" name="start" />

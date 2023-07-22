@@ -109,6 +109,12 @@ class Booking
     {
         return $this->products;
     }
+    public function setProducts(array $products): self
+    {
+        $this->products = $products;
+
+        return $this;
+    }
 
     public function addProduct(ProductDto $product): self
     {
