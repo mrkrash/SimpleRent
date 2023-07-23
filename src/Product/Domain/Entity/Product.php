@@ -1,8 +1,10 @@
 <?php
 
-namespace App\Entity;
+namespace App\Product\Domain\Entity;
 
-use App\Repository\ProductRepository;
+use App\Entity\Booking;
+use App\Entity\PriceList;
+use App\Product\Infrastructure\Repository\ProductRepository;
 use App\Shared\Enum\Gender;
 use App\Shared\Enum\ProductType;
 use App\Shared\Traits\AutoCreatedAtTrait;

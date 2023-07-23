@@ -17,7 +17,7 @@
     <body>
         <header>
             <section class="p-4">
-                <nav class="navbar" role="navigation" aria-label="main navigation">
+                <nav class="navbar" role="navigation" aria-label="main navigation" data-controller="site">
                     <div class="navbar-brand">
                         <a class="navbar-item" href="/">
                             <img
@@ -26,7 +26,13 @@
                                 alt="MC Rent Bike Ragusa" />
                         </a>
 
-                        <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+                        <a
+                            role="button"
+                            class="navbar-burger"
+                            aria-label="menu"
+                            aria-expanded="false"
+                            data-action="site#burger"
+                        >
                             <span aria-hidden="true"></span>
                             <span aria-hidden="true"></span>
                             <span aria-hidden="true"></span>
@@ -41,29 +47,31 @@
 
                         </div>
                     </div>
-                    <div class="navbar-end">
-                        <div class="navbar-item">
-                            <a href="{{ path('app_home') }}" title="Home" class="title is-5 is-capitalized">HOME</a>
-                        </div>
-                        <div class="navbar-item">
-                            <a href="{{ path('cycling_routes') }}" title="Percorsi" class="title is-5 is-capitalized">PERCORSI</a>
-                        </div>
-                        <div class="navbar-item">
-                            <a href="{{ path('ragusa_ibla') }}" title="Ragusa Ibla" class="title is-5 is-capitalized">RAGUSA IBLA</a>
-                        </div>
-                        <div class="navbar-item">
-                            <a href="{{ path('news') }}" title="Termini e Condizioni" class="title is-5 is-capitalized">NEWS</a>
-                        </div>
-                        <div class="navbar-item">
-                            <div class="buttons">
-                                <a class="button is-primary" href="tel://3349826963">
+                    <div id="main-menu" class="navbar-menu">
+                        <div class="navbar-end">
+                            <div class="navbar-item">
+                                <a href="{{ path('app_home') }}" title="Home" class="title is-5 is-capitalized">HOME</a>
+                            </div>
+                            <div class="navbar-item">
+                                <a href="{{ path('cycling_routes') }}" title="Percorsi" class="title is-5 is-capitalized">PERCORSI</a>
+                            </div>
+                            <div class="navbar-item">
+                                <a href="{{ path('ragusa_ibla') }}" title="Ragusa Ibla" class="title is-5 is-capitalized">RAGUSA IBLA</a>
+                            </div>
+                            <div class="navbar-item">
+                                <a href="{{ path('news') }}" title="Termini e Condizioni" class="title is-5 is-capitalized">NEWS</a>
+                            </div>
+                            <div class="navbar-item">
+                                <div class="buttons">
+                                    <a class="button is-primary" href="tel://3349826963">
                                     <span class="icon-text">
                                       <span class="icon">
                                         <i class="fas fa-phone"></i>
                                       </span>
                                       <span><strong>334/9826963</strong></span>
                                     </span>
-                                </a>
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -83,7 +91,7 @@
                                     <div class="column">
                                         <ul>
                                             <li><a href="{{ path('cycling_routes') }}" title="Percorsi Cicloturistici" class="m-1">Percorsi Cicloturistici</a></li>
-                                            <li><a href="{{ path('bycicle') }}" title="Biciclette" class="m-1">Biciclette</a></li>
+                                            <li><a href="{{ path('product_bycicle') }}" title="Biciclette" class="m-1">Biciclette</a></li>
                                             <li><a href="{{ path('scooter') }}" title="Scooter" class="m-1">Scooter Elettrici</a></li>
                                             <li><a href="{{ path('terms') }}" title="Termini e Condizioni" class="m-1">Termini e Condizioni</a></li>
                                             <li><a href="{{ path('privacy') }}" title="Privacy Policy" class="m-1">Privacy Policy</a></li>

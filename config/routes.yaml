@@ -3,3 +3,8 @@ controllers:
         path: ../src/Controller/
         namespace: App\Controller
     type: attribute
+controllersCart:
+    resource:
+        path: ../src/Cart/Application/Controller/
+        namespace: App\Cart\Application\Controller
+    type: attribute

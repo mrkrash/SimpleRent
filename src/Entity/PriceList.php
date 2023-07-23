@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Product\Domain\Entity\Product;
 use App\Repository\PriceListRepository;
 use App\Shared\Traits\AutoCreatedAtTrait;
 use App\Shared\Traits\AutoDeletedAtTrait;

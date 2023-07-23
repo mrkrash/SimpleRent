@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Entity;
+namespace App\Product\Domain\Entity;
 
 use App\Shared\Traits\AutoCreatedAtTrait;
 use App\Shared\Traits\AutoDeletedAtTrait;

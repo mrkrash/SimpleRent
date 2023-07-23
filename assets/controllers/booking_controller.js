@@ -64,7 +64,7 @@ export default class extends Controller {
         })
             .then(res => res.json())
             .then(cart => {
-                console.log(cart);
+                window.location.href = '/book';
             })
     }
 }

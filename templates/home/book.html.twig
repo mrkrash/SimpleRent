@@ -17,11 +17,14 @@
   </section>
   <section class="container" data-controller='paypal'>
     <input type="hidden" id="rate" value="{{ rate }}" />
-    <input type="hidden" id="products" value="{{ products_for_paypal }}">
     <form name="customer_information" action="#">
       <div class="columns">
         <div class="column is-5">
-          <section class="section is-medium">
+          <section class="section is-small">
+            <a href="{{ path('product_bycicle') }}" class="button">+ Aggiungi una bici</a>
+            <a href="{{ path('product_bycicle') }}" class="button">+ Aggiungi un'accessorio</a>
+          </section>
+          <section class="section is-small">
             {% for product in products %}
               <div class="columns">
                 <div class="column">
@@ -45,7 +48,7 @@
             <div class="control">
               <label class="radio">
                 <input type="radio" name="delivery" value="free" required data-action="paypal#delivery" data-paypal-delivery-param="free">
-                Consegna gratuita a Ragusa, Ragusa Ibla, Marina di Ragusa, Punta Secca, Casuzze, Caucana e Santa Croce Camerina (min. 3 giorni)
+                Consegna gratuita a Ragusa, Ragusa Ibla, Marina di Ragusa, Punta Secca, Casuzze, Caucana e Santa Croce Camerina (min. 3 giorni di noleggio)
               </label>
             </div>
             <div class="control">

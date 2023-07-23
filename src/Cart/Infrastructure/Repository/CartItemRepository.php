@@ -2,9 +2,11 @@
 
 namespace App\Cart\Infrastructure\Repository;
 
+use App\Cart\Domain\Entity\Cart;
 use App\Cart\Domain\Entity\CartItem;
 use App\Cart\Domain\Repository\CartItemRepositoryInterface;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -20,6 +22,20 @@ class CartItemRepository extends ServiceEntityRepository implements CartItemRepo
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, CartItem::class);
+    }
+
+    /**
+     * @throws NonUniqueResultException
+     */
+    public function getFromCart(Cart $cart, int $productId): ?CartItem
+    {
+        return $this->createQueryBuilder('ci')
+            ->where('ci.cart = :cart')
+            ->andWhere('ci.product_id = :productId')
+            ->setParameter('cart', $cart)
+            ->setParameter('productId', $productId)
+            ->getQuery()
+            ->getOneOrNullResult();
     }
 
     public function save(CartItem $entity, bool $flush = false): void

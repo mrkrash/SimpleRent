@@ -4,15 +4,13 @@ namespace App\Controller;
 
 use App\Entity\Booking;
 use App\Entity\Dto\ProductDto;
-use App\Entity\Product;
-use App\Repository\AccessoryRepository;
+use App\Product\Domain\Entity\Product;
+use App\Product\Infrastructure\Repository\ProductRepository;
 use App\Repository\BookingRepository;
 use App\Repository\CustomerRepository;
-use App\Repository\ProductRepository;
 use DateTimeImmutable;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -69,7 +67,7 @@ class HomeController extends AbstractController
         return $this->render('home/privacy.html.twig');
     }
 
-    #[Route('/bycicle', name: 'bycicle')]
+    #[Route('/bycicle', name: 'product_bycicle')]
     public function bycicle(): Response
     {
         return $this->render('coming.html.twig');
@@ -87,37 +85,6 @@ class HomeController extends AbstractController
         return $this->render('home/show.html.twig', [
             'controller_name' => 'HomeController',
             'product' => $product,
-        ]);
-    }
-    #[Route('/book', name: 'book_product', methods: ['POST'])]
-    public function book(
-        Request $request,
-        ProductRepository $productRepository,
-        AccessoryRepository $accessoryRepository,
-    ): Response
-    {
-        $product = $productRepository->find($request->getPayload()->get('id'));
-        $size = $request->getPayload()->get('size');
-        $start = (new DateTimeImmutable())->setTimestamp($request->getPayload()->get('start') /1000);
-        $end = (new DateTimeImmutable())->setTimestamp($request->getPayload()->get('end') /1000);
-        $rate = $this->getRate(
-            $end->diff($start)->days,
-            $product->getPriceList()->getPriceOneDay(),
-            $product->getPriceList()->getPriceThreeDays(),
-            $product->getPriceList()->getPriceSevenDays()
-        );
-        $productDto = new ProductDto($product->getId(), $product->getName(), $size, $product->getImage(), 1, $rate);
-        $request->getSession()->set('products', [$productDto]);
-        $request->getSession()->set('rate', $rate);
-        $request->getSession()->set('start', $start);
-        $request->getSession()->set('end', $end);
-
-        return $this->render('home/book.html.twig', [
-            'products' => [$productDto],
-            'products_for_paypal' => json_encode([$productDto->forPaypal()]),
-            'start' => $start,
-            'end' => $end,
-            'rate' => $rate
         ]);
     }
 
