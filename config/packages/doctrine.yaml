@@ -18,6 +18,11 @@ doctrine:
                 dir: '%kernel.project_dir%/src/Entity'
                 prefix: 'App\Entity'
                 alias: App
+            Cart:
+                is_bundle: false
+                dir: '%kernel.project_dir%/src/Cart/Domain/Entity'
+                prefix: 'App\Cart\Domain\Entity'
+                alias: Cart
 
 when@test:
     doctrine:

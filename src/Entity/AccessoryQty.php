@@ -2,9 +2,9 @@
 
 namespace App\Entity;
 
-use App\Entity\Traits\AutoCreatedAtTrait;
-use App\Entity\Traits\AutoDeletedAtTrait;
-use App\Entity\Traits\AutoUpdatedAtTrait;
+use App\Shared\Traits\AutoCreatedAtTrait;
+use App\Shared\Traits\AutoDeletedAtTrait;
+use App\Shared\Traits\AutoUpdatedAtTrait;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity]

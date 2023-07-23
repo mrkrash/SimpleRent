@@ -2,8 +2,8 @@
 
 namespace App\Form;
 
-use App\Common\Lang;
 use App\Entity\Page;
+use App\Shared\Enum\Lang;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EnumType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;

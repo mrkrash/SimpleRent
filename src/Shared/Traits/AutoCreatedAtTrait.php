@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Entity\Traits;
+namespace App\Shared\Traits;
 
 use DateTimeImmutable;
 use DateTimeInterface;

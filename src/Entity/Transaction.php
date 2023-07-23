@@ -2,12 +2,10 @@
 
 namespace App\Entity;
 
-use App\Entity\Traits\AutoCreatedAtTrait;
-use App\Entity\Traits\AutoDeletedAtTrait;
-use App\Entity\Traits\AutoUpdatedAtTrait;
 use App\Repository\TransactionRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use App\Shared\Traits\AutoCreatedAtTrait;
+use App\Shared\Traits\AutoDeletedAtTrait;
+use App\Shared\Traits\AutoUpdatedAtTrait;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 

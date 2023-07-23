@@ -2,12 +2,12 @@
 
 namespace App\Entity;
 
-use App\Common\Gender;
-use App\Common\ProductType;
-use App\Entity\Traits\AutoCreatedAtTrait;
-use App\Entity\Traits\AutoDeletedAtTrait;
-use App\Entity\Traits\AutoUpdatedAtTrait;
 use App\Repository\ProductRepository;
+use App\Shared\Enum\Gender;
+use App\Shared\Enum\ProductType;
+use App\Shared\Traits\AutoCreatedAtTrait;
+use App\Shared\Traits\AutoDeletedAtTrait;
+use App\Shared\Traits\AutoUpdatedAtTrait;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;

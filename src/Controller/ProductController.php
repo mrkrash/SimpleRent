@@ -2,14 +2,13 @@
 
 namespace App\Controller;
 
-use App\Common\ProductType;
 use App\Entity\Product;
 use App\Entity\ProductQty;
 use App\Form\ProductFormType;
 use App\Repository\PriceListRepository;
 use App\Repository\ProductQtyRepository;
 use App\Repository\ProductRepository;
-use Doctrine\ORM\EntityManagerInterface;
+use App\Shared\Enum\ProductType;
 use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\FormInterface;

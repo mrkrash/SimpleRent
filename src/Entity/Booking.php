@@ -4,10 +4,10 @@ namespace App\Entity;
 
 use App\Entity\Dto\AccessoryDto;
 use App\Entity\Dto\ProductDto;
-use App\Entity\Traits\AutoCreatedAtTrait;
-use App\Entity\Traits\AutoDeletedAtTrait;
-use App\Entity\Traits\AutoUpdatedAtTrait;
 use App\Repository\BookingRepository;
+use App\Shared\Traits\AutoCreatedAtTrait;
+use App\Shared\Traits\AutoDeletedAtTrait;
+use App\Shared\Traits\AutoUpdatedAtTrait;
 use DateTimeImmutable;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;

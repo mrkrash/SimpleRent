@@ -15,7 +15,7 @@
             </div>
         </div>
     </section>
-    <section class="container" {{ stimulus_controller('booking') }}>
+    <section class="container pb-5" {{ stimulus_controller('booking') }}>
         <div class="columns">
             <div class="column has-text-centered">
                 <div class="pt-5">
@@ -23,7 +23,7 @@
                         <img src="/images/{{ product.image }}" alt="{{ product.name }}">
                     </figure>
                 </div>
-                <p class="subtitle is-4">A partire da {{ (product.priceList.priceHalfDay/100)|format_currency('EUR') }}</p>
+                <p class="subtitle is-3 mt-3">A partire da {{ (product.priceList.priceHalfDay/100)|format_currency('EUR') }}</p>
             </div>
             <div class="column">
                 <div class="pt-5  has-text-centered">
@@ -34,7 +34,7 @@
                                     <select {{ stimulus_action('booking', 'changeSize', 'change', {'id': product.id}) }}>
                                         <option selected disabled>Selezionare la Taglia</option>
                                         {% for size, qty in product.productQty.__toArray %}
-                                            <option value="{{ size }}">Taglia {{ size }} - Disponibili {{ qty }}</option>
+                                            <option value="{{ size }}">Taglia {{ size }}</option>
                                         {% endfor %}
                                     </select>
                                 </div>
@@ -52,7 +52,11 @@
                                 </div>
                             </div>
                         </div>
-                        <button id="rentCTA" class="button is-large is-success is-hidden mt-5" type="submit">Noleggia</button>
+                        <button
+                            id="rentCTA"
+                            type="button"
+                            class="button is-large is-success is-hidden mt-5"
+                            data-action="booking#addProductToCart">Noleggia</button>
                         <input type="hidden" id="id" name="id" />
                         <input type="hidden" id="size" name="size" />
                         <input type="hidden" id="start" name="start" />
