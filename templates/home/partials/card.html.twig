@@ -1,0 +1,21 @@
+<div class="card" style="padding: 3rem;">
+  <div class="card-image">
+    <figure class="image is-4by3">
+      <img src="images/{{ product.image }}" alt="{{ product.name }}">
+    </figure>
+  </div>
+  <div class="card-content">
+    <div class="content has-text-centered">
+      <p class="title pt-4" style="height: 6rem;">{{ product.name }}</p>
+
+      <p class="control mt-6">
+        <a class="button is-success" href="/book/{{ product.id }}">
+          <span class="icon is-small">
+              <i class="fas fa-share"></i>
+          </span>
+          <span>{{ 'noleggia'|trans }}</span>
+        </a>
+      </p>
+    </div>
+  </div>
+</div>

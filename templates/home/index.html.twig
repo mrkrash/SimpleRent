@@ -8,12 +8,24 @@
             <div class="columns">
                 <div class="column">
                     <div class="container has-text-centered">
-                        <p class="title">NOLEGGIO BICICLETTE E SCOOTER</p>
-                        <p class="subtitle">BREVE, MEDIO E LUNGO TERMINE</p>
-                        <p class="subtitle">=== STAY TUNED ===</p>
+                        <p class="title">{{ 'noleggio_biciclette_e_scooter'|trans }}</p>
+                        <p class="subtitle">{{ 'breve_medio_e_lungo_termine'|trans }}</p>
+                        <p class="subtitle">{{ 'stay_tuned'|trans }}</p>
                     </div>
                 </div>
             </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="columns product">
+            {% for product in products %}
+                {% if product.qty > 0 %}
+                    <div class="column is-one-quarter mt-3">
+                        {% include 'home/partials/card.html.twig' %}
+                    </div>
+                {% endif %}
+            {% endfor %}
         </div>
     </section>
     <section class="hero is-large has-carousel is-hidden-mobile" data-controller='carousel'>
@@ -38,25 +50,13 @@
         <div class="hero-body"></div>
         <div class="hero-foot"></div>
     </section>
-
-    <section class="container">
-        <div class="columns product">
-            {% for product in products %}
-                {% if product.qty > 0 %}
-                    <div class="column is-one-quarter mt-3">
-                        {% include 'home/_card.html.twig' %}
-                    </div>
-                {% endif %}
-            {% endfor %}
-        </div>
-    </section>
     <section class="hero is-medium is-info mt-5">
         <div class="hero-body has-text-centered">
             <p class="is-size-3">
-                Le nostre bici sono sempre in eccellenti condizioni, controllate dalla nostra officina autorizzata.
+                {{ 'bici_sempre_eccellenti'|trans }}
             </p>
-            <p class="is-size-3">Abbiamo una vasta scelta di bici sia per tipologia che per misura.</p>
-            <p class="is-size-3">A noi sta a cuore che la tua esperienza in bici sia <u>impeccabile</u>.</p>
+            <p class="is-size-3">{{ 'abbiamo_una_vasta_scelta_di_bici_sia_per_tipologia'|trans }}</p>
+            <p class="is-size-3">{{ 'a_noi_sta_a_cuore_che_la_tua_esperienza_in_bici_si'|trans|raw }}</p>
         </div>
     </section>
     {% include('home/partials/why_section.html.twig') %}

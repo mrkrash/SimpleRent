@@ -1,0 +1,59 @@
+<section class="p-4">
+  <nav class="navbar" role="navigation" aria-label="main navigation" data-controller="site">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="/">
+        <img
+            srcset="/imgs/mc_rent_bike.webp, /imgs/mc_rent_bike@1.5x.webp 1.5x, /imgs/mc_rent_bike@2x.webp 2x"
+            src="/imgs/mc_rent_bike.webp"
+            alt="MC Rent Bike Ragusa" />
+      </a>
+
+      <a
+          role="button"
+          class="navbar-burger"
+          aria-label="menu"
+          aria-expanded="false"
+          data-action="site#burger"
+      >
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </a>
+    </div>
+    <div class="navbar-start">
+      <div class="navbar-item">
+        <img
+            srcset="/imgs/montain.webp, /imgs/montain@1.5x.webp 1.5x, /imgs/montain@2x.webp 2x"
+            src="/imgs/montain.webp"
+            alt="MC Rent Bike Ragusa" />
+
+      </div>
+    </div>
+    <div id="main-menu" class="navbar-menu">
+      <div class="navbar-end">
+        <div class="navbar-item">
+          <a href="{{ path('app_home') }}" title="Home" class="title is-5 uppercase">Home</a>
+        </div>
+        <div class="navbar-item">
+          <a href="{{ path('cycling_routes') }}" title="{{ 'biciclette'|trans }}" class="title is-5 uppercase">{{ 'biciclette'|trans }}</a>
+        </div>
+        <div class="navbar-item">
+          <a href="{{ path('cycling_routes') }}" title="{{ 'accessori'|trans }}" class="title is-5 uppercase">{{ 'accessori'|trans }}</a>
+        </div>
+        <div class="navbar-item">
+          <a href="{{ path('ragusa_ibla') }}" title="Ragusa Ibla" class="title is-5 uppercase">Ragusa Ibla</a>
+        </div>
+        <div class="navbar-item">
+          <div class="buttons">
+            <a class="button is-primary" href="tel://3349826963">
+              <span class="icon-text">
+                <span class="icon"><i class="fas fa-phone"></i></span>
+                <span><strong>334/9826963</strong></span>
+              </span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+</section>
