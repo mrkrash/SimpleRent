@@ -9,10 +9,8 @@ class ProductDto implements \JsonSerializable
         private readonly string $name,
         private readonly string $size,
         private readonly string $image,
-        private readonly int $qty,
-        private readonly int $rate
-    )
-    {
+        private readonly int $qty
+    ) {
     }
 
     public function getId(): int
@@ -40,11 +38,6 @@ class ProductDto implements \JsonSerializable
         return $this->qty;
     }
 
-    public function getRate(): int
-    {
-        return $this->rate;
-    }
-
     public function jsonSerialize(): array
     {
         return [
@@ -53,19 +46,6 @@ class ProductDto implements \JsonSerializable
             'size'=> $this->size,
             'image' => $this->image,
             'qty' => $this->qty,
-            'rate' => $this->rate,
-        ];
-    }
-
-    public function forPaypal(): array
-    {
-        return [
-            'name' => $this->name,
-            'quantity' => $this->qty,
-            'unit_amount' => [
-                'currency_code' => 'EUR',
-                'value' => $this->rate,
-            ],
         ];
     }
 }
