@@ -34,6 +34,11 @@ class Customer
     #[ORM\Column(length: 15, nullable: true)]
     private ?string $phone = null;
 
+    #[ORM\Column]
+    private ?bool $newsletter = null;
+    #[ORM\Column]
+    private ?bool $privacy = null;
+
     #[ORM\OneToMany(mappedBy: 'customer', targetEntity: Booking::class)]
     private Collection $bookings;
 
@@ -92,6 +97,28 @@ class Customer
     {
         $this->phone = $phone;
 
+        return $this;
+    }
+
+    public function getNewsletter(): ?bool
+    {
+        return $this->newsletter;
+    }
+
+    public function setNewsletter(?bool $newsletter): Customer
+    {
+        $this->newsletter = $newsletter;
+        return $this;
+    }
+
+    public function getPrivacy(): ?bool
+    {
+        return $this->privacy;
+    }
+
+    public function setPrivacy(?bool $privacy): Customer
+    {
+        $this->privacy = $privacy;
         return $this;
     }
 
