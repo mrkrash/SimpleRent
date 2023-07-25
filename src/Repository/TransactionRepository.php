@@ -38,6 +38,15 @@ class TransactionRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
+    public function findOneByTransportId(string $transportId): ?Transaction
+    {
+        return $this->createQueryBuilder('t')
+            ->andWhere('t.transportId = :val')
+            ->setParameter('val', $transportId)
+            ->getQuery()
+            ->getOneOrNullResult()
+        ;
+    }
 
 //    /**
 //     * @return Transaction[] Returns an array of Transaction objects
@@ -51,16 +60,6 @@ class TransactionRepository extends ServiceEntityRepository
 //            ->setMaxResults(10)
 //            ->getQuery()
 //            ->getResult()
-//        ;
-//    }
-
-//    public function findOneBySomeField($value): ?Transaction
-//    {
-//        return $this->createQueryBuilder('t')
-//            ->andWhere('t.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
 //        ;
 //    }
 }

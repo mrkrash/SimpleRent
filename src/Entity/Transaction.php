@@ -8,6 +8,8 @@ use App\Shared\Traits\AutoDeletedAtTrait;
 use App\Shared\Traits\AutoUpdatedAtTrait;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\IdGenerator\UuidGenerator;
+use Symfony\Component\Uid\Uuid;
 
 #[ORM\Entity(repositoryClass: TransactionRepository::class)]
 #[ORM\Table(name: 'transations')]
@@ -22,17 +24,20 @@ class Transaction
     #[ORM\Column]
     private ?int $id = null;
 
+    #[ORM\Column(length: 36)]
+    private ?string $requestId = null;
+
     #[ORM\Column(length: 6)]
     private ?string $transport = null;
 
     #[ORM\Column(length: 32)]
-    private ?string $transport_id = null;
+    private ?string $transportId = null;
 
     #[ORM\Column(length: 40)]
-    private ?string $transport_status = null;
+    private ?string $transportStatus = null;
 
     #[ORM\Column(type: Types::JSON)]
-    private ?array $transport_details;
+    private ?array $transportDetails;
 
     #[ORM\Column]
     private ?int $amount = null;
@@ -40,8 +45,13 @@ class Transaction
     #[ORM\Column]
     private ?int $levied = null;
 
-    #[ORM\OneToOne(mappedBy: 'paymentTransaction', cascade: ['persist', 'remove'])]
+    #[ORM\OneToOne(mappedBy: 'transaction', cascade: ['persist', 'remove'])]
     private ?Booking $booking = null;
+
+    public function __construct()
+    {
+        $this->requestId = Uuid::v4();
+    }
 
     public function getId(): ?int
     {
@@ -86,34 +96,45 @@ class Transaction
 
     public function getTransportId(): ?string
     {
-        return $this->transport_id;
+        return $this->transportId;
     }
 
-    public function setTransportId(?string $transport_id): Transaction
+    public function setTransportId(?string $transportId): Transaction
     {
-        $this->transport_id = $transport_id;
+        $this->transportId = $transportId;
         return $this;
     }
 
     public function getTransportStatus(): ?string
     {
-        return $this->transport_status;
+        return $this->transportStatus;
     }
 
-    public function setTransportStatus(?string $transport_status): Transaction
+    public function setTransportStatus(?string $transportStatus): Transaction
     {
-        $this->transport_status = $transport_status;
+        $this->transportStatus = $transportStatus;
         return $this;
     }
 
     public function getTransportDetails(): ?array
     {
-        return $this->transport_details;
+        return $this->transportDetails;
     }
 
-    public function setTransportDetails(?array $transport_details): Transaction
+    public function setTransportDetails(?array $transportDetails): Transaction
     {
-        $this->transport_details = $transport_details;
+        $this->transportDetails = $transportDetails;
+        return $this;
+    }
+
+    public function getRequestId(): ?string
+    {
+        return $this->requestId;
+    }
+
+    public function setRequestId(?string $requestId): Transaction
+    {
+        $this->requestId = $requestId;
         return $this;
     }
 

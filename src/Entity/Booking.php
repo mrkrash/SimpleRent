@@ -43,6 +43,12 @@ class Booking
     #[ORM\Column(type: Types::JSON)]
     private ?array $accessories;
 
+    #[ORM\OneToOne(inversedBy: 'booking')]
+    private ?Transaction $transaction;
+
+    #[ORM\Column()]
+    private int $rate = 0;
+
     public function __construct()
     {
         $this->products = [];
@@ -99,6 +105,17 @@ class Booking
     {
         $this->customer = $customer;
 
+        return $this;
+    }
+
+    public function getRate(): int
+    {
+        return $this->rate;
+    }
+
+    public function setRate(int $rate): Booking
+    {
+        $this->rate = $rate;
         return $this;
     }
 
