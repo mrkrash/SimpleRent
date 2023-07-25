@@ -21,10 +21,6 @@
       <div class="columns">
         <div class="column is-5">
           <section class="section is-small">
-            <a href="{{ path('product_bycicle') }}" class="button">+ Aggiungi una bici</a>
-            <a href="{{ path('product_bycicle') }}" class="button">+ Aggiungi un'accessorio</a>
-          </section>
-          <section class="section is-small">
             {% for product in products %}
               <div class="columns">
                 <div class="column">
@@ -38,6 +34,12 @@
                 </div>
               </div>
             {% endfor %}
+          </section>
+          <section class="section is-small">
+            <a href="{{ path('product_bycicle') }}" class="button">+ Aggiungi una bici</a>
+            <a href="{{ path('product_bycicle') }}" class="button">+ Aggiungi un'accessorio</a>
+          </section>
+          <section class="section">
             <h4 class="subtitle is-4">Consegna</h4>
             <div class="control">
               <label class="radio">
@@ -97,11 +99,6 @@
               <div class="field">
                 <div class="control">
                   <input class="input" name="hotel" placeholder="Struttura Ricettiva">
-                </div>
-              </div>
-              <div class="field">
-                <div class="control">
-                  <textarea class="textarea" name="notes" placeholder="Note Aggiuntive, Richieste particolari"></textarea>
                 </div>
               </div>
               <div class="field">
