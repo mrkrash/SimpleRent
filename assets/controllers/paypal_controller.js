@@ -20,7 +20,7 @@ export default class extends Controller {
         rate = document.getElementById('rate').value;
         total = rate;
 
-        loadScript({"client-id": paypal_client_id, "intent": "authorize", "currency": "EUR"}).then((paypal) => {
+        loadScript({"client-id": paypal_client_id, "currency": "EUR"}).then((paypal) => {
             paypal.Buttons({
                 onClick: (data, actions) => {
                     let valid = true;
@@ -75,6 +75,15 @@ export default class extends Controller {
                     }).then((res) => res.json()).then((order) => order.id);
                 },
                 onApprove: (data) => {
+                    return fetch("/rest/paypal/capture", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify(({
+                            order: data
+                        }))
+                    })
                     console.log(data)
                 }
             }).render('#paypal-button');
