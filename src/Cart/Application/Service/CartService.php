@@ -39,6 +39,9 @@ final class CartService
 
     public function getItemFromCart(Cart $cart, int $productId): CartItem
     {
+        if (null === $cart->getId()) {
+            return new CartItem();
+        }
         $cartItem = $this->cartItemRepository->getFromCart($cart, $productId);
         if (null === $cartItem) {
             $cartItem = new CartItem();

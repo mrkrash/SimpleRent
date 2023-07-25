@@ -7,7 +7,6 @@ use App\Cart\Application\Service\RateService;
 use App\Cart\Domain\Entity\CartItem;
 use App\Entity\Dto\ProductDto;
 use App\Product\Application\Service\ProductService;
-use App\Product\Domain\Entity\Product;
 use DateTimeImmutable;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -26,6 +25,8 @@ class CartController extends AbstractController
     #[Route('/rest/addToCart', name: 'add_to_cart', methods: ['POST'])]
     public function addToCart(
         Request        $request,
+        ProductService $productService,
+        RateService $rateService
     ): Response
     {
         $cart = $this->cartService->handle();
@@ -39,8 +40,21 @@ class CartController extends AbstractController
             $cartItem->setAccessoryId($request->getPayload()->get('id'));
         }
         $cartItem->setSize($request->getPayload()->get('size'));
-        $cartItem->setQty(1);
+        $cartItem->setQty($cartItem->getQty() + 1);
         $cart->addCartItem($cartItem);
+
+        $rate = 0;
+        $days = $cart->getDateEnd()->diff($cart->getDateStart())->days;
+        foreach ($cart->getCartItems() as $item) {
+            $product = $productService->retrieveById($item->getProductId());
+            $rate += ($rateService->calc(
+                $days,
+                $product->getPriceList()->getPriceOneDay(),
+                $product->getPriceList()->getPriceThreeDays(),
+                $product->getPriceList()->getPriceSevenDays()
+            ) * $item->getQty());
+        }
+        $cart->setRate($rate);
 
         $this->cartService->save($cart);
 
@@ -50,29 +64,19 @@ class CartController extends AbstractController
     #[Route('/book', name: 'book_cart', methods: ['GET'])]
     public function book(
         ProductService $productService,
-        RateService $rateService
     ): Response
     {
         $cart = $this->cartService->handle();
-        $rate = 0;
         $products = [];
-        $days = $cart->getDateEnd()->diff($cart->getDateStart())->days;
         /** @var CartItem $item */
         foreach ($cart->getCartItems() as $item) {
             $product = $productService->retrieveById($item->getProductId());
-            $rate += $rateService->calc(
-                $days,
-                $product->getPriceList()->getPriceOneDay(),
-                $product->getPriceList()->getPriceThreeDays(),
-                $product->getPriceList()->getPriceSevenDays()
-            );
             $products[] = new ProductDto(
                 $product->getId(),
                 $product->getName(),
                 $item->getSize(),
                 $product->getImage(),
-                $item->getQty(),
-                $rate
+                $item->getQty()
             );
         }
 
@@ -80,7 +84,7 @@ class CartController extends AbstractController
             'products' => $products,
             'start' => $cart->getDateStart(),
             'end' => $cart->getDateEnd(),
-            'rate' => $rate
+            'rate' => $cart->getRate(),
         ]);
     }
 }

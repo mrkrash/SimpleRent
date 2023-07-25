@@ -29,7 +29,7 @@ class CartItem
     #[ORM\Column(nullable: true)]
     private ?int $accessoryId = null;
     #[ORM\Column]
-    private int $qty;
+    private int $qty = 0;
     #[ORM\Column]
     private string $size;
 

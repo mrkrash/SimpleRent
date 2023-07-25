@@ -31,6 +31,9 @@ class Cart implements JsonSerializable
     #[ORM\OneToMany(mappedBy: 'cart', targetEntity: CartItem::class, cascade: ['persist'])]
     private Collection $cartItems;
 
+    #[ORM\Column]
+    private int $rate= 0;
+
     #[ORM\Column(type: Types::DATE_IMMUTABLE)]
     private ?DateTimeImmutable $dateStart = null;
 
@@ -54,6 +57,17 @@ class Cart implements JsonSerializable
     public function setId(?int $id): Cart
     {
         $this->id = $id;
+        return $this;
+    }
+
+    public function getRate(): int
+    {
+        return $this->rate;
+    }
+
+    public function setRate(int $rate): Cart
+    {
+        $this->rate = $rate;
         return $this;
     }
 
