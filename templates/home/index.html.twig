@@ -3,19 +3,6 @@
 {% block title %}MC Rent Bike Ragusa{% endblock %}
 
 {% block body %}
-    <section class="hero is-primary is-medium">
-        <div class="hero-body" style="padding: 8px 0 0;">
-            <div class="columns">
-                <div class="column">
-                    <div class="container has-text-centered">
-                        <p class="title">{{ 'noleggio_biciclette_e_scooter'|trans }}</p>
-                        <p class="subtitle">{{ 'breve_medio_e_lungo_termine'|trans }}</p>
-                        <p class="subtitle">{{ 'stay_tuned'|trans }}</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
 
     <section class="section">
         <div class="columns product">
@@ -28,35 +15,27 @@
             {% endfor %}
         </div>
     </section>
-    <section class="hero is-large has-carousel is-hidden-mobile" data-controller='carousel'>
-        <div class="hero-carousel carousel">
-            <div class="item-1">
-                <figure class="image" style="display: flex; justify-content: center; height: 600px;">
-                    <img src="/imgs/carousel/SanGiorgio.jpeg" alt="MC Rent Bike Ragusa"/>
-                </figure>
-            </div>
-            <div class="item-2">
-                <figure class="image"style="display: flex; justify-content: center; height: 600px;">
-                    <img src="/imgs/carousel/Universita.jpeg" alt="MC Rent Bike Ragusa"/>
-                </figure>
-            </div>
-            <div class="item-3">
-                <figure class="image"style="display: flex; justify-content: center; height: 600px;">
-                    <img src="/imgs/carousel/Idra.jpeg" alt="MC Rent Bike Ragusa"/>
-                </figure>
-            </div>
-        </div>
-        <div class="hero-head"></div>
-        <div class="hero-body"></div>
-        <div class="hero-foot"></div>
-    </section>
-    <section class="hero is-medium is-info mt-5">
+    <section class="hero is-small is-info mt-5">
         <div class="hero-body has-text-centered">
             <p class="is-size-3">
-                {{ 'bici_sempre_eccellenti'|trans }}
+                Soggiorni in una struttura convenzionata?
             </p>
-            <p class="is-size-3">{{ 'abbiamo_una_vasta_scelta_di_bici_sia_per_tipologia'|trans }}</p>
-            <p class="is-size-3">{{ 'a_noi_sta_a_cuore_che_la_tua_esperienza_in_bici_si'|trans|raw }}</p>
+            <p class="is-size-3">Se il noleggio dura almeno 3 giorni, la consegna e il ritiro della bici da te scelta sarà a carico nostro.</p>
+            <a class="button" href="{{ path('where_to_stay') }}">
+                <span class="icon is-small">
+                    <i class="fas fa-eye"></i>
+                </span>
+                <span>Verifica le strutture</span>
+            </a>
+        </div>
+    </section>
+    {% include('home/partials/carousel.html.twig') %}
+    <section class="hero is-medium is-primary">
+        <div class="hero-body has-text-centered">
+            <p class="is-size-2 uppercase">
+                Offriamo una linea completa di biciclette e accessori per ogni esigenza!!
+            </p>
+            <p class="is-size-3">Siamo presenti sul mercato da diversi anni</p>
         </div>
     </section>
     {% include('home/partials/why_section.html.twig') %}

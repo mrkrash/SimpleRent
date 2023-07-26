@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Product\Domain\Entity\Product;
+use App\Shared\Enum\BicycleType;
 use App\Shared\Enum\Gender;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
@@ -27,6 +28,7 @@ class ProductFormType extends AbstractType
                 'choice_label' => 'name',
                 'label' => 'Listino',
             ])
+            ->add('bicycleType', EnumType::class, ['class' => BicycleType::class])
             ->add('sizeXS', NumberType::class, ['label' => 'Qt. XS'])
             ->add('sizeS', NumberType::class, ['label' => 'Qt. S'])
             ->add('sizeM', NumberType::class, ['label' => 'Qt. M'])

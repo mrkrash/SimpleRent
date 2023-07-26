@@ -8,6 +8,7 @@ use App\Product\Domain\Entity\Product;
 use App\Product\Infrastructure\Repository\ProductRepository;
 use App\Repository\BookingRepository;
 use App\Repository\CustomerRepository;
+use App\Repository\StructureRepository;
 use DateTimeImmutable;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -38,9 +39,11 @@ class HomeController extends AbstractController
     }
 
     #[Route('/dove-alloggiare', name: 'where_to_stay')]
-    public function whereToStay(): Response
+    public function whereToStay(StructureRepository $structureRepository): Response
     {
-        return $this->render('coming.html.twig');
+        return $this->render('home/where_stay.html.twig', [
+            'structures' => $structureRepository->findAll()
+        ]);
     }
 
     #[Route('/ragusa-ibla', name: 'ragusa_ibla')]
@@ -67,10 +70,18 @@ class HomeController extends AbstractController
         return $this->render('home/privacy.html.twig');
     }
 
-    #[Route('/bycicle', name: 'product_bycicle')]
-    public function bycicle(): Response
+    #[Route('/bicycle/{type}', name: 'product_bycicle')]
+    public function bicycle(string $type, ProductRepository $productRepository): Response
     {
-        return $this->render('coming.html.twig');
+        $products = $productRepository->findBy(['bicycleType' => $type]);
+        if (null === $products) {
+            return $this->render('not-found.html.twig');
+        }
+
+        return $this->render('home/products.html.twig', [
+            'title' => $type,
+            'products' => $productRepository->findBy(['bicycleType' => $type])
+        ]);
     }
 
     #[Route('/scooter', name: 'scooter')]

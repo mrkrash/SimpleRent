@@ -5,6 +5,7 @@ namespace App\Product\Domain\Entity;
 use App\Entity\Booking;
 use App\Entity\PriceList;
 use App\Product\Infrastructure\Repository\ProductRepository;
+use App\Shared\Enum\BicycleType;
 use App\Shared\Enum\Gender;
 use App\Shared\Enum\ProductType;
 use App\Shared\Traits\AutoCreatedAtTrait;
@@ -30,6 +31,9 @@ class Product
 
     #[ORM\Column(length: 7)]
     private ProductType $type;
+
+    #[ORM\Column(length: 16, nullable: true)]
+    private BicycleType $bicycleType;
 
     #[ORM\Column(length: 255)]
     private ?string $name = null;
@@ -80,6 +84,17 @@ class Product
     public function getType(): ProductType
     {
         return $this->type;
+    }
+
+    public function getBicycleType(): BicycleType
+    {
+        return $this->bicycleType;
+    }
+
+    public function setBicycleType(BicycleType $bicycleType): Product
+    {
+        $this->bicycleType = $bicycleType;
+        return $this;
     }
 
     public function setType(ProductType $type): Product

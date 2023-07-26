@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}MC Rent Bike Ragusa{% endblock %}
+
+{% block body %}
+<section class="section">
+  <table class="table">
+    <thead>
+    <tr>
+      <th>Struttura</th>
+      <th>Dove</th>
+      <th>Visita il loro sito web</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for structure in structures %}
+      <tr>
+        <td><p class="title is-5">{{ structure.name }}</p></td>
+        <td>
+          <a href="https://www.google.com/maps/search/{{ structure.address|replace({' ': '+'}) }}" target="_blank">{{ structure.address }}</a>
+        </td>
+        <td>
+          <a href="{{ structure.web }}" target="_blank">{{ structure.web }}</a>
+        </td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+</section>
+{% endblock %}
