@@ -1,0 +1,50 @@
+{% extends 'admin.html.twig' %}
+
+{% block title %}Strutture Convenzionate{% endblock %}
+
+{% block content %}
+<section class="section">
+    <div class="container">
+        <div class="level">
+            <div class="level-left">
+                <div class="level-item">
+                    <h1 class="title">Strutture Convenzionate</h1>
+                </div>
+            </div>
+            <div class="level-right">
+                <div class="level-item">
+                    <a href="{{ path('app_structure_new') }}" class="button is-primary">Aggiungi un nuova Struttura</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Indirizzo</th>
+                <th>Sito Web</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for structure in structures %}
+            <tr>
+                <td>{{ structure.name }}</td>
+                <td>{{ structure.address }}</td>
+                <td>{{ structure.web }}</td>
+                <td>
+                    <a href="{{ path('app_structure_show', {'id': structure.id}) }}">Modifica</a>
+                    <a href="{{ path('app_structure_edit', {'id': structure.id}) }}">Elimina</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</section>
+{% endblock %}
