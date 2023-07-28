@@ -98,7 +98,7 @@ class HomeController extends AbstractController
         ]);
     }
 
-    #[Route('/cookie', name: 'cookie_policy')]
+    #[Route('/cookies_policy', name: 'cookies_policy')]
     public function cookie(PageRepository $pageRepository): Response
     {
         /** @var Page $page */
