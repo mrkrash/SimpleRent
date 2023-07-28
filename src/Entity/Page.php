@@ -27,7 +27,7 @@ class Page
     #[ORM\Column(length: 50)]
     private ?string $title = null;
 
-    #[ORM\Column(length: 3000)]
+    #[ORM\Column(type: "text")]
     private ?string $content = null;
 
     #[ORM\Column(length: 2)]

@@ -66,15 +66,47 @@ class HomeController extends AbstractController
     }
 
     #[Route('/terms', name: 'terms')]
-    public function terms(): Response
+    public function terms(PageRepository $pageRepository): Response
     {
-        return $this->render('coming.html.twig');
+        /** @var Page $page */
+        $page = $pageRepository->findOneBy(['slug' => 'terms']);
+        return $this->render('home/generic.html.twig', [
+            'title' => $page->getTitle(),
+            'content' => $page->getContent(),
+        ]);
+    }
+
+    #[Route('/accept-privacy', name: 'accept_privacy')]
+    public function acceptPrivacy(PageRepository $pageRepository): Response
+    {
+        /** @var Page $page */
+        $page = $pageRepository->findOneBy(['slug' => 'accept_privacy']);
+        return $this->render('home/generic.html.twig', [
+            'title' => $page->getTitle(),
+            'content' => $page->getContent(),
+        ]);
     }
 
     #[Route('/privacy', name: 'privacy')]
-    public function privacy(): Response
+    public function privacy(PageRepository $pageRepository): Response
     {
-        return $this->render('home/privacy.html.twig');
+        /** @var Page $page */
+        $page = $pageRepository->findOneBy(['slug' => 'privacy']);
+        return $this->render('home/generic.html.twig', [
+            'title' => $page->getTitle(),
+            'content' => $page->getContent(),
+        ]);
+    }
+
+    #[Route('/cookie', name: 'cookie_policy')]
+    public function cookie(PageRepository $pageRepository): Response
+    {
+        /** @var Page $page */
+        $page = $pageRepository->findOneBy(['slug' => 'cookie_policy']);
+        return $this->render('home/generic.html.twig', [
+            'title' => $page->getTitle(),
+            'content' => $page->getContent(),
+        ]);
     }
 
     #[Route('/bicycle/{type}', name: 'product_bycicle')]
