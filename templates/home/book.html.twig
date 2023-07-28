@@ -35,10 +35,6 @@
               </div>
             {% endfor %}
           </section>
-          <section class="section is-small">
-            <a href="{{ path('product_bycicle') }}" class="button">+ Aggiungi una bici</a>
-            <a href="{{ path('product_bycicle') }}" class="button">+ Aggiungi un'accessorio</a>
-          </section>
           <section class="section">
             <h4 class="subtitle is-4">Consegna</h4>
             <div class="control">
@@ -50,7 +46,13 @@
             <div class="control">
               <label class="radio">
                 <input type="radio" name="delivery" value="free" required data-action="paypal#delivery" data-paypal-delivery-param="free">
-                Consegna gratuita a Ragusa, Ragusa Ibla, Marina di Ragusa, Punta Secca, Casuzze, Caucana e Santa Croce Camerina (min. 3 giorni di noleggio)
+                Consegna e Ritiro gratuiti presso una <a href="{{ path('where_to_stay') }}" target="_blank">struttura convenzionata</a> (min. 3 giorni di noleggio)
+              </label>
+            </div>
+            <div class="control">
+              <label class="radio">
+                <input type="radio" name="delivery" value="free" required data-action="paypal#delivery" data-paypal-delivery-param="free">
+                Consegna e Ritiro gratuiti a Ragusa, Ragusa Ibla, Marina di Ragusa, Punta Secca, Casuzze, Caucana e Santa Croce Camerina (min. 3 giorni di noleggio)
               </label>
             </div>
             <div class="control">
@@ -105,7 +107,7 @@
                 <div class="control">
                   <label class="checkbox">
                     <input id="privacy" type="checkbox" name="privacy" required>
-                    Accetto i termini della <a href="/privacy-policy" target="_blank" title="Privacy Policy">Privacy Policy</a>
+                    Accetto i termini della <a href="{{ path('privacy') }}" target="_blank" title="Privacy Policy">Privacy Policy</a>
                   </label>
                 </div>
               </div>
@@ -142,7 +144,7 @@
 
             <div class="block mb-3">
               Procedendo con il pagamento, confermi di aver compreso ed accetto le
-              <a href="/terms" target="_blank" title="Termini e Condizioni">
+              <a href="{{ path('terms') }}" target="_blank" title="Termini e Condizioni">
                 Condizioni ed i Requisiti per il noleggio
               </a>
             </div>
