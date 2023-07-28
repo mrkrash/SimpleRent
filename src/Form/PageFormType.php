@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Page;
 use App\Shared\Enum\Lang;
+use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EnumType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -18,9 +19,7 @@ class PageFormType extends AbstractType
     {
         $builder
             ->add('title', TextType::class, ['label' => 'Titolo'])
-            ->add('content', TextareaType::class, [
-                'attr' => ['class' => 'tinymce'],
-            ])
+            ->add('content', QuillType::class)
             ->add('lang', EnumType::class, ['class' => Lang::class])
             ->add('save', SubmitType::class)
         ;

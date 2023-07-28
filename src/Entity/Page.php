@@ -22,6 +22,9 @@ class Page
     private ?int $id = null;
 
     #[ORM\Column(length: 50)]
+    private ?string $slug = null;
+
+    #[ORM\Column(length: 50)]
     private ?string $title = null;
 
     #[ORM\Column(length: 3000)]
@@ -33,6 +36,17 @@ class Page
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(?string $slug): Page
+    {
+        $this->slug = $slug;
+        return $this;
     }
 
     public function getTitle(): ?string
@@ -59,15 +73,15 @@ class Page
         return $this;
     }
 
-    public function getLang(): ?string
+    public function getLang(): ?Lang
     {
         return $this->lang;
     }
 
-    public function setLang(string $lang): self
+    public function setLang(?Lang $lang): Page
     {
         $this->lang = $lang;
-
         return $this;
     }
+
 }

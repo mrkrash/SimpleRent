@@ -4,10 +4,12 @@ namespace App\Controller;
 
 use App\Entity\Booking;
 use App\Entity\Dto\ProductDto;
+use App\Entity\Page;
 use App\Product\Domain\Entity\Product;
 use App\Product\Infrastructure\Repository\ProductRepository;
 use App\Repository\BookingRepository;
 use App\Repository\CustomerRepository;
+use App\Repository\PageRepository;
 use App\Repository\StructureRepository;
 use DateTimeImmutable;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -47,9 +49,14 @@ class HomeController extends AbstractController
     }
 
     #[Route('/ragusa-ibla', name: 'ragusa_ibla')]
-    public function ragusaIbla(): Response
+    public function ragusaIbla(PageRepository $pageRepository): Response
     {
-        return $this->render('coming.html.twig');
+        /** @var Page $page */
+        $page = $pageRepository->findOneBy(['slug' => 'ragusa_ibla']);
+        return $this->render('home/generic.html.twig', [
+            'title' => $page->getTitle(),
+            'content' => $page->getContent(),
+        ]);
     }
 
     #[Route('/percorsi-cicloturistici', name: 'cycling_routes')]

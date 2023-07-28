@@ -1,0 +1,10 @@
+{% block quill_widget %}
+  <div data-controller="quill">
+    {% apply spaceless %}
+      <input type="hidden" data-quill-target="hidden" value="{{ value }}" {{ block('widget_attributes') }} />
+      <div class="textarea" data-quill-target="container">
+        {{ value|raw }}
+      </div>
+    {% endapply %}
+  </div>
+{% endblock %}

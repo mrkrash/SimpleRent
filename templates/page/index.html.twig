@@ -19,7 +19,6 @@
             <tr>
                 <th>Titolo</th>
                 <th>Contenuto</th>
-                <th>Lingua</th>
                 <th></th>
             </tr>
         </thead>
@@ -27,8 +26,7 @@
         {% for page in pages %}
             <tr>
                 <td>{{ page.title }}</td>
-                <td>{{ page.content }}</td>
-                <td>{{ page.lang }}</td>
+                <td>{{ page.content|truncate|raw }}</td>
                 <td>
                     <p class="control">
                         <a class="button" href="{{ path('app_page_edit', {'id': page.id}) }}">
