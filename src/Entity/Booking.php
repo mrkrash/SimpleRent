@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Cart\Domain\Entity\Transaction;
 use App\Entity\Dto\AccessoryDto;
 use App\Entity\Dto\ProductDto;
 use App\Repository\BookingRepository;

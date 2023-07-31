@@ -1,9 +1,11 @@
 <?php
 
-namespace App\Repository;
+namespace App\Cart\Infrastructure\Repository;
 
-use App\Entity\Transaction;
+use App\Cart\Domain\Entity\Transaction;
+use App\Cart\Domain\Repository\TransactionRepositoryInterface;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -14,7 +16,7 @@ use Doctrine\Persistence\ManagerRegistry;
  * @method Transaction[]    findAll()
  * @method Transaction[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class TransactionRepository extends ServiceEntityRepository
+class TransactionRepository extends ServiceEntityRepository implements TransactionRepositoryInterface
 {
     public function __construct(ManagerRegistry $registry)
     {
@@ -38,6 +40,10 @@ class TransactionRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
+
+    /**
+     * @throws NonUniqueResultException
+     */
     public function findOneByTransportId(string $transportId): ?Transaction
     {
         return $this->createQueryBuilder('t')
@@ -47,19 +53,4 @@ class TransactionRepository extends ServiceEntityRepository
             ->getOneOrNullResult()
         ;
     }
-
-//    /**
-//     * @return Transaction[] Returns an array of Transaction objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('t')
-//            ->andWhere('t.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('t.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
 }

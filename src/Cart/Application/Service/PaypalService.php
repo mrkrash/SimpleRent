@@ -2,7 +2,9 @@
 
 namespace App\Cart\Application\Service;
 
+use App\Cart\Domain\Entity\Transaction;
 use App\Cart\Domain\Exception\PaymentCheckoutException;
+use App\Cart\Domain\Repository\TransactionRepositoryInterface;
 use App\Cart\Domain\Service\PaymentServiceInterface;
 use Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\DecodingExceptionInterface;
@@ -31,6 +33,7 @@ class PaypalService implements PaymentServiceInterface
     public function __construct(
         HttpClientInterface $paypalAuth,
         private readonly HttpClientInterface $paypalOrder,
+        private readonly TransactionRepositoryInterface $transactionRepository,
     )
     {
         $responseBody = $paypalAuth->request('POST', '', [
@@ -78,10 +81,17 @@ class PaypalService implements PaymentServiceInterface
     }
 
     /**
-     * @throws TransportExceptionInterface
+     * @param string $orderId
+     * @param Transaction $transaction
+     * @return bool
+     * @throws ClientExceptionInterface
+     * @throws DecodingExceptionInterface
      * @throws PaymentCheckoutException
+     * @throws RedirectionExceptionInterface
+     * @throws ServerExceptionInterface
+     * @throws TransportExceptionInterface
      */
-    public function checkoutOrder(string $orderId): bool
+    public function checkoutOrder(string $orderId, Transaction $transaction): bool
     {
         $responseBody = $this->paypalOrder->request('GET', '/v2/checkout/orders/' . $orderId, [
             'headers' => [
@@ -93,15 +103,36 @@ class PaypalService implements PaymentServiceInterface
             throw new PaymentCheckoutException();
         }
 
+        $paypalOrder = $responseBody->toArray();
+
+        if ($this->paidRightAmount($paypalOrder, $transaction)
+            && $paypalOrder['intent'] === self::INTENT_CAPTURE
+            && $paypalOrder['status'] === self::STATUS_APPROVED
+        ) {
+            if ($this->capturePayment($orderId, $transaction)) {
+                $transaction->setTransportStatus(Transaction::STATUS_PAID);
+                $this->transactionRepository->save($transaction);
+
+                return true;
+            }
+        }
+
         return true;
     }
 
-    public function captureOrder(string $orderId, string $transactionId): bool
+    /**
+     * @throws TransportExceptionInterface
+     * @throws ServerExceptionInterface
+     * @throws RedirectionExceptionInterface
+     * @throws DecodingExceptionInterface
+     * @throws ClientExceptionInterface
+     */
+    public function capturePayment(string $orderId, Transaction $transaction): bool
     {
         $responseBody = $this->paypalOrder->request('POST', '/v2/checkout/orders/' . $orderId . '/capture', [
             'headers' => [
                 'Authorization' => 'Bearer ' . $this->accessToken,
-                'Paypal-Request-Id' => $transactionId
+                'Paypal-Request-Id' => $transaction->getRequestId()
             ],
         ]);
         $responseHttpCode = $responseBody->getStatusCode();
@@ -115,4 +146,22 @@ class PaypalService implements PaymentServiceInterface
         }
         return true;
     }
+
+    private function paidRightAmount(array $paypalOrder, Transaction $transaction): bool
+    {
+        // Check if the purchase currency is the right one
+        if ($paypalOrder['purchase_units'][0]['amount']['currency_code'] !== 'EUR') {
+            return false;
+        }
+        // Check if the amount paid is the right one
+        if ((int) $paypalOrder['purchase_units'][0]['amount']['value'] !== $transaction->getAmount()) {
+            $transaction->setTransportStatus(Transaction::STATUS_FRAUD_SUSPECTED);
+            $this->transactionRepository->save($transaction);
+
+            return false;
+        }
+
+        return true;
+    }
+
 }

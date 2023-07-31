@@ -89,7 +89,7 @@ export default class extends Controller {
                 }
             }).render('#paypal-button');
         }).catch((err) => {
-            console.error("Failed to load the PayPal JS SDK script", err);
+            window.location = '/payment/cancel'
         });
     }
     delivery(e) {

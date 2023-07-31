@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Entity;
+namespace App\Cart\Domain\Entity;
 
-use App\Repository\TransactionRepository;
+use App\Cart\Infrastructure\Repository\TransactionRepository;
+use App\Entity\Booking;
 use App\Shared\Traits\AutoCreatedAtTrait;
 use App\Shared\Traits\AutoDeletedAtTrait;
 use App\Shared\Traits\AutoUpdatedAtTrait;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Bridge\Doctrine\IdGenerator\UuidGenerator;
 use Symfony\Component\Uid\Uuid;
 
 #[ORM\Entity(repositoryClass: TransactionRepository::class)]
@@ -19,6 +19,10 @@ class Transaction
     use AutoCreatedAtTrait;
     use AutoUpdatedAtTrait;
     use AutoDeletedAtTrait;
+
+    const STATUS_FRAUD_SUSPECTED = 'Fraud Suspected';
+    const STATUS_PAID = 'Order Payed';
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
