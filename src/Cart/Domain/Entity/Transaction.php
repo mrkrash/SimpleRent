@@ -2,8 +2,8 @@
 
 namespace App\Cart\Domain\Entity;
 
+use App\Booking\Domain\Entity\Booking;
 use App\Cart\Infrastructure\Repository\TransactionRepository;
-use App\Entity\Booking;
 use App\Shared\Traits\AutoCreatedAtTrait;
 use App\Shared\Traits\AutoDeletedAtTrait;
 use App\Shared\Traits\AutoUpdatedAtTrait;

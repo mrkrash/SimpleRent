@@ -2,8 +2,8 @@
 
 namespace App\Test\Controller;
 
-use App\Entity\Accessory;
-use App\Repository\AccessoryRepository;
+use App\Product\Domain\Entity\Accessory;
+use App\Product\Infrastructure\Repository\AccessoryRepository;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 

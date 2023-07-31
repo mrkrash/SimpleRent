@@ -3,8 +3,23 @@ controllers:
         path: ../src/Controller/
         namespace: App\Controller
     type: attribute
+controllersBooking:
+    resource:
+        path: ../src/Booking/Application/Controller/
+        namespace: App\Booking\Application\Controller
+    type: attribute
 controllersCart:
     resource:
         path: ../src/Cart/Application/Controller/
         namespace: App\Cart\Application\Controller
+    type: attribute
+controllersCustomer:
+    resource:
+        path: ../src/Customer/Application/Controller/
+        namespace: App\Customer\Application\Controller
+    type: attribute
+controllersProduct:
+    resource:
+        path: ../src/Product/Application/Controller/
+        namespace: App\Product\Application\Controller
     type: attribute

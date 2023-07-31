@@ -2,8 +2,8 @@
 
 namespace App\Test\Controller;
 
-use App\Entity\Booking;
-use App\Repository\BookingRepository;
+use App\Booking\Domain\Entity\Booking;
+use App\Booking\Infrastructure\Repository\BookingRepository;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 

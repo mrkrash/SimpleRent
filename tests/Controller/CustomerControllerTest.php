@@ -2,8 +2,8 @@
 
 namespace App\Test\Controller;
 
-use App\Entity\Customer;
-use App\Repository\CustomerRepository;
+use App\Customer\Domain\Entity\Customer;
+use App\Customer\Infrastructure\Repository\CustomerRepository;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 

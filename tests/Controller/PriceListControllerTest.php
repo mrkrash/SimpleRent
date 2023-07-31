@@ -2,8 +2,8 @@
 
 namespace App\Test\Controller;
 
-use App\Entity\PriceList;
-use App\Repository\PriceListRepository;
+use App\Product\Domain\Entity\PriceList;
+use App\Product\Infrastructure\Repository\PriceListRepository;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 

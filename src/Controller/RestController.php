@@ -2,12 +2,12 @@
 
 namespace App\Controller;
 
+use App\Booking\Domain\Entity\Booking;
+use App\Booking\Infrastructure\Repository\BookingRepository;
 use App\Cart\Application\Service\RateService;
-use App\Entity\Booking;
+use App\Customer\Infrastructure\Repository\CustomerRepository;
 use App\Entity\Dto\ProductDto;
 use App\Product\Domain\Entity\Product;
-use App\Repository\BookingRepository;
-use App\Repository\CustomerRepository;
 use DateTimeImmutable;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -17,27 +17,6 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/rest')]
 class RestController extends AbstractController
 {
-    /**
-     * Actually generate a booking for test
-     * @param CustomerRepository $customerRepository
-     * @param BookingRepository $bookingRepository
-     * @return void
-     */
-    #[Route('/generate')]
-    public function generateRandomValue(
-        CustomerRepository $customerRepository,
-        BookingRepository $bookingRepository,
-    ): void {
-        $booking = (new Booking())
-            ->setCustomer($customerRepository->find(1))
-            ->setDateStart(new DateTimeImmutable('20230712T000000'))
-            ->setDateEnd(new DateTimeImmutable('20230718T000000'))
-        ;
-        $booking->addProduct(new ProductDto(1, 'S', 1));
-        $booking->addProduct(new ProductDto(2, 'S', 1));
-        $bookingRepository->save($booking, true);
-    }
-
     /**
      * Check Availability of selected product
      * @param Product $product

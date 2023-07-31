@@ -2,8 +2,7 @@
 
 namespace App\Product\Domain\Entity;
 
-use App\Entity\Booking;
-use App\Entity\PriceList;
+use App\Booking\Domain\Entity\Booking;
 use App\Product\Infrastructure\Repository\ProductRepository;
 use App\Shared\Enum\BicycleType;
 use App\Shared\Enum\Gender;
