@@ -85,6 +85,7 @@ class RestController extends AbstractController
      * @param Product $product
      * @param int $start
      * @param int $end
+     * @param RateService $rateService
      * @return Response
      */
     #[Route('/calc/{id}/{start}/{end}')]

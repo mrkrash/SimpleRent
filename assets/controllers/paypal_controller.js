@@ -83,8 +83,9 @@ export default class extends Controller {
                         body: JSON.stringify(({
                             order: data
                         }))
+                    }).then((res) => {
+                        window.location = res.url;
                     })
-                    console.log(data)
                 }
             }).render('#paypal-button');
         }).catch((err) => {

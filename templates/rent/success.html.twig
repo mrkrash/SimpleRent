@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Grazie per averci Scelto{% endblock %}
+{% block body %}
+  <section class="hero is-primary is-small">
+    <div class="hero-body" style="padding: 8px 0 0;">
+      <div class="columns">
+        <div class="column">
+          <div class="container has-text-centered pb-3">
+            <p class="title">Grazie per averci Scelto</p>
+            <p class="subtitle">A breve riceverai i dettagli della prenotazione all'indirizzo email che ci hai fornito</p>
+            <p class="">Per qualunque esigenza, non esitare a contattarci ai nostri contatti</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+{% include('home/partials/why_section.html.twig') %}
+{% endblock %}

@@ -2,18 +2,12 @@
 
 namespace App\Controller;
 
-use App\Entity\Booking;
-use App\Entity\Dto\ProductDto;
 use App\Entity\Page;
 use App\Product\Domain\Entity\Product;
 use App\Product\Infrastructure\Repository\ProductRepository;
-use App\Repository\BookingRepository;
-use App\Repository\CustomerRepository;
 use App\Repository\PageRepository;
 use App\Repository\StructureRepository;
-use DateTimeImmutable;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
