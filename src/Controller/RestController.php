@@ -2,11 +2,8 @@
 
 namespace App\Controller;
 
-use App\Booking\Domain\Entity\Booking;
 use App\Booking\Infrastructure\Repository\BookingRepository;
 use App\Cart\Application\Service\RateService;
-use App\Customer\Infrastructure\Repository\CustomerRepository;
-use App\Entity\Dto\ProductDto;
 use App\Product\Domain\Entity\Product;
 use DateTimeImmutable;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;

@@ -3,13 +3,9 @@
 namespace App\Cart\Application\Controller;
 
 use App\Booking\Application\Service\BookingService;
-use App\Booking\Domain\Entity\Booking;
-use App\Booking\Infrastructure\Repository\BookingRepository;
 use App\Cart\Application\Service\CartService;
 use App\Cart\Application\Service\TransactionService;
-use App\Cart\Domain\Entity\Transaction;
 use App\Cart\Domain\Service\PaymentServiceInterface;
-use App\Cart\Infrastructure\Repository\TransactionRepository;
 use App\Customer\Application\Service\CustomerService;
 use App\Shared\DTO\CustomerDto;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;

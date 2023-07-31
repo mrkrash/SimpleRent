@@ -5,12 +5,13 @@ namespace App\Booking\Domain\Entity;
 use App\Booking\Infrastructure\Repository\BookingRepository;
 use App\Cart\Domain\Entity\Transaction;
 use App\Customer\Domain\Entity\Customer;
-use App\Entity\Dto\AccessoryDto;
-use App\Entity\Dto\ProductDto;
+use App\Product\Domain\Entity\Product;
 use App\Shared\Traits\AutoCreatedAtTrait;
 use App\Shared\Traits\AutoDeletedAtTrait;
 use App\Shared\Traits\AutoUpdatedAtTrait;
 use DateTimeImmutable;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -39,22 +40,18 @@ class Booking
     #[ORM\JoinColumn(nullable: false)]
     private ?Customer $customer = null;
 
-    #[ORM\Column(type: Types::JSON)]
-    private ?array $products;
-
-    #[ORM\Column(type: Types::JSON)]
-    private ?array $accessories;
-
     #[ORM\OneToOne(inversedBy: 'booking')]
     private ?Transaction $transaction;
 
-    #[ORM\Column()]
+    #[ORM\Column]
     private int $rate = 0;
+
+    #[ORM\ManyToMany(targetEntity: Product::class, inversedBy: 'bookings')]
+    private Collection $products;
 
     public function __construct()
     {
-        $this->products = [];
-        $this->accessories = [];
+        $this->products = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -121,42 +118,6 @@ class Booking
         return $this;
     }
 
-    /**
-     * @return ProductDto[]
-     */
-    public function getProducts(): array
-    {
-        return $this->products;
-    }
-    public function setProducts(array $products): self
-    {
-        $this->products = $products;
-
-        return $this;
-    }
-
-    public function addProduct(ProductDto $product): self
-    {
-        $this->products[] = $product;
-
-        return $this;
-    }
-
-    /**
-     * @return AccessoryDto[]
-     */
-    public function getAccessories(): array
-    {
-        return $this->accessories;
-    }
-
-    public function addAccessory(AccessoryDto $accessory): self
-    {
-        $this->accessories[] = $accessory;
-
-        return $this;
-    }
-
     public function getTransaction(): ?Transaction
     {
         return $this->transaction;
@@ -165,6 +126,30 @@ class Booking
     public function setTransaction(?Transaction $transaction): Booking
     {
         $this->transaction = $transaction;
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Product>
+     */
+    public function getProducts(): Collection
+    {
+        return $this->products;
+    }
+
+    public function addProduct(Product $product): self
+    {
+        if (!$this->products->contains($product)) {
+            $this->products->add($product);
+        }
+
+        return $this;
+    }
+
+    public function removeProduct(Product $product): self
+    {
+        $this->products->removeElement($product);
+
         return $this;
     }
 

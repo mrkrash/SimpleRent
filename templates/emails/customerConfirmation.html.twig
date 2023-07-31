@@ -2,13 +2,14 @@
 
 <p>
   Ciao {{ customer.firstname }} {{ customer.lastname }},<br>
-  abbiamo appena ricevuto la tua prenotazione e ti attendiamo in negozio per ritirare quanto prenotato:
+  abbiamo appena ricevuto la tua prenotazione dal {{ booking.dateStart }} al {{ booking.dateEnd }}.
 </p>
 <p>Qui un breve riepilogo:</p>
 <table>
   {% for product in booking.products %}
   <tr>
-    <td></td>
+    <td>{{ product.name }}</td>
   </tr>
   {% endfor %}
 </table>
+<p>Ti attendiamo in negozio.</p>
