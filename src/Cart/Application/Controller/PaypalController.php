@@ -66,11 +66,11 @@ class PaypalController extends AbstractController
         $order = $this->paymentService->createOrder(
             $cart->getRate(),
             $booking->getId(),
-            $request->server->get('HTTP_HOST') . $this->generateUrl('paypal_landing'),
-            $request->server->get('HTTP_HOST') . $this->generateUrl('paypal_cancel'),
+            $request->server->get('HTTP_HOST') . $this->generateUrl('payment_landing'),
+            $request->server->get('HTTP_HOST') . $this->generateUrl('payment_cancel'),
         );
 
-        $this->transactionService->save(
+        $transaction = $this->transactionService->save(
             $order['id'],
             $order['status'],
             $order,
@@ -79,6 +79,8 @@ class PaypalController extends AbstractController
             0,
             $booking
         );
+        $booking->setTransaction($transaction);
+        $bookingService->update($booking);
 
         return new JsonResponse($order);
     }
@@ -91,6 +93,7 @@ class PaypalController extends AbstractController
         $transaction = $this->transactionService->retrieveByTransportId($order['orderID']);
 
         if (null !== $transaction && $this->paymentService->checkoutOrder($order['orderID'], $transaction)) {
+            $this->transactionService->notifyPeers($transaction);
             return new RedirectResponse('/payment/landing');
         }
 

@@ -157,4 +157,15 @@ class Booking
         return $this;
     }
 
+    public function getTransaction(): ?Transaction
+    {
+        return $this->transaction;
+    }
+
+    public function setTransaction(?Transaction $transaction): Booking
+    {
+        $this->transaction = $transaction;
+        return $this;
+    }
+
 }

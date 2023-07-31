@@ -6,6 +6,7 @@ use App\Customer\Domain\Entity\Customer;
 use App\Customer\Domain\Repository\CustomerRepositoryInterface;
 use App\Shared\DTO\CustomerDto;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -41,12 +42,15 @@ class CustomerRepository extends ServiceEntityRepository implements CustomerRepo
         }
     }
 
+    /**
+     * @throws NonUniqueResultException
+     */
     public function findByDto(CustomerDto $customerDto): ?Customer
     {
-        $this->createQueryBuilder('c')
-            ->where('c.firstname = :fisrtname')
+        return $this->createQueryBuilder('c')
+            ->andWhere('c.firstname = :firstname')
             ->andWhere('c.lastname = :lastname')
-            ->andWhere('c.phone = :email')
+            ->andWhere('c.phone = :phone')
             ->andWhere('c.email = :email')
             ->setParameter('firstname', $customerDto->getFirstname())
             ->setParameter('lastname', $customerDto->getLastname())

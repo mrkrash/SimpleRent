@@ -33,4 +33,10 @@ class BookingService
 
         return $booking;
     }
+
+    public function update(Booking $booking): Booking
+    {
+        $this->bookingRepository->save($booking, true);
+        return $booking;
+    }
 }

@@ -7,10 +7,11 @@ use App\Shared\Traits\AutoCreatedAtTrait;
 use App\Shared\Traits\AutoDeletedAtTrait;
 use App\Shared\Traits\AutoUpdatedAtTrait;
 use Doctrine\ORM\Mapping as ORM;
+use JsonSerializable;
 
 #[ORM\Entity(repositoryClass: CartItemRepository::class)]
 #[ORM\HasLifecycleCallbacks]
-class CartItem
+class CartItem implements JsonSerializable
 {
     use AutoCreatedAtTrait;
     use AutoUpdatedAtTrait;
@@ -99,4 +100,12 @@ class CartItem
         return $this;
     }
 
+    public function jsonSerialize(): array
+    {
+        return [
+            'productId' => $this->productId,
+            'qty' => $this->qty,
+            'size' => $this->size,
+        ];
+    }
 }

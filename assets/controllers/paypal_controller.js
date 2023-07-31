@@ -56,7 +56,7 @@ export default class extends Controller {
                     }
                 },
                 createOrder: (data, actions) => {
-                    return fetch("/rest/paypal/create", {
+                    return fetch("/paypal/create", {
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json",
@@ -75,7 +75,7 @@ export default class extends Controller {
                     }).then((res) => res.json()).then((order) => order.id);
                 },
                 onApprove: (data) => {
-                    return fetch("/rest/paypal/capture", {
+                    return fetch("/paypal/capture", {
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json",

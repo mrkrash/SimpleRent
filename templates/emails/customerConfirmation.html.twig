@@ -1,0 +1,14 @@
+<h1>La tua prenotazione</h1>
+
+<p>
+  Ciao {{ customer.firstname }} {{ customer.lastname }},<br>
+  abbiamo appena ricevuto la tua prenotazione e ti attendiamo in negozio per ritirare quanto prenotato:
+</p>
+<p>Qui un breve riepilogo:</p>
+<table>
+  {% for product in booking.products %}
+  <tr>
+    <td></td>
+  </tr>
+  {% endfor %}
+</table>
