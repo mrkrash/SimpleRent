@@ -5,7 +5,6 @@ namespace App\Booking\Domain\Entity;
 use App\Booking\Infrastructure\Repository\BookingRepository;
 use App\Cart\Domain\Entity\Transaction;
 use App\Customer\Domain\Entity\Customer;
-use App\Product\Domain\Entity\Product;
 use App\Shared\Traits\AutoCreatedAtTrait;
 use App\Shared\Traits\AutoDeletedAtTrait;
 use App\Shared\Traits\AutoUpdatedAtTrait;
@@ -46,12 +45,12 @@ class Booking
     #[ORM\Column]
     private int $rate = 0;
 
-    #[ORM\ManyToMany(targetEntity: Product::class, inversedBy: 'bookings')]
-    private Collection $products;
+    #[ORM\OneToMany(mappedBy: 'booking', targetEntity: BookedProduct::class, cascade: ['persist'], orphanRemoval: true)]
+    private Collection $bookedProduct;
 
     public function __construct()
     {
-        $this->products = new ArrayCollection();
+        $this->bookedProduct = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -130,25 +129,31 @@ class Booking
     }
 
     /**
-     * @return Collection<int, Product>
+     * @return Collection<int, BookedProduct>
      */
-    public function getProducts(): Collection
+    public function getBookedProduct(): Collection
     {
-        return $this->products;
+        return $this->bookedProduct;
     }
 
-    public function addProduct(Product $product): self
+    public function addProduct(BookedProduct $product): self
     {
-        if (!$this->products->contains($product)) {
-            $this->products->add($product);
+        if (!$this->bookedProduct->contains($product)) {
+            $this->bookedProduct->add($product);
+            $product->setBooking($this);
         }
 
         return $this;
     }
 
-    public function removeProduct(Product $product): self
+    public function removeProduct(BookedProduct $product): self
     {
-        $this->products->removeElement($product);
+        if ($this->bookedProduct->removeElement($product)) {
+            // set the owning side to null (unless already changed)
+            if ($product->getBooking() === $this) {
+                $product->setBooking(null);
+            }
+        }
 
         return $this;
     }

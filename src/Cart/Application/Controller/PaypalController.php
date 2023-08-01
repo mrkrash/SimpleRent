@@ -55,7 +55,7 @@ class PaypalController extends AbstractController
             $customer,
             $cart->getDateStart(),
             $cart->getDateEnd(),
-            $cart->getCartItems()->toArray(),
+            $cart->getCartItems(),
             $cart->getRate()
         );
 

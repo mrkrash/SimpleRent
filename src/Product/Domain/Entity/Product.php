@@ -2,7 +2,7 @@
 
 namespace App\Product\Domain\Entity;
 
-use App\Booking\Domain\Entity\Booking;
+use App\Booking\Domain\Entity\BookedProduct;
 use App\Product\Infrastructure\Repository\ProductRepository;
 use App\Shared\Enum\BicycleType;
 use App\Shared\Enum\Gender;
@@ -50,7 +50,7 @@ class Product
     #[ORM\JoinColumn(nullable: false)]
     private ?PriceList $priceList = null;
 
-    #[ORM\Column()]
+    #[ORM\Column]
     private Gender $gender;
 
     #[ORM\Column]
@@ -67,12 +67,12 @@ class Product
     private int $sizeL = 0;
     private int $sizeXL = 0;
 
-    #[ORM\ManyToMany(targetEntity: Booking::class, mappedBy: 'products')]
-    private Collection $bookings;
+    #[ORM\OneToMany(mappedBy: 'product', targetEntity: BookedProduct::class, cascade: ['persist'])]
+    private ?Collection $bookedProduct = null;
 
     public function __construct()
     {
-        $this->bookings = new ArrayCollection();
+        $this->bookedProduct = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -285,30 +285,31 @@ class Product
         return $this;
     }
 
-    /**
-     * @return Collection<int, Booking>
-     */
-    public function getBookings(): Collection
+    public function getBookedProduct(): ?Collection
     {
-        return $this->bookings;
+        return $this->bookedProduct;
     }
 
-    public function addBooking(Booking $booking): self
+    public function addProduct(BookedProduct $product): self
     {
-        if (!$this->bookings->contains($booking)) {
-            $this->bookings->add($booking);
-            $booking->addProduct($this);
+        if (!$this->bookedProduct->contains($product)) {
+            $this->bookedProduct->add($product);
+            $product->setProduct($this);
         }
 
         return $this;
     }
 
-    public function removeBooking(Booking $booking): self
+    public function removeProduct(BookedProduct $product): self
     {
-        if ($this->bookings->removeElement($booking)) {
-            $booking->removeProduct($this);
+        if ($this->bookedProduct->removeElement($product)) {
+            // set the owning side to null (unless already changed)
+            if ($product->getProduct() === $this) {
+                $product->setProduct(null);
+            }
         }
 
         return $this;
     }
+
 }

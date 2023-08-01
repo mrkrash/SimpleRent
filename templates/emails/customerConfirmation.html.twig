@@ -2,14 +2,33 @@
 
 <p>
   Ciao {{ customer.firstname }} {{ customer.lastname }},<br>
-  abbiamo appena ricevuto la tua prenotazione dal {{ booking.dateStart }} al {{ booking.dateEnd }}.
+  abbiamo appena ricevuto la tua prenotazione dal {{ booking.dateStart|date('d/m/Y') }} al {{ booking.dateEnd|date('d/m/Y') }}.
 </p>
 <p>Qui un breve riepilogo:</p>
 <table>
-  {% for product in booking.products %}
+  {% for product in booking.bookedProduct %}
   <tr>
-    <td>{{ product.name }}</td>
+    <td>{{ product.product.name }}</td>
+    <td>{{ product.size }}</td>
+    <td>{{ product.qty }}</td>
   </tr>
   {% endfor %}
 </table>
 <p>Ti attendiamo in negozio.</p>
+
+<div class="block">
+  <h3 class="title is-3">MC Rent Bike Ragusa</h3>
+  <h5 class="subtitle is-5">{{ 'noleggio_biciclette_e_scooter_breve_medio_e_lungo'|trans|raw }}</h5>
+  <address>
+    via del Mercato 210<br>
+    Ragusa Ibla<br>
+    Ragusa
+  </address>
+  <p>Tel.0932 518437</p>
+  <a href="mailto:info@mcrentbikeragusa.com">info@mcrentbikeragusa.com</a>
+  <a href="https://www.facebook.com/mcrentbikeragusa" target="_blank" title="Facebook Page" class="mt-4 is-size-4">
+            <span class="icon is-large">
+                <i class="fa-brands fa-facebook" ></i>
+            </span>
+  </a>
+</div>

@@ -2,15 +2,20 @@
 
 namespace App\Booking\Application\Service;
 
+use App\Booking\Domain\Entity\BookedProduct;
 use App\Booking\Domain\Entity\Booking;
 use App\Booking\Domain\Repository\BookingRepositoryInterface;
+use App\Cart\Domain\Entity\CartItem;
 use App\Customer\Domain\Entity\Customer;
+use App\Product\Application\Service\ProductService;
 use DateTimeImmutable;
+use Doctrine\Common\Collections\Collection;
 
 class BookingService
 {
     public function __construct(
-        private readonly BookingRepositoryInterface $bookingRepository
+        private readonly BookingRepositoryInterface $bookingRepository,
+        private readonly ProductService $productService,
     ) {
     }
 
@@ -18,7 +23,7 @@ class BookingService
         Customer $customer,
         DateTimeImmutable $start,
         DateTimeImmutable $end,
-        array $items,
+        Collection $items,
         int $rate
     ): Booking
     {
@@ -26,9 +31,18 @@ class BookingService
             ->setCustomer($customer)
             ->setDateStart($start)
             ->setDateEnd($end)
-            ->setProducts($items)
             ->setRate($rate)
         ;
+        /** @var CartItem $item */
+        foreach ($items as $item) {
+            $product = $this->productService->retrieveById($item->getProductId());
+            $booking->addProduct((new BookedProduct())
+                ->setProduct($product)
+                ->setBooking($booking)
+                ->setQty($item->getQty())
+                ->setSize($item->getSize())
+            );
+        }
         $this->bookingRepository->save($booking, true);
 
         return $booking;

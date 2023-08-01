@@ -124,7 +124,7 @@ class BookingControllerTest extends WebTestCase
         self::assertSame('Something New', $fixture[0]->getCreatedAt());
         self::assertSame('Something New', $fixture[0]->getUpdatedAt());
         self::assertSame('Something New', $fixture[0]->getDeletedAt());
-        self::assertSame('Something New', $fixture[0]->getProduct());
+        self::assertSame('Something New', $fixture[0]->getBookedProduct());
         self::assertSame('Something New', $fixture[0]->getCustomer());
         self::assertSame('Something New', $fixture[0]->getPaymentTransaction());
     }
