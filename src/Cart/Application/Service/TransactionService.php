@@ -8,12 +8,13 @@ use App\Cart\Domain\Repository\TransactionRepositoryInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
 use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mailer\Transport\TransportInterface;
 use Symfony\Component\Mime\Address;
 
 class TransactionService
 {
     public function __construct(
-        private readonly MailerInterface $mailer,
+        private readonly TransportInterface $mailer,
         private readonly TransactionRepositoryInterface $transactionRepository,
     ) {
     }
