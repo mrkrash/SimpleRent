@@ -3,11 +3,13 @@
 namespace App\Product\Application\Controller;
 
 use App\Product\Application\Form\ProductFormType;
+use App\Product\Application\Service\ProductService;
 use App\Product\Domain\Entity\Product;
 use App\Product\Domain\Entity\ProductQty;
 use App\Product\Infrastructure\Repository\PriceListRepository;
 use App\Product\Infrastructure\Repository\ProductQtyRepository;
 use App\Product\Infrastructure\Repository\ProductRepository;
+use App\Shared\Enum\BicycleType;
 use App\Shared\Enum\ProductType;
 use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -23,10 +25,15 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 class ProductController extends AbstractController
 {
     #[Route('/', name: 'app_product_index', methods: ['GET'])]
-    public function index(ProductRepository $productRepository): Response
+    public function index(ProductService $productService): Response
     {
         return $this->render('product/index.html.twig', [
-            'products' => $productRepository->findAll(),
+            'products' => [
+                $productService->retrieveOneByType(BicycleType::MONTAINBIKE),
+                $productService->retrieveOneByType(BicycleType::EBIKE),
+                $productService->retrieveOneByType(BicycleType::GRAVEL),
+                $productService->retrieveOneByType(BicycleType::RACINGBIKE),
+            ]
         ]);
     }
 

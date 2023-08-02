@@ -6,4 +6,5 @@ enum ProductType: string
 {
     case BYCICLE = 'Bycicle';
     case SCOOTER = 'Scooter';
+    case ACCESSORY = 'Accessory';
 }
