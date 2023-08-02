@@ -5,11 +5,11 @@
 {% block body %}
   <p class="uppercase has-text-centered title is-2">{{ title }}</p>
   <p class="has-text-centered subtitle is-4">La Nostra Selezione di</p>
-<section class="section">
-  <div class="columns product">
+<section class="section" data-controller='carousel'>
+  <div class="columns product carousel">
     {% for product in products %}
       {% if product.qty > 0 %}
-        <div class="column is-one-quarter mt-3">
+        <div class="column mt-3">
           {% include 'home/partials/card.html.twig' %}
         </div>
       {% endif %}
