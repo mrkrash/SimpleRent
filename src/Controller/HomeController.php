@@ -9,8 +9,11 @@ use App\Product\Infrastructure\Repository\ProductRepository;
 use App\Repository\PageRepository;
 use App\Repository\StructureRepository;
 use App\Shared\Enum\BicycleType;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Address;
 use Symfony\Component\Routing\Annotation\Route;
 
 class HomeController extends AbstractController
@@ -125,8 +128,17 @@ class HomeController extends AbstractController
     }
 
     #[Route('/scooter', name: 'scooter')]
-    public function scooter(): Response
+    public function scooter(MailerInterface $mailer): Response
     {
+        $email = (new TemplatedEmail())
+            ->from('noreply@mcrentbikeragusa.com')
+            ->to(new Address('mario@raval.li'))
+            ->replyTo('info@mcrentbikeragusa.com')
+            ->subject('La tua prenotazione')
+            ->htmlTemplate('emails/customerConfirmation.html.twig')
+
+        ;
+        $mailer->send($email);
         return $this->render('coming.html.twig');
     }
 
