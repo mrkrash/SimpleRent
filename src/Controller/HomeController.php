@@ -3,10 +3,12 @@
 namespace App\Controller;
 
 use App\Entity\Page;
+use App\Product\Application\Service\ProductService;
 use App\Product\Domain\Entity\Product;
 use App\Product\Infrastructure\Repository\ProductRepository;
 use App\Repository\PageRepository;
 use App\Repository\StructureRepository;
+use App\Shared\Enum\BicycleType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -14,11 +16,16 @@ use Symfony\Component\Routing\Annotation\Route;
 class HomeController extends AbstractController
 {
     #[Route('/', name: 'app_home')]
-    public function index(ProductRepository $productRepository): Response
+    public function index(ProductService $productService): Response
     {
         return $this->render('home/index.html.twig', [
             'controller_name' => 'HomeController',
-            'products' => $productRepository->findEnabled(),
+            'products' => [
+                $productService->retrieveOneByType(BicycleType::MOUNTAINBIKE),
+                $productService->retrieveOneByType(BicycleType::EBIKE),
+                $productService->retrieveOneByType(BicycleType::GRAVEL),
+                $productService->retrieveOneByType(BicycleType::RACINGBIKE),
+            ],
         ]);
     }
 

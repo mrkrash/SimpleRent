@@ -6,6 +6,6 @@ enum BicycleType: string
 {
     case EBIKE = 'eBike';
     case GRAVEL = 'Gravel';
-    case MONTAINBIKE = 'MontainBike';
+    case MOUNTAINBIKE = 'MountainBike';
     case RACINGBIKE = 'RacingBike';
 }

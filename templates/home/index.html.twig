@@ -7,7 +7,7 @@
     <section class="section">
         <div class="columns product">
             {% for product in products %}
-                {% if product.qty > 0 %}
+                {% if product is not null and product.qty > 0 %}
                     <div class="column is-one-quarter mt-3">
                         {% include 'home/partials/card.html.twig' %}
                     </div>

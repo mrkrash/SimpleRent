@@ -20,6 +20,6 @@ final class ProductService
 
     public function retrieveOneByType(BicycleType $type): ?Product
     {
-        return $this->productRepository->findOneBy(['type' => $type]);
+        return $this->productRepository->findOneBy(['bicycleType' => $type]);
     }
 }
