@@ -135,7 +135,7 @@ class HomeController extends AbstractController
             ->to(new Address('mario@raval.li'))
             ->replyTo('info@mcrentbikeragusa.com')
             ->subject('La tua prenotazione')
-            ->htmlTemplate('emails/customerConfirmation.html.twig')
+            ->htmlTemplate('emails/test.html.twig')
 
         ;
         $mailer->send($email);
