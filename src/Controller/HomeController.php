@@ -7,12 +7,10 @@ use App\Product\Application\Service\ProductService;
 use App\Product\Domain\Entity\Product;
 use App\Product\Infrastructure\Repository\ProductRepository;
 use App\Repository\PageRepository;
-use App\Repository\StructureRepository;
 use App\Shared\Enum\BicycleType;
-use Symfony\Bridge\Twig\Mime\TemplatedEmail;
+use App\Site\Affiliate\Infrastructure\Repository\AffiliateRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Mime\Address;
 use Symfony\Component\Routing\Annotation\Route;
 
 class HomeController extends AbstractController
@@ -43,11 +41,11 @@ class HomeController extends AbstractController
         return $this->render('coming.html.twig');
     }
 
-    #[Route('/dove-alloggiare', name: 'where_to_stay')]
-    public function whereToStay(StructureRepository $structureRepository): Response
+    #[Route('/strutture-convenzionate', name: 'where_to_stay')]
+    public function whereToStay(AffiliateRepository $affiliateRepository): Response
     {
         return $this->render('home/where_stay.html.twig', [
-            'structures' => $structureRepository->findAll()
+            'affiliates' => $affiliateRepository->findAll()
         ]);
     }
 

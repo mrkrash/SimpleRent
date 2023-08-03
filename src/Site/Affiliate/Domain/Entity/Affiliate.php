@@ -1,16 +1,16 @@
 <?php
 
-namespace App\Entity;
+namespace App\Site\Affiliate\Domain\Entity;
 
-use App\Repository\StructureRepository;
 use App\Shared\Traits\AutoCreatedAtTrait;
 use App\Shared\Traits\AutoDeletedAtTrait;
 use App\Shared\Traits\AutoUpdatedAtTrait;
+use App\Site\Affiliate\Infrastructure\Repository\AffiliateRepository;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: StructureRepository::class)]
+#[ORM\Entity(repositoryClass: AffiliateRepository::class)]
 #[ORM\HasLifecycleCallbacks]
-class Structure
+class Affiliate
 {
     use AutoCreatedAtTrait;
     use AutoUpdatedAtTrait;

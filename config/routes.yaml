@@ -3,6 +3,11 @@ controllers:
         path: ../src/Controller/
         namespace: App\Controller
     type: attribute
+controllersAffiliate:
+    resource:
+        path: ../src/Site/Affiliate/Application/Controller/
+        namespace: App\Site\Affiliate\Application\Controller
+    type: attribute
 controllersBooking:
     resource:
         path: ../src/Booking/Application/Controller/

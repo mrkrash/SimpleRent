@@ -13,7 +13,7 @@
             </div>
             <div class="level-right">
                 <div class="level-item">
-                    <a href="{{ path('app_structure_new') }}" class="button is-primary">Aggiungi un nuova Struttura</a>
+                    <a href="{{ path('app_affiliate_new') }}" class="button is-primary">Aggiungi un nuova Struttura</a>
                 </div>
             </div>
         </div>
@@ -29,14 +29,14 @@
             </tr>
         </thead>
         <tbody>
-        {% for structure in structures %}
+        {% for affiliate in affiliates %}
             <tr>
-                <td>{{ structure.name }}</td>
-                <td>{{ structure.address }}</td>
-                <td>{{ structure.web }}</td>
+                <td>{{ affiliate.name }}</td>
+                <td>{{ affiliate.address }}</td>
+                <td>{{ affiliate.web }}</td>
                 <td>
-                    <a href="{{ path('app_structure_show', {'id': structure.id}) }}">Modifica</a>
-                    <a href="{{ path('app_structure_edit', {'id': structure.id}) }}">Elimina</a>
+                    <a href="{{ path('app_affiliate_show', {'id': affiliate.id}) }}">Modifica</a>
+                    <a href="{{ path('app_affiliate_edit', {'id': affiliate.id}) }}">Elimina</a>
                 </td>
             </tr>
         {% else %}
