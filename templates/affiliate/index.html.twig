@@ -35,8 +35,14 @@
                 <td>{{ affiliate.address }}</td>
                 <td>{{ affiliate.web }}</td>
                 <td>
-                    <a href="{{ path('app_affiliate_show', {'id': affiliate.id}) }}">Modifica</a>
-                    <a href="{{ path('app_affiliate_edit', {'id': affiliate.id}) }}">Elimina</a>
+                    <p class="control">
+                        <a class="button" href="{{ path('app_affiliate_edit', {'id': affiliate.id}) }}">
+                                <span class="icon is-small">
+                                    <i class="fas fa-pencil"></i>
+                                </span>
+                            <span>Modifica</span>
+                        </a>
+                    </p>
                 </td>
             </tr>
         {% else %}

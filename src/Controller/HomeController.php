@@ -41,13 +41,7 @@ class HomeController extends AbstractController
         return $this->render('coming.html.twig');
     }
 
-    #[Route('/strutture-convenzionate', name: 'where_to_stay')]
-    public function whereToStay(AffiliateRepository $affiliateRepository): Response
-    {
-        return $this->render('home/where_stay.html.twig', [
-            'affiliates' => $affiliateRepository->findAll()
-        ]);
-    }
+
 
     #[Route('/ragusa-ibla', name: 'ragusa_ibla')]
     public function ragusaIbla(PageRepository $pageRepository): Response
