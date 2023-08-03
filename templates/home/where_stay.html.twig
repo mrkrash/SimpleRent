@@ -13,14 +13,14 @@
     </tr>
     </thead>
     <tbody>
-    {% for structure in structures %}
+    {% for affiliate in affiliates %}
       <tr>
-        <td><p class="title is-5">{{ structure.name }}</p></td>
+        <td><p class="title is-5">{{ affiliate.name }}</p></td>
         <td>
-          <a href="https://www.google.com/maps/search/{{ structure.address|replace({' ': '+'}) }}" target="_blank">{{ structure.address }}</a>
+          <a href="https://www.google.com/maps/search/{{ affiliate.address|replace({' ': '+'}) }}" target="_blank">{{ affiliate.address }}</a>
         </td>
         <td>
-          <a href="{{ structure.web }}" target="_blank">{{ structure.web }}</a>
+          <a href="{{ affiliate.web }}" target="_blank">{{ affiliate.web }}</a>
         </td>
       </tr>
     {% endfor %}

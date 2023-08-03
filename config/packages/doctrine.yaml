@@ -18,6 +18,11 @@ doctrine:
                 dir: '%kernel.project_dir%/src/Entity'
                 prefix: 'App\Entity'
                 alias: App
+            Affiliate:
+                is_bundle: false
+                dir: '%kernel.project_dir%/src/Site/Affiliate/Domain/Entity'
+                prefix: 'App\Site\Affiliate\Domain\Entity'
+                alias: Booking
             Booking:
                 is_bundle: false
                 dir: '%kernel.project_dir%/src/Booking/Domain/Entity'

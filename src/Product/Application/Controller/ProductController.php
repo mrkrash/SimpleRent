@@ -138,7 +138,7 @@ class ProductController extends AbstractController
     private function saveImage(FormInterface $form, string $uploadDir): ?string
     {
         $filename = null;
-        /** @var UploadedFile $file */
+        /** @var ?UploadedFile $file */
         $file = $form['uploadImage']->getData();
         if ($file) {
             $filename = bin2hex(random_bytes(6)) . '.' . $file->guessExtension();

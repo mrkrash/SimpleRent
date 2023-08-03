@@ -1,16 +1,17 @@
 <?php
 
-namespace App\Entity;
+namespace App\Site\Affiliate\Domain\Entity;
 
-use App\Repository\StructureRepository;
 use App\Shared\Traits\AutoCreatedAtTrait;
 use App\Shared\Traits\AutoDeletedAtTrait;
 use App\Shared\Traits\AutoUpdatedAtTrait;
+use App\Site\Affiliate\Infrastructure\Repository\AffiliateRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\File;
 
-#[ORM\Entity(repositoryClass: StructureRepository::class)]
+#[ORM\Entity(repositoryClass: AffiliateRepository::class)]
 #[ORM\HasLifecycleCallbacks]
-class Structure
+class Affiliate
 {
     use AutoCreatedAtTrait;
     use AutoUpdatedAtTrait;
@@ -29,6 +30,11 @@ class Structure
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $web = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $image = null;
+
+    private ?File $uploadImage;
 
     public function getId(): ?int
     {
@@ -67,6 +73,28 @@ class Structure
     public function setWeb(?string $web): self
     {
         $this->web = $web;
+
+        return $this;
+    }
+
+    public function getImage(): ?string
+    {
+        return $this->image;
+    }
+
+    public function setImage(string $image): void
+    {
+        $this->image = $image;
+    }
+
+    public function getUploadImage(): ?File
+    {
+        return $this->uploadImage;
+    }
+
+    public function setUploadImage(File $uploadImage): self
+    {
+        $this->uploadImage = $uploadImage;
 
         return $this;
     }

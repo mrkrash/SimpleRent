@@ -2,21 +2,21 @@
 
 namespace App\Test\Controller;
 
-use App\Entity\Structure;
-use App\Repository\StructureRepository;
+use App\Site\Affiliate\Domain\Entity\Affiliate;
+use App\Site\Affiliate\Infrastructure\Repository\AffiliateRepository;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class StructureControllerTest extends WebTestCase
 {
     private KernelBrowser $client;
-    private StructureRepository $repository;
-    private string $path = '/structure/';
+    private AffiliateRepository $repository;
+    private string $path = '/affiliate/';
 
     protected function setUp(): void
     {
         $this->client = static::createClient();
-        $this->repository = static::getContainer()->get('doctrine')->getRepository(Structure::class);
+        $this->repository = static::getContainer()->get('doctrine')->getRepository(Affiliate::class);
 
         foreach ($this->repository->findAll() as $object) {
             $this->repository->remove($object, true);
@@ -44,12 +44,12 @@ class StructureControllerTest extends WebTestCase
         self::assertResponseStatusCodeSame(200);
 
         $this->client->submitForm('Save', [
-            'structure[name]' => 'Testing',
-            'structure[address]' => 'Testing',
-            'structure[web]' => 'Testing',
+            'affiliate[name]' => 'Testing',
+            'affiliate[address]' => 'Testing',
+            'affiliate[web]' => 'Testing',
         ]);
 
-        self::assertResponseRedirects('/structure/');
+        self::assertResponseRedirects('/affiliate/');
 
         self::assertSame($originalNumObjectsInRepository + 1, count($this->repository->findAll()));
     }
@@ -57,7 +57,7 @@ class StructureControllerTest extends WebTestCase
     public function testShow(): void
     {
         $this->markTestIncomplete();
-        $fixture = new Structure();
+        $fixture = new Affiliate();
         $fixture->setName('My Title');
         $fixture->setAddress('My Title');
         $fixture->setWeb('My Title');
@@ -75,7 +75,7 @@ class StructureControllerTest extends WebTestCase
     public function testEdit(): void
     {
         $this->markTestIncomplete();
-        $fixture = new Structure();
+        $fixture = new Affiliate();
         $fixture->setName('My Title');
         $fixture->setAddress('My Title');
         $fixture->setWeb('My Title');
@@ -85,12 +85,12 @@ class StructureControllerTest extends WebTestCase
         $this->client->request('GET', sprintf('%s%s/edit', $this->path, $fixture->getId()));
 
         $this->client->submitForm('Update', [
-            'structure[name]' => 'Something New',
-            'structure[address]' => 'Something New',
-            'structure[web]' => 'Something New',
+            'affiliate[name]' => 'Something New',
+            'affiliate[address]' => 'Something New',
+            'affiliate[web]' => 'Something New',
         ]);
 
-        self::assertResponseRedirects('/structure/');
+        self::assertResponseRedirects('/affiliate/');
 
         $fixture = $this->repository->findAll();
 
@@ -105,7 +105,7 @@ class StructureControllerTest extends WebTestCase
 
         $originalNumObjectsInRepository = count($this->repository->findAll());
 
-        $fixture = new Structure();
+        $fixture = new Affiliate();
         $fixture->setName('My Title');
         $fixture->setAddress('My Title');
         $fixture->setWeb('My Title');
@@ -118,6 +118,6 @@ class StructureControllerTest extends WebTestCase
         $this->client->submitForm('Delete');
 
         self::assertSame($originalNumObjectsInRepository, count($this->repository->findAll()));
-        self::assertResponseRedirects('/structure/');
+        self::assertResponseRedirects('/affiliate/');
     }
 }

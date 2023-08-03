@@ -67,6 +67,9 @@ class Product
     private int $sizeL = 0;
     private int $sizeXL = 0;
 
+    /**
+     * @var ArrayCollection|null <int, BookedProduct>
+     */
     #[ORM\OneToMany(mappedBy: 'product', targetEntity: BookedProduct::class, cascade: ['persist'])]
     private ?Collection $bookedProduct = null;
 
