@@ -8,7 +8,6 @@ use App\Product\Domain\Entity\Product;
 use App\Product\Infrastructure\Repository\ProductRepository;
 use App\Repository\PageRepository;
 use App\Shared\Enum\BicycleType;
-use App\Site\Affiliate\Infrastructure\Repository\AffiliateRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -108,7 +107,7 @@ class HomeController extends AbstractController
     public function bicycle(string $type, ProductRepository $productRepository): Response
     {
         $products = $productRepository->findBy(['bicycleType' => $type, 'enabled' => true]);
-        if (null === $products) {
+        if (empty($products)) {
             return $this->render('not-found.html.twig');
         }
 

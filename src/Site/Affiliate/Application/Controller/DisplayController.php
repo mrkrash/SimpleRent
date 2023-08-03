@@ -12,7 +12,7 @@ class DisplayController extends AbstractController
     #[Route('/strutture-convenzionate', name: 'where_to_stay')]
     public function whereToStay(AffiliateRepository $affiliateRepository): Response
     {
-        return $this->render('home/where_stay.html.twig', [
+        return $this->render('affiliate/where_stay.html.twig', [
             'affiliates' => $affiliateRepository->findAll()
         ]);
     }
