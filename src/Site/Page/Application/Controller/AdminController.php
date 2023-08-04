@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Controller;
+namespace App\Site\Page\Application\Controller;
 
-use App\Entity\Page;
 use App\Form\PageFormType;
-use App\Repository\PageRepository;
+use App\Site\Page\Domain\Entity\Page;
+use App\Site\Page\Infrastructure\Repository\PageRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -13,7 +13,7 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 #[IsGranted('ROLE_ADMIN')]
 #[Route('/page')]
-class PageController extends AbstractController
+class AdminController extends AbstractController
 {
     #[Route('/', name: 'app_page_index', methods: ['GET'])]
     public function index(PageRepository $pageRepository): Response

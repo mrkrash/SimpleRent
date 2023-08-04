@@ -38,6 +38,11 @@ doctrine:
                 dir: '%kernel.project_dir%/src/Customer/Domain/Entity'
                 prefix: 'App\Customer\Domain\Entity'
                 alias: Customer
+            Page:
+                is_bundle: false
+                dir: '%kernel.project_dir%/src/Site/Page/Domain/Entity'
+                prefix: 'App\Site\Page\Domain\Entity'
+                alias: Page
             Product:
                 is_bundle: false
                 dir: '%kernel.project_dir%/src/Product/Domain/Entity'

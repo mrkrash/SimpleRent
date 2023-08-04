@@ -2,8 +2,8 @@
 
 namespace App\Test\Controller;
 
-use App\Entity\Page;
-use App\Repository\PageRepository;
+use App\Site\Page\Domain\Entity\Page;
+use App\Site\Page\Infrastructure\Repository\PageRepository;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 

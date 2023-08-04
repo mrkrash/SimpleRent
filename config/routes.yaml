@@ -23,6 +23,11 @@ controllersCustomer:
         path: ../src/Customer/Application/Controller/
         namespace: App\Customer\Application\Controller
     type: attribute
+controllersPage:
+    resource:
+        path: ../src/Site/Page/Application/Controller/
+        namespace: App\Site\Page\Application\Controller
+    type: attribute
 controllersProduct:
     resource:
         path: ../src/Product/Application/Controller/
