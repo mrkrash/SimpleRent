@@ -6,7 +6,6 @@ use App\Shared\Traits\AutoCreatedAtTrait;
 use App\Shared\Traits\AutoUpdatedAtTrait;
 use App\Site\Page\Infrastructure\Repository\SlideRepository;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\HttpFoundation\File\File;
 
 #[ORM\Entity(repositoryClass: SlideRepository::class)]
 #[ORM\HasLifecycleCallbacks]
@@ -23,11 +22,9 @@ class Slide
     #[ORM\Column(length: 255)]
     private string $name;
 
-    #[ORM\ManyToOne(targetEntity: Page::class, cascade: ['persist', 'remove'])]
+    #[ORM\ManyToOne(targetEntity: Page::class, cascade: ['persist'])]
     #[ORM\JoinColumn(nullable: false)]
     private ?Page $page = null;
-
-    private ?File $uploadImage;
 
     public function getId(): ?int
     {
@@ -59,17 +56,6 @@ class Slide
     public function setPage(?Page $page): Slide
     {
         $this->page = $page;
-        return $this;
-    }
-
-    public function getUploadImage(): ?File
-    {
-        return $this->uploadImage;
-    }
-
-    public function setUploadImage(?File $uploadImage): Slide
-    {
-        $this->uploadImage = $uploadImage;
         return $this;
     }
 }

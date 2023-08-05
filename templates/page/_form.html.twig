@@ -1,3 +1,15 @@
 {{ form_start(form) }}
-    {{ form_widget(form) }}
+<div class="help is-danger">
+    {{ form_errors(form) }}
+</div>
+<div class="columns">
+    <div class="column is-four-fifths">
+        {{ form_row(form.title) }}
+    </div>
+    <div class="column">
+        {{ form_row(form.lang) }}
+    </div>
+</div>
+{{ form_row(form.content) }}
+{{ form_row(form.uploadSlides) }}
 {{ form_end(form) }}

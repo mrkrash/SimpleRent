@@ -9,4 +9,22 @@
       {{ content|raw }}
     </p>
   </section>
+  {% if slides %}
+    <section class="hero is-large has-carousel" data-controller='carousel'>
+      <div class="hero-carousel carousel">
+        {% for slide in slides %}
+        <div class="item">
+          <figure class="image" style="display: flex; justify-content: center; height: 600px;">
+            <img src="/images/{{ slide.name }}" alt="MC Rent Bike Ragusa"/>
+          </figure>
+        </div>
+        {% endfor %}
+      </div>
+      <div class="hero-head"></div>
+      <div class="hero-body"></div>
+      <div class="hero-foot"></div>
+    </section>
+    {% include('home/partials/why_section.html.twig') %}
+    {% include('home/partials/map.html.twig') %}
+  {% endif %}
 {% endblock %}

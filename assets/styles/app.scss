@@ -52,6 +52,17 @@ a.navbar-item:focus, a.navbar-item:focus-within, a.navbar-item:hover, a.navbar-i
   background-color: transparent;
   color: #49b964;
 }
+.button.delete {
+  @extend %delete;
+}
+.button.delete.overlay {
+  @include overlay(0.5rem);
+  background-color: darkred;
+  border-radius: 0.25em;
+  color: white;
+  opacity: 0.9;
+  padding: 0.3em;
+}
 .carousel {
   margin-top: -3rem;
 }

@@ -10,6 +10,7 @@ use App\Site\Page\Infrastructure\Repository\PageRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\File;
 
 #[ORM\Entity(repositoryClass: PageRepository::class)]
 #[ORM\HasLifecycleCallbacks]
@@ -36,8 +37,11 @@ class Page
     #[ORM\Column(length: 2)]
     private ?Lang $lang = null;
 
-    #[ORM\OneToMany(mappedBy: 'page', targetEntity: Slide::class)]
+    #[ORM\OneToMany(mappedBy: 'page', targetEntity: Slide::class, cascade: ['persist', 'remove'])]
     private Collection $slides;
+
+    /** @var File[]|null  */
+    private ?array $uploadSlides;
 
     public function __construct()
     {
@@ -98,7 +102,7 @@ class Page
     /**
      * @return Collection<int, Slide>
      */
-    public function getImages(): Collection
+    public function getSlides(): Collection
     {
         return $this->slides;
     }
@@ -120,6 +124,17 @@ class Page
             }
         }
 
+        return $this;
+    }
+
+    public function getUploadSlides(): ?array
+    {
+        return $this->uploadSlides;
+    }
+
+    public function setUploadSlides(?array $uploadSlides): Page
+    {
+        $this->uploadSlides = $uploadSlides;
         return $this;
     }
 }

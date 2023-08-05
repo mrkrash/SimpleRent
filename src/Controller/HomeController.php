@@ -40,19 +40,6 @@ class HomeController extends AbstractController
         return $this->render('coming.html.twig');
     }
 
-
-
-    #[Route('/ragusa-ibla', name: 'ragusa_ibla')]
-    public function ragusaIbla(PageRepository $pageRepository): Response
-    {
-        /** @var Page $page */
-        $page = $pageRepository->findOneBy(['slug' => 'ragusa_ibla']);
-        return $this->render('home/generic.html.twig', [
-            'title' => $page->getTitle(),
-            'content' => $page->getContent(),
-        ]);
-    }
-
     #[Route('/percorsi-cicloturistici', name: 'cycling_routes')]
     public function cyclingRoutes(): Response
     {
