@@ -19,6 +19,22 @@
             <div class="column">
                 {{ include('page/_form.html.twig') }}
             </div>
+            <div class="column is-one-fifth" data-controller="slide">
+                <h3 class="title is-3">Slides</h3>
+
+                {% for slide in page.slides %}
+                    <div id="box-slide-{{ slide.id }}" style="position: relative;">
+                        <figure id="slide-{{ slide.id }}" class="image is-128x128">
+                            <img src="/images/{{ slide.name }}">
+                        </figure>
+                        <button
+                            class="button delete overlay is-small"
+                            data-action="slide#drop"
+                            data-slide-id-param="{{ slide.id }}"
+                        ></button>
+                    </div>
+                {% endfor %}
+            </div>
         </div>
     </section>
 {% endblock %}

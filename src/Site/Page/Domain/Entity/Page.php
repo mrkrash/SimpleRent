@@ -1,13 +1,16 @@
 <?php
 
-namespace App\Entity;
+namespace App\Site\Page\Domain\Entity;
 
-use App\Repository\PageRepository;
 use App\Shared\Enum\Lang;
 use App\Shared\Traits\AutoCreatedAtTrait;
 use App\Shared\Traits\AutoDeletedAtTrait;
 use App\Shared\Traits\AutoUpdatedAtTrait;
+use App\Site\Page\Infrastructure\Repository\PageRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\File;
 
 #[ORM\Entity(repositoryClass: PageRepository::class)]
 #[ORM\HasLifecycleCallbacks]
@@ -16,6 +19,7 @@ class Page
     use AutoCreatedAtTrait;
     use AutoUpdatedAtTrait;
     use AutoDeletedAtTrait;
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
@@ -32,6 +36,17 @@ class Page
 
     #[ORM\Column(length: 2)]
     private ?Lang $lang = null;
+
+    #[ORM\OneToMany(mappedBy: 'page', targetEntity: Slide::class, cascade: ['persist', 'remove'])]
+    private Collection $slides;
+
+    /** @var File[]|null  */
+    private ?array $uploadSlides;
+
+    public function __construct()
+    {
+        $this->slides = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -84,4 +99,42 @@ class Page
         return $this;
     }
 
+    /**
+     * @return Collection<int, Slide>
+     */
+    public function getSlides(): Collection
+    {
+        return $this->slides;
+    }
+
+    public function addSlide(Slide $slide): self
+    {
+        if (!$this->slides->contains($slide)) {
+            $this->slides->add($slide);
+        }
+
+        return $this;
+    }
+
+    public function removeSlide(Slide $slide): self
+    {
+        if ($this->slides->removeElement($slide)) {
+            if ($slide->getPage() === $this) {
+                $slide->setPage(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getUploadSlides(): ?array
+    {
+        return $this->uploadSlides;
+    }
+
+    public function setUploadSlides(?array $uploadSlides): Page
+    {
+        $this->uploadSlides = $uploadSlides;
+        return $this;
+    }
 }

@@ -2,12 +2,12 @@
 
 namespace App\Controller;
 
-use App\Entity\Page;
 use App\Product\Application\Service\ProductService;
 use App\Product\Domain\Entity\Product;
 use App\Product\Infrastructure\Repository\ProductRepository;
-use App\Repository\PageRepository;
 use App\Shared\Enum\BicycleType;
+use App\Site\Page\Domain\Entity\Page;
+use App\Site\Page\Infrastructure\Repository\PageRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -38,19 +38,6 @@ class HomeController extends AbstractController
     public function tours(): Response
     {
         return $this->render('coming.html.twig');
-    }
-
-
-
-    #[Route('/ragusa-ibla', name: 'ragusa_ibla')]
-    public function ragusaIbla(PageRepository $pageRepository): Response
-    {
-        /** @var Page $page */
-        $page = $pageRepository->findOneBy(['slug' => 'ragusa_ibla']);
-        return $this->render('home/generic.html.twig', [
-            'title' => $page->getTitle(),
-            'content' => $page->getContent(),
-        ]);
     }
 
     #[Route('/percorsi-cicloturistici', name: 'cycling_routes')]
