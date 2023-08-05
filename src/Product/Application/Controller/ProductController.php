@@ -9,6 +9,7 @@ use App\Product\Infrastructure\Repository\PriceListRepository;
 use App\Product\Infrastructure\Repository\ProductQtyRepository;
 use App\Product\Infrastructure\Repository\ProductRepository;
 use App\Shared\Enum\ProductType;
+use App\Shared\Service\FileUploader;
 use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\FormInterface;
@@ -39,7 +40,7 @@ class ProductController extends AbstractController
         ProductRepository $productRepository,
         ProductQtyRepository $productQtyRepository,
         PriceListRepository $priceListRepository,
-        string $uploadDir
+        FileUploader $fileUploader,
     ): Response {
         $product = new Product();
         $product->setType(ProductType::BYCICLE);
@@ -57,7 +58,11 @@ class ProductController extends AbstractController
                 ->setSizeXl($form['sizeXL']->getData())
                 ->setProduct($product)
             ;
-            $product->setImage($this->saveImage($form, $uploadDir));
+            /** @var ?UploadedFile $image */
+            $image = $form['uploadImage']->getData();
+            if ($image) {
+                $product->setImage($fileUploader->upload($image));
+            }
             $productRepository->save($product, true);
             $productQtyRepository->save($productQty, true);
 
@@ -87,7 +92,7 @@ class ProductController extends AbstractController
         Product $product,
         ProductRepository $productRepository,
         PriceListRepository $priceListRepository,
-        string $uploadDir
+        FileUploader $fileUploader,
     ): Response {
         $product->populateQty();
         $product->setType(ProductType::BYCICLE);
@@ -107,9 +112,10 @@ class ProductController extends AbstractController
                 ->setProduct($product)
             ;
             $product->setProductQty($productQty);
-            $filename = $this->saveImage($form, $uploadDir);
-            if (null !== $filename) {
-                $product->setImage($filename);
+            /** @var ?UploadedFile $image */
+            $image = $form['uploadImage']->getData();
+            if ($image) {
+                $product->setImage($fileUploader->upload($image));
             }
             $productRepository->save($product, true);
 
@@ -125,26 +131,11 @@ class ProductController extends AbstractController
     #[Route('/{id}', name: 'app_product_delete', methods: ['POST'])]
     public function delete(Request $request, Product $product, ProductRepository $productRepository): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$product->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $product->getId(), $request->request->get('_token'))) {
             $productRepository->remove($product, true);
         }
 
         return $this->redirectToRoute('app_product_index', [], Response::HTTP_SEE_OTHER);
     }
 
-    /**
-     * @throws Exception
-     */
-    private function saveImage(FormInterface $form, string $uploadDir): ?string
-    {
-        $filename = null;
-        /** @var ?UploadedFile $file */
-        $file = $form['uploadImage']->getData();
-        if ($file) {
-            $filename = bin2hex(random_bytes(6)) . '.' . $file->guessExtension();
-            $file->move($uploadDir, $filename);
-        }
-
-        return $filename;
-    }
 }

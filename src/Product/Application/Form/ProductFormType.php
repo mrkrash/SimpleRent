@@ -37,7 +37,10 @@ class ProductFormType extends AbstractType
             ->add('gender', EnumType::class, ['class' => Gender::class])
             ->add('ordering', NumberType::class, ['label' => 'Ordine'])
             ->add('enabled', CheckboxType::class, ['label' => 'Abilitato', 'required' => false])
-            ->add('uploadImage', DropzoneType::class, ['data_class' => null, 'required' => $options['require_main_image'],])
+            ->add('uploadImage', DropzoneType::class, [
+                'data_class' => null,
+                'required' => $options['require_main_image'],
+            ])
             ->add('save', SubmitType::class)
         ;
     }
