@@ -14,7 +14,7 @@ class DisplayController extends AbstractController
     public function ragusaIbla(PageRepository $pageRepository): Response
     {
         /** @var Page $page */
-        $page = $pageRepository->findOneBy(['slug' => 'ragusa-ibla']);
+        $page = $pageRepository->findOneBy(['slug' => 'ragusa_ibla']);
         return $this->render('home/generic.html.twig', [
             'title' => $page->getTitle(),
             'content' => $page->getContent(),

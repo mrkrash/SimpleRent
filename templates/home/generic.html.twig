@@ -9,7 +9,7 @@
       {{ content|raw }}
     </p>
   </section>
-  {% if slides %}
+  {% if slides is not empty %}
     <section class="hero is-large has-carousel" data-controller='carousel'>
       <div class="hero-carousel carousel">
         {% for slide in slides %}
