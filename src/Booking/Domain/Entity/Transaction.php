@@ -1,9 +1,8 @@
 <?php
 
-namespace App\Cart\Domain\Entity;
+namespace App\Booking\Domain\Entity;
 
-use App\Booking\Domain\Entity\Booking;
-use App\Cart\Infrastructure\Repository\TransactionRepository;
+use App\Booking\Infrastructure\Repository\TransactionRepository;
 use App\Shared\Traits\AutoCreatedAtTrait;
 use App\Shared\Traits\AutoDeletedAtTrait;
 use App\Shared\Traits\AutoUpdatedAtTrait;
@@ -20,8 +19,8 @@ class Transaction
     use AutoUpdatedAtTrait;
     use AutoDeletedAtTrait;
 
-    const STATUS_FRAUD_SUSPECTED = 'Fraud Suspected';
-    const STATUS_PAID = 'Order Payed';
+    public const STATUS_FRAUD_SUSPECTED = 'Fraud Suspected';
+    public const STATUS_PAID = 'Order Payed';
 
     #[ORM\Id]
     #[ORM\GeneratedValue]

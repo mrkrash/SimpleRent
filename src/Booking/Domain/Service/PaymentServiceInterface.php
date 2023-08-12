@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Cart\Domain\Service;
+namespace App\Booking\Domain\Service;
 
-use App\Cart\Domain\Entity\Transaction;
+use App\Booking\Domain\Entity\Transaction;
 
 interface PaymentServiceInterface
 {

@@ -4,8 +4,8 @@ namespace App\Booking\Application\Service;
 
 use App\Booking\Domain\Entity\BookedProduct;
 use App\Booking\Domain\Entity\Booking;
+use App\Booking\Domain\Entity\CartItem;
 use App\Booking\Domain\Repository\BookingRepositoryInterface;
-use App\Cart\Domain\Entity\CartItem;
 use App\Customer\Domain\Entity\Customer;
 use App\Product\Application\Service\ProductService;
 use DateTimeImmutable;
@@ -25,8 +25,7 @@ class BookingService
         DateTimeImmutable $end,
         Collection $items,
         int $rate
-    ): Booking
-    {
+    ): Booking {
         $booking = (new Booking())
             ->setCustomer($customer)
             ->setDateStart($start)
@@ -40,8 +39,7 @@ class BookingService
                 ->setProduct($product)
                 ->setBooking($booking)
                 ->setQty($item->getQty())
-                ->setSize($item->getSize())
-            );
+                ->setSize($item->getSize()));
         }
         $this->bookingRepository->save($booking, true);
 

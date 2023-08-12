@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Cart\Domain\Entity;
+namespace App\Booking\Domain\Entity;
 
-use App\Cart\Infrastructure\Repository\CartRepository;
+use App\Booking\Infrastructure\Repository\CartRepository;
 use App\Shared\Traits\AutoCreatedAtTrait;
 use App\Shared\Traits\AutoDeletedAtTrait;
 use App\Shared\Traits\AutoUpdatedAtTrait;
@@ -32,7 +32,7 @@ class Cart implements JsonSerializable
     private Collection $cartItems;
 
     #[ORM\Column]
-    private int $rate= 0;
+    private int $rate = 0;
 
     #[ORM\Column(type: Types::DATE_IMMUTABLE)]
     private ?DateTimeImmutable $dateStart = null;

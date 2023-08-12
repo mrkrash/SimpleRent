@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use App\Cart\Application\Service\CartService;
+use App\Booking\Application\Service\CartService;
 use App\Product\Application\Service\ProductService;
 use App\Product\Domain\Entity\Product;
 use App\Product\Infrastructure\Repository\ProductRepository;

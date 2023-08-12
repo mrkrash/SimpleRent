@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Cart\Infrastructure\Repository;
+namespace App\Booking\Infrastructure\Repository;
 
-use App\Cart\Domain\Entity\Transaction;
-use App\Cart\Domain\Repository\TransactionRepositoryInterface;
+use App\Booking\Domain\Entity\Transaction;
+use App\Booking\Domain\Repository\TransactionRepositoryInterface;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\Persistence\ManagerRegistry;

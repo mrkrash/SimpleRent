@@ -1,11 +1,13 @@
-<?php declare(strict_types=1);
+<?php
 
-namespace App\Cart\Application\Service;
+declare(strict_types=1);
 
-use App\Cart\Domain\Entity\Cart;
-use App\Cart\Domain\Entity\CartItem;
-use App\Cart\Domain\Repository\CartItemRepositoryInterface;
-use App\Cart\Domain\Repository\CartRepositoryInterface;
+namespace App\Booking\Application\Service;
+
+use App\Booking\Domain\Entity\Cart;
+use App\Booking\Domain\Entity\CartItem;
+use App\Booking\Domain\Repository\CartItemRepositoryInterface;
+use App\Booking\Domain\Repository\CartRepositoryInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 
 final class CartService

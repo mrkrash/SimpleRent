@@ -1,17 +1,18 @@
 <?php
 
-namespace App\Cart\Application\Service;
+namespace App\Booking\Application\Service;
 
-use App\Cart\Domain\Entity\Transaction;
-use App\Cart\Domain\Exception\PaymentCheckoutException;
-use App\Cart\Domain\Repository\TransactionRepositoryInterface;
-use App\Cart\Domain\Service\PaymentServiceInterface;
+use App\Booking\Domain\Entity\Transaction;
+use App\Booking\Domain\Exception\PaymentCheckoutException;
+use App\Booking\Domain\Repository\TransactionRepositoryInterface;
+use App\Booking\Domain\Service\PaymentServiceInterface;
 use Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\DecodingExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\ServerExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
+
 use function array_key_exists;
 
 class PaypalService implements PaymentServiceInterface
@@ -34,8 +35,7 @@ class PaypalService implements PaymentServiceInterface
         HttpClientInterface $paypalAuth,
         private readonly HttpClientInterface $paypalOrder,
         private readonly TransactionRepositoryInterface $transactionRepository,
-    )
-    {
+    ) {
         $responseBody = $paypalAuth->request('POST', '', [
             'body' => 'grant_type=client_credentials',
         ]);
@@ -105,7 +105,8 @@ class PaypalService implements PaymentServiceInterface
 
         $paypalOrder = $responseBody->toArray();
 
-        if ($this->paidRightAmount($paypalOrder, $transaction)
+        if (
+            $this->paidRightAmount($paypalOrder, $transaction)
             && $paypalOrder['intent'] === self::INTENT_CAPTURE
             && $paypalOrder['status'] === self::STATUS_APPROVED
         ) {
@@ -138,7 +139,8 @@ class PaypalService implements PaymentServiceInterface
         $responseHttpCode = $responseBody->getStatusCode();
         $response = $responseBody->toArray();
 
-        if ($responseHttpCode !== 201
+        if (
+            $responseHttpCode !== 201
             || !array_key_exists('status', $response)
             || $response['status'] !== self::STATUS_COMPLETED
         ) {
@@ -163,5 +165,4 @@ class PaypalService implements PaymentServiceInterface
 
         return true;
     }
-
 }

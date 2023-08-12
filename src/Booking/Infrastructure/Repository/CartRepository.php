@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Cart\Infrastructure\Repository;
+namespace App\Booking\Infrastructure\Repository;
 
-use App\Cart\Domain\Entity\Cart;
-use App\Cart\Domain\Repository\CartRepositoryInterface;
+use App\Booking\Domain\Entity\Cart;
+use App\Booking\Domain\Repository\CartRepositoryInterface;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 

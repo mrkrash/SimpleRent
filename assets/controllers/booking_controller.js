@@ -1,8 +1,4 @@
 import { Controller } from '@hotwired/stimulus';
-import { Calendar } from "@fullcalendar/core";
-import interactionPlugin from "@fullcalendar/interaction";
-import dayGridPlugin from '@fullcalendar/daygrid';
-import itLocale from '@fullcalendar/core/locales/it';
 
 const dateStartEl = document.getElementById('dateStart');
 const dateEndEl = document.getElementById('dateEnd');
@@ -60,29 +56,5 @@ export default class extends Controller {
                 })
         });
         calendar.render();
-    }
-
-    addProductToCart(e) {
-        const id = document.getElementById("id").value;
-        const size = document.getElementById("size").value;
-        const start = document.getElementById("start").value;
-        const end = document.getElementById("end").value;
-        fetch(`/rest/addToCart`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                id: id,
-                type: 'product',
-                size: size,
-                start: start,
-                end: end
-            })
-        })
-            .then(res => res.json())
-            .then(cart => {
-                window.location.href = '/book';
-            })
     }
 }

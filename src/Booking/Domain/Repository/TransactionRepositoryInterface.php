@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Cart\Domain\Repository;
+namespace App\Booking\Domain\Repository;
 
-use App\Cart\Domain\Entity\Transaction;
+use App\Booking\Domain\Entity\Transaction;
 
 interface TransactionRepositoryInterface
 {

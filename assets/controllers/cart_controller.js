@@ -1,0 +1,37 @@
+import {Controller} from "@hotwired/stimulus";
+
+export default class extends Controller {
+    addProductToCart(evt) {
+        fetch(`/book/addToCart`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                id: evt.params.id,
+                type: 'product',
+                size: evt.params.size
+            })
+        })
+            .then(res => res.json())
+            .then(result => {
+                if (result.thereisnomore) {
+                    evt.target.parentElement.setAttribute('disabled', 'disabled');
+                }
+            })
+    }
+
+    openTab(evt) {
+        let i, x, tablinks;
+        x = document.getElementsByClassName("content-tab");
+        for (i = 0; i < x.length; i++) {
+            x[i].style.display = "none";
+        }
+        tablinks = document.getElementsByClassName("tab");
+        for (i = 0; i < x.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" is-active", "");
+        }
+        document.getElementById(evt.params.tab).style.display = "block";
+        evt.currentTarget.className += " is-active";
+    }
+}

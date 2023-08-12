@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Cart\Infrastructure\Repository;
+namespace App\Booking\Infrastructure\Repository;
 
-use App\Cart\Domain\Entity\Cart;
-use App\Cart\Domain\Entity\CartItem;
-use App\Cart\Domain\Repository\CartItemRepositoryInterface;
+use App\Booking\Domain\Entity\Cart;
+use App\Booking\Domain\Entity\CartItem;
+use App\Booking\Domain\Repository\CartItemRepositoryInterface;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\Persistence\ManagerRegistry;

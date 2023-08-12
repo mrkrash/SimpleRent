@@ -2,8 +2,8 @@
 
 namespace App\Controller;
 
+use App\Booking\Application\Service\RateService;
 use App\Booking\Infrastructure\Repository\BookingRepository;
-use App\Cart\Application\Service\RateService;
 use App\Product\Domain\Entity\Product;
 use DateTimeImmutable;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -30,10 +30,9 @@ class RestController extends AbstractController
         int $start,
         int $end,
         BookingRepository $bookingRepository
-    ): Response
-    {
-        $startDate = (new DateTimeImmutable())->setTimestamp($start/1000);
-        $endDate = (new DateTimeImmutable())->setTimestamp($end/1000);
+    ): Response {
+        $startDate = (new DateTimeImmutable())->setTimestamp($start / 1000);
+        $endDate = (new DateTimeImmutable())->setTimestamp($end / 1000);
         $dates = [];
         $product->populateQty();
         foreach ($bookingRepository->checkDates($startDate, $endDate) as $booking) {
@@ -42,7 +41,7 @@ class RestController extends AbstractController
                 if (
                     $_product['id'] == $product->getId() &&
                     $_product['size'] == $size &&
-                    $_product['qty'] == $product->{'getSize'.$size}()
+                    $_product['qty'] == $product->{'getSize' . $size}()
                 ) {
                     $dates[] = [
                         'title' => 'Non Disponibile',
@@ -70,9 +69,9 @@ class RestController extends AbstractController
         int $start,
         int $end,
         RateService $rateService
-    ) : Response {
-        $startDate = (new DateTimeImmutable())->setTimestamp($start/1000);
-        $endDate = (new DateTimeImmutable())->setTimestamp($end/1000);
+    ): Response {
+        $startDate = (new DateTimeImmutable())->setTimestamp($start / 1000);
+        $endDate = (new DateTimeImmutable())->setTimestamp($end / 1000);
         $days = $endDate->diff($startDate)->days;
         return new JsonResponse(['rate' => $rateService->calc(
             $days,

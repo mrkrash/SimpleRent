@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Cart\Domain\Repository;
+namespace App\Booking\Domain\Repository;
 
-use App\Cart\Domain\Entity\Cart;
-use App\Cart\Domain\Entity\CartItem;
+use App\Booking\Domain\Entity\Cart;
+use App\Booking\Domain\Entity\CartItem;
 
 interface CartItemRepositoryInterface
 {

@@ -28,11 +28,6 @@ doctrine:
                 dir: '%kernel.project_dir%/src/Booking/Domain/Entity'
                 prefix: 'App\Booking\Domain\Entity'
                 alias: Booking
-            Cart:
-                is_bundle: false
-                dir: '%kernel.project_dir%/src/Cart/Domain/Entity'
-                prefix: 'App\Cart\Domain\Entity'
-                alias: Cart
             Customer:
                 is_bundle: false
                 dir: '%kernel.project_dir%/src/Customer/Domain/Entity'

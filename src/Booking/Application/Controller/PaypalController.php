@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Cart\Application\Controller;
+namespace App\Booking\Application\Controller;
 
 use App\Booking\Application\Service\BookingService;
-use App\Cart\Application\Service\CartService;
-use App\Cart\Application\Service\TransactionService;
-use App\Cart\Domain\Service\PaymentServiceInterface;
+use App\Booking\Application\Service\CartService;
+use App\Booking\Application\Service\TransactionService;
+use App\Booking\Domain\Service\PaymentServiceInterface;
 use App\Customer\Application\Service\CustomerService;
 use App\Shared\DTO\CustomerDto;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;

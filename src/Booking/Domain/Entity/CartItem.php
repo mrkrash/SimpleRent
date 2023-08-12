@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Cart\Domain\Entity;
+namespace App\Booking\Domain\Entity;
 
-use App\Cart\Infrastructure\Repository\CartItemRepository;
+use App\Booking\Infrastructure\Repository\CartItemRepository;
 use App\Shared\Traits\AutoCreatedAtTrait;
 use App\Shared\Traits\AutoDeletedAtTrait;
 use App\Shared\Traits\AutoUpdatedAtTrait;

@@ -1,13 +1,12 @@
 <?php
 
-namespace App\Cart\Application\Service;
+namespace App\Booking\Application\Service;
 
 use App\Booking\Domain\Entity\Booking;
-use App\Cart\Domain\Entity\Transaction;
-use App\Cart\Domain\Repository\TransactionRepositoryInterface;
+use App\Booking\Domain\Entity\Transaction;
+use App\Booking\Domain\Repository\TransactionRepositoryInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
-use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mailer\Transport\TransportInterface;
 use Symfony\Component\Mime\Address;
 

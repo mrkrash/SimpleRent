@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Cart\Application\Controller;
+namespace App\Booking\Application\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -9,8 +9,8 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/payment')]
 class PaymentController extends AbstractController
 {
-    public function __construct(
-    ) {
+    public function __construct()
+    {
     }
 
     #[Route('/landing', name: 'payment_landing')]

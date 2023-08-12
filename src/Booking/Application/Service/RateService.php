@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Cart\Application\Service;
+namespace App\Booking\Application\Service;
 
 class RateService
 {
@@ -23,6 +23,6 @@ class RateService
                 $days -= 1;
             }
         }
-        return $tot/100;
+        return $tot / 100;
     }
 }
