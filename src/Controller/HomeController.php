@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Cart\Application\Service\CartService;
 use App\Product\Application\Service\ProductService;
 use App\Product\Domain\Entity\Product;
 use App\Product\Infrastructure\Repository\ProductRepository;
@@ -15,8 +16,10 @@ use Symfony\Component\Routing\Annotation\Route;
 class HomeController extends AbstractController
 {
     #[Route('/', name: 'app_home')]
-    public function index(ProductService $productService): Response
+    public function index(CartService $cartService, ProductService $productService): Response
     {
+        $cart = $cartService->handle();
+
         return $this->render('home/index.html.twig', [
             'controller_name' => 'HomeController',
             'products' => [
@@ -25,6 +28,8 @@ class HomeController extends AbstractController
                 $productService->retrieveOneByType(BicycleType::GRAVEL),
                 $productService->retrieveOneByType(BicycleType::RACINGBIKE),
             ],
+            'dateStart' => $cart->getDateStart()?->format('Ymd'),
+            'dateEnd' => $cart->getDateEnd()?->format('Ymd'),
         ]);
     }
 

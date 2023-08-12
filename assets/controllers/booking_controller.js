@@ -4,23 +4,41 @@ import interactionPlugin from "@fullcalendar/interaction";
 import dayGridPlugin from '@fullcalendar/daygrid';
 import itLocale from '@fullcalendar/core/locales/it';
 
-const calendarEl = document.getElementById('calendar');
+const dateStartEl = document.getElementById('dateStart');
+const dateEndEl = document.getElementById('dateEnd');
 let calendar;
 
 export default class extends Controller {
     connect() {
-        calendar = new Calendar(calendarEl, {
-            plugins: [ dayGridPlugin, interactionPlugin ],
-            headerToolbar: {
-                left: 'prev',
-                center: 'title',
-                right: 'next'
-            },
-            locales: [ itLocale ],
-            locale: 'it',
-            selectable: true,
-            selectOverlap: false,
+        this.manageRangeDate();
+        document.getElementById('dateRange').addEventListener('submit', (evt) => {
+            evt.preventDefault();
         });
+        dateStartEl.addEventListener('change', this.manageRangeDate);
+        document.getElementById('checkDate').addEventListener('click', (evt) => {
+            if (dateStartEl.value !== "" && dateEndEl.value !== "") {
+                window.location.href = `/book/start/${dateStartEl.value}/end/${dateEndEl.value}`;
+            }
+        });
+    }
+
+    manageRangeDate() {
+        const today = new Date();
+        let tomorrow = new Date(new Date(today).setDate(today.getDate() + 1));
+
+        if (dateStartEl.value !== "") {
+            const dateStart = new Date(dateStartEl.value);
+            tomorrow = new Date(dateStart.setDate(dateStart.getDate() + 1));
+            if (
+                dateEndEl.value !== "" &&
+                new Date(dateEndEl.value) <= tomorrow
+            ) {
+                dateEndEl.value = "";
+            }
+        }
+
+        dateStartEl.min = today.toISOString().split("T")[0];
+        dateEndEl.min = tomorrow.toISOString().split("T")[0];
     }
 
     changeSize(e) {
