@@ -61,14 +61,9 @@ final class ProductService
     /**
      * @return ProductDto[]
      */
-    public function retrieveBicycleDtoByType(BicycleType $type): array
+    public function retrieveBicycleDtoByType(BicycleType $bicycleType): array
     {
-        $products = [];
-        foreach ($this->retrieveBicycleByType($type, true) as $product) {
-            $products[] = new ProductDto($product->getId(), $product->getName(), $product->getImage(), 'S', 1);
-        }
-
-        return $products;
+        return $this->productRepository->findAllSizeWithQtyByType(ProductType::BYCICLE, $bicycleType);
     }
 
     public function retrieveQtyBySize(Product $product, ProductSize $size): ProductQty

@@ -4,6 +4,7 @@ namespace App\Product\Application\Form;
 
 use App\Product\Domain\Entity\Product;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\MoneyType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -74,6 +75,7 @@ class AccessoryFormType extends AbstractType
                 'data_class' => null,
                 'required' => $options['require_main_image'],
             ])
+            ->add('enabled', CheckboxType::class, ['label' => 'Abilitato', 'required' => false])
             ->add('save', SubmitType::class)
         ;
     }

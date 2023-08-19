@@ -3,8 +3,13 @@
 namespace App\Product\Infrastructure\Repository;
 
 use App\Product\Domain\Entity\Product;
+use App\Product\Domain\Entity\ProductQty;
 use App\Product\Domain\Repository\ProductRepositoryInterface;
+use App\Shared\DTO\ProductDto;
+use App\Shared\Enum\BicycleType;
+use App\Shared\Enum\ProductType;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query\Expr;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -53,6 +58,22 @@ class ProductRepository extends ServiceEntityRepository implements ProductReposi
             ->getQuery()
             ->getResult()
         ;
+    }
+
+    public function findAllSizeWithQtyByType(ProductType $type, ?BicycleType $bicycleType = null): array
+    {
+        $qbr = $this->createQueryBuilder('p')
+            ->select(sprintf('NEW %s(p.id, p.name, p.image, pq.size, pq.qty)', ProductDto::class))
+            ->join(ProductQty::class, 'pq', Expr\Join::WITH, 'pq.product = p AND pq.qty > 0')
+            ->where('p.enabled = true')
+            ->andWhere('p.type = :type')
+            ->setParameter('type', $type);
+        if (null !== $bicycleType) {
+            $qbr->andWhere('p.bicycleType = :bicycleType')->setParameter('bicycleType', $bicycleType);
+        }
+
+        return $qbr->getQuery()
+            ->getResult();
     }
 
 //    public function findOneBySomeField($value): ?Product

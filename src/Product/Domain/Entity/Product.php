@@ -64,26 +64,6 @@ class Product
 
     private ?File $uploadImage;
 
-    private array $sizes = [
-        'XS' => 0,
-        'S' => 0,
-        'M' => 0,
-        'L' => 0,
-        'XL' => 0,
-        'S36' => 0,
-        'S37' => 0,
-        'S38' => 0,
-        'S39' => 0,
-        'S40' => 0,
-        'S41' => 0,
-        'S42' => 0,
-        'S43' => 0,
-        'S44' => 0,
-        'S45' => 0,
-        'S46' => 0,
-        'S47' => 0,
-    ];
-
     /**
      * @var ArrayCollection|null<int, BookedProduct>
      */
@@ -278,16 +258,4 @@ class Product
 
         return $this;
     }
-
-    public function getSizes(): array
-    {
-        return $this->sizes;
-    }
-
-    public function setSizes(array $sizes): Product
-    {
-        $this->sizes = $sizes;
-        return $this;
-    }
-
 }
