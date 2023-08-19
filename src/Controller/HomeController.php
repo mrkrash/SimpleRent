@@ -5,7 +5,6 @@ namespace App\Controller;
 use App\Booking\Application\Service\CartService;
 use App\Product\Application\Service\ProductService;
 use App\Product\Domain\Entity\Product;
-use App\Product\Infrastructure\Repository\ProductRepository;
 use App\Shared\Enum\BicycleType;
 use App\Site\Page\Domain\Entity\Page;
 use App\Site\Page\Infrastructure\Repository\PageRepository;
@@ -92,20 +91,6 @@ class HomeController extends AbstractController
         return $this->render('home/generic.html.twig', [
             'title' => $page->getTitle(),
             'content' => $page->getContent(),
-        ]);
-    }
-
-    #[Route('/bicycle/{type}', name: 'product_bycicle')]
-    public function bicycle(string $type, ProductRepository $productRepository): Response
-    {
-        $products = $productRepository->findBy(['bicycleType' => $type, 'enabled' => true]);
-        if (empty($products)) {
-            return $this->render('not-found.html.twig');
-        }
-
-        return $this->render('home/products.html.twig', [
-            'title' => $type,
-            'products' => $productRepository->findBy(['bicycleType' => $type])
         ]);
     }
 

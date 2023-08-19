@@ -16,24 +16,28 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/book')]
 class InteractionController extends AbstractController
 {
+    public function __construct(
+        private readonly CartService $cartService,
+        private readonly ProductService $productService,
+    ) {
+    }
+
     #[Route('/start/{dateStart}/end/{dateEnd}', name: 'book_select_product', methods: ['GET'])]
     public function selectProducts(
         DateTimeImmutable $dateStart,
         DateTimeImmutable $dateEnd,
-        CartService $cartService,
-        ProductService $productService
     ): Response {
-        $cart = $cartService->handle();
+        $cart = $this->cartService->handle();
         $cart->setDateStart($dateStart)->setDateEnd($dateEnd);
 
         return $this->render('home/book.html.twig', [
             'dateStart' => $dateStart,
             'dateEnd' => $dateEnd,
             'products' => [
-                'mountainbike' => $productService->retrieveDtoByType(BicycleType::MOUNTAINBIKE),
-                'ebike' => $productService->retrieveDtoByType(BicycleType::EBIKE),
-                'gravel' => $productService->retrieveDtoByType(BicycleType::GRAVEL),
-                'racing' => $productService->retrieveDtoByType(BicycleType::RACINGBIKE),
+                'mountainbike' => $this->productService->retrieveBicycleDtoByType(BicycleType::MOUNTAINBIKE),
+                'ebike' => $this->productService->retrieveBicycleDtoByType(BicycleType::EBIKE),
+                'gravel' => $this->productService->retrieveBicycleDtoByType(BicycleType::GRAVEL),
+                'racing' => $this->productService->retrieveBicycleDtoByType(BicycleType::RACINGBIKE),
             ],
         ]);
     }
@@ -41,7 +45,6 @@ class InteractionController extends AbstractController
     #[Route('/addToCart', name: 'add_to_cart', methods: ['POST'])]
     public function addToCart(
         Request $request,
-        ProductService $productService,
         RateService $rateService
     ): Response {
         $cart = $this->cartService->handle();
@@ -61,7 +64,7 @@ class InteractionController extends AbstractController
         $rate = 0;
         $days = $cart->getDateEnd()->diff($cart->getDateStart())->days;
         foreach ($cart->getCartItems() as $item) {
-            $product = $productService->retrieveById($item->getProductId());
+            $product = $this->productService->retrieveById($item->getProductId());
             $rate += ($rateService->calc(
                 $days,
                 $product->getPriceList()->getPriceOneDay(),

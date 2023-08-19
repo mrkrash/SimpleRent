@@ -29,11 +29,21 @@ class ProductFormType extends AbstractType
                 'label' => 'Listino',
             ])
             ->add('bicycleType', EnumType::class, ['class' => BicycleType::class])
-            ->add('sizeXS', NumberType::class, ['label' => 'Qt. XS'])
-            ->add('sizeS', NumberType::class, ['label' => 'Qt. S'])
-            ->add('sizeM', NumberType::class, ['label' => 'Qt. M'])
-            ->add('sizeL', NumberType::class, ['label' => 'Qt. L'])
-            ->add('sizeXL', NumberType::class, ['label' => 'Qt. XL'])
+            ->add('sizeXS', NumberType::class, [
+                'mapped' => false, 'label' => 'Qt. XS', 'data' => $options['qty']['XS']
+            ])
+            ->add('sizeS', NumberType::class, [
+                'mapped' => false, 'label' => 'Qt. S', 'data' => $options['qty']['S']
+            ])
+            ->add('sizeM', NumberType::class, [
+                'mapped' => false, 'label' => 'Qt. M', 'data' => $options['qty']['M']
+            ])
+            ->add('sizeL', NumberType::class, [
+                'mapped' => false, 'label' => 'Qt. L', 'data' => $options['qty']['L']
+            ])
+            ->add('sizeXL', NumberType::class, [
+                'mapped' => false, 'label' => 'Qt. XL', 'data' => $options['qty']['XL']
+            ])
             ->add('gender', EnumType::class, ['class' => Gender::class])
             ->add('ordering', NumberType::class, ['label' => 'Ordine'])
             ->add('enabled', CheckboxType::class, ['label' => 'Abilitato', 'required' => false])
@@ -51,6 +61,7 @@ class ProductFormType extends AbstractType
             'data_class' => Product::class,
             'priceList_choices' => [],
             'require_main_image' => true,
+            'qty' => ['XS' => 0, 'S' => 0, 'M' => 0, 'L' => 0, 'XL' => 0],
         ]);
     }
 }

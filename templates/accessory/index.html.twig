@@ -25,8 +25,7 @@
                 <th></th>
                 <th>Nome</th>
                 <th>Descrizione</th>
-                <th>Prezzo Giornaliero</th>
-                <th>Prezzo Settimanale</th>
+                <th>Listino</th>
                 <th>Qt.</th>
                 <th></th>
             </tr>
@@ -41,8 +40,7 @@
                 </td>
                 <td>{{ accessory.name }}</td>
                 <td>{{ accessory.description }}</td>
-                <td>{{ (accessory.dailyPrice/100)|format_currency('EUR') }}</td>
-                <td>{{ (accessory.weekPrice/100)|format_currency('EUR') }}</td>
+                <td>{{ accessory.priceList.name }}</td>
                 <td>{{ accessory.qty }}</td>
                 <td>
                     <p class="control">
