@@ -135,11 +135,21 @@ class Cart implements JsonSerializable
         return $this;
     }
 
+    public function getTotalItemsCount(): int
+    {
+        return array_reduce(
+            iterator_to_array($this->cartItems),
+            fn(int $carry, CartItem $item) => $carry += $item->getQty(),
+            0
+        );
+    }
+
     public function jsonSerialize(): array
     {
         return [
             'id' => $this->id,
             'validUntil' => $this->validUntil,
+            'count' => $this->getTotalItemsCount(),
         ];
     }
 }

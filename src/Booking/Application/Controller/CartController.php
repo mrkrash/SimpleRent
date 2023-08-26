@@ -4,12 +4,14 @@ namespace App\Booking\Application\Controller;
 
 use App\Booking\Application\Service\CartService;
 use App\Booking\Domain\Entity\CartItem;
-use App\Entity\Dto\ProductDto;
 use App\Product\Application\Service\ProductService;
+use App\Shared\DTO\ProductDto;
+use App\Shared\Enum\ProductSize;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+#[Route('/cart')]
 class CartController extends AbstractController
 {
     public function __construct(
@@ -19,7 +21,7 @@ class CartController extends AbstractController
 
 
 
-    #[Route('/book', name: 'book_cart', methods: ['GET'])]
+    #[Route('/', name: 'cart', methods: ['GET'])]
     public function book(
         ProductService $productService,
     ): Response {
@@ -29,19 +31,17 @@ class CartController extends AbstractController
         foreach ($cart->getCartItems() as $item) {
             $product = $productService->retrieveById($item->getProductId());
             $products[] = new ProductDto(
-                $product->getId(),
-                $product->getName(),
-                $item->getSize(),
-                $product->getImage(),
-                $item->getQty()
+                idx: $product->getId(),
+                name: $product->getName(),
+                image: $product->getImage(),
+                size: ProductSize::tryFrom($item->getSize()),
+                qty: $item->getQty()
             );
         }
 
-        return $this->render('home/book.html.twig', [
+        return $this->render('home/cart.html.twig', [
             'products' => $products,
-            'start' => $cart->getDateStart(),
-            'end' => $cart->getDateEnd(),
-            'rate' => $cart->getRate(),
+            'cart' => $cart,
         ]);
     }
 }

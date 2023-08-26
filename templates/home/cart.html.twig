@@ -1,5 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Prenota Subito{% endblock %}
+
+{% block body %}
+  <section class="hero is-primary is-small">
+    <div class="hero-body" style="padding: 8px 0 0;">
+      <div class="columns">
+        <div class="column">
+          <div class="container has-text-centered pb-3">
+            <p class="subtitle">Noleggio dal {{ cart.dateStart|date("d/m/Y") }} al {{ cart.dateEnd|date("d/m/Y") }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 <section class="container" data-controller='paypal'>
-  <input type="hidden" id="rate" value="{{ rate }}" />
+  <input type="hidden" id="rate" value="{{ cart.rate }}" />
   <form name="customer_information" action="#">
     <div class="columns">
       <div class="column is-5">
@@ -13,7 +29,7 @@
               </div>
               <div class="column">
                 <p class="subtitle is-4">{{ product.name }}</p>
-                <p>Qt. {{ product.qty }} - Size {{ product.size }}</p>
+                <p>Qt. {{ product.qty }} - Size {{ product.size.value }}</p>
               </div>
             </div>
           {% endfor %}
@@ -110,7 +126,7 @@
           <h5 class="subtitle is-5">Riepilogo</h5>
           <div class="columns">
             <div class="column has-text-left"><i>Noleggio</i></div>
-            <div class="column"><strong>{{ rate|format_currency('EUR') }}</strong></div>
+            <div class="column"><strong>{{ cart.rate|format_currency('EUR') }}</strong></div>
           </div>
           <div class="columns">
             <div class="column has-text-left"><i>Consegna</i></div>
@@ -118,7 +134,7 @@
           </div>
           <div class="columns total">
             <div class="column has-text-left"><i>Totale</i></div>
-            <div class="column"><strong id="total">{{ rate|format_currency('EUR') }}</strong></div>
+            <div class="column"><strong id="total">{{ cart.rate|format_currency('EUR') }}</strong></div>
           </div>
 
           <div class="block mb-3">
@@ -128,7 +144,7 @@
           <div class="block mb-3">
             Procedendo con il pagamento, confermi di aver compreso ed accetto le
             <a href="{{ path('terms') }}" target="_blank" title="Termini e Condizioni">
-              Condizioni ed i Requisiti per il noleggio
+              Condizioni e i Requisiti per il noleggio
             </a>
           </div>
 
@@ -138,3 +154,4 @@
     </div>
   </form>
 </section>
+{% endblock %}

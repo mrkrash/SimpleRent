@@ -35,6 +35,8 @@ $fa-font-path: "../../public/webfonts";
 @import "~bulma/sass/helpers/typography.sass";
 @import "~bulma/sass/helpers/visibility.sass";
 
+@import "@creativebulma/bulma-badge/src/sass";
+
 @import "~bulma-carousel";
 
 @import "quill/dist/quill.snow.css";
@@ -53,6 +55,10 @@ a.navbar-item {
 a.navbar-item:focus, a.navbar-item:focus-within, a.navbar-item:hover, a.navbar-item.is-active, .navbar-link:focus, .navbar-link:focus-within, .navbar-link:hover, .navbar-link.is-active {
   background-color: transparent;
   color: #49b964;
+}
+.button-cart .icon:last-child:not(:first-child) {
+  margin-left: calc(-0.5em - 1px);
+  margin-right: calc(-0.5em - 1px);
 }
 .button.delete {
   @extend %delete;

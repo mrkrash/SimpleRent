@@ -18,6 +18,9 @@ export default class extends Controller {
                 if (result.thereisnomore) {
                     evt.target.parentElement.setAttribute('disabled', 'disabled');
                 }
+                if (result.count > 0) {
+                    document.getElementById('cart-badge').textContent = result.count;
+                }
             })
     }
 
