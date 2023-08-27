@@ -16,6 +16,14 @@
     </div>
   </section>
   <section class="container mt-4" data-controller="cart">
+    <div id="conclude-button" class="has-text-centered {% if cart.totalItemsCount == 0 %}is-hidden{% endif %}">
+      <a href="{{ path('cart') }}" class="button is-success">
+        Procedi col Noleggio&nbsp;&nbsp;&nbsp;
+        <span class="icon is-small">
+          <i class="fas fa-shopping-cart"></i>
+        </span>
+      </a>
+    </div>
     <div class="tabs is-centered is-medium">
       <ul>
         <li class="tab is-active" data-action="click->cart#openTab" data-cart-tab-param="mountainbike"><a >MountainBike</a></li>

@@ -21,6 +21,15 @@ export default class extends Controller {
                 if (result.count > 0) {
                     document.getElementById('cart-badge').textContent = result.count;
                 }
+                var pageloader = document.getElementById("pageloader");
+                if (pageloader) {
+                    pageloader.classList.toggle('is-active');
+                    var pageloaderTimeout = setTimeout(function() {
+                        pageloader.classList.toggle('is-active');
+                        clearTimeout(pageloaderTimeout);
+                    }, 3000);
+                }
+                document.getElementById('conclude-button').classList.remove('is-hidden');
             })
     }
 

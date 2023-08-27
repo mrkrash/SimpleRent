@@ -31,6 +31,7 @@ class InteractionController extends AbstractController
         $cart->setDateStart($dateStart)->setDateEnd($dateEnd);
 
         return $this->render('home/book.html.twig', [
+            'cart' => $cart,
             'dateStart' => $dateStart,
             'dateEnd' => $dateEnd,
             'products' => [
