@@ -53,7 +53,7 @@
             <a class="navbar-item uppercase" href="/bicycle/MountainBike">
               MountainBike
             </a>
-            <a class="navbar-item uppercase" href="/bicycle/RacingBike">
+            <a class="navbar-item uppercase" href="/bicycle/Racing">
               Bici da Corsa
             </a>
           </div>
@@ -70,6 +70,16 @@
               <span class="icon-text">
                 <span class="icon"><i class="fas fa-phone"></i></span>
                 <span><strong>334/9826963</strong></span>
+              </span>
+            </a>
+          </div>
+        </div>
+        <div class="navbar-item">
+          <div class="buttons">
+            <a class="button button-cart is-primary" href="{{ path('cart') }}">
+              <span id="cart-badge" class="badge">{{ cart.totalItemsCount }}</span>
+              <span class="icon">
+                <i class="fas fa-cart-shopping"></i>
               </span>
             </a>
           </div>

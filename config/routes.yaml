@@ -13,11 +13,6 @@ controllersBooking:
         path: ../src/Booking/Application/Controller/
         namespace: App\Booking\Application\Controller
     type: attribute
-controllersCart:
-    resource:
-        path: ../src/Cart/Application/Controller/
-        namespace: App\Cart\Application\Controller
-    type: attribute
 controllersCustomer:
     resource:
         path: ../src/Customer/Application/Controller/

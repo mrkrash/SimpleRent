@@ -43,8 +43,11 @@ class Product
     #[ORM\Column(length: 255)]
     private string $image;
 
-    #[ORM\OneToOne(mappedBy: 'product', targetEntity: ProductQty::class)]
-    private ?ProductQty $productQty = null;
+    /**
+     * @var ArrayCollection|null<int|string, ProductQty>
+     */
+    #[ORM\OneToMany(mappedBy: 'product', targetEntity: ProductQty::class, cascade:['persist'])]
+    private ?Collection $productQty;
 
     #[ORM\ManyToOne(inversedBy: 'products')]
     #[ORM\JoinColumn(nullable: false)]
@@ -61,21 +64,16 @@ class Product
 
     private ?File $uploadImage;
 
-    private int $sizeXS = 0;
-    private int $sizeS = 0;
-    private int $sizeM = 0;
-    private int $sizeL = 0;
-    private int $sizeXL = 0;
-
     /**
-     * @var ArrayCollection|null <int, BookedProduct>
+     * @var ArrayCollection|null<int, BookedProduct>
      */
     #[ORM\OneToMany(mappedBy: 'product', targetEntity: BookedProduct::class, cascade: ['persist'])]
-    private ?Collection $bookedProduct = null;
+    private ?Collection $bookedProduct;
 
     public function __construct()
     {
         $this->bookedProduct = new ArrayCollection();
+        $this->productQty = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -151,39 +149,40 @@ class Product
         return $this;
     }
 
-    public function getProductQty(): ProductQty
+    /**
+     * @return ArrayCollection<int|string, ProductQty>
+     */
+    public function getProductQty(): ArrayCollection
     {
         return $this->productQty;
     }
 
-    public function setProductQty(ProductQty $productQty): self
+    public function addProductQty(ProductQty $productQty): self
     {
-        $this->productQty = $productQty;
+        if (!$this->productQty->contains($productQty)) {
+            $this->productQty->add($productQty);
+            $productQty->setProduct($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProductQty(ProductQty $productQty): self
+    {
+        if ($this->productQty->removeElement($productQty)) {
+            if ($productQty->getProduct() === $this) {
+                $productQty->setProduct(null);
+            }
+        }
 
         return $this;
     }
 
     public function getQty(): int
     {
-        if ($this->productQty) {
-            return $this->productQty->getSizeXS() +
-                $this->productQty->getSizeS() +
-                $this->productQty->getSizeM() +
-                $this->productQty->getSizeL() +
-                $this->productQty->getSizeXL();
-        }
-        return 0;
-    }
-
-    public function populateQty(): void
-    {
-        if ($this->productQty) {
-            $this->sizeXS = $this->productQty->getSizeXs();
-            $this->sizeS = $this->productQty->getSizeS();
-            $this->sizeM = $this->productQty->getSizeM();
-            $this->sizeL = $this->productQty->getSizeL();
-            $this->sizeXL = $this->productQty->getSizeXl();
-        }
+        return array_reduce($this->productQty->toArray(), function (int $carry, ProductQty $qty) {
+            return $carry + $qty->getQty();
+        }, 0);
     }
 
     public function getGender(): Gender
@@ -233,61 +232,6 @@ class Product
         return $this;
     }
 
-    public function getSizeXS(): int
-    {
-        return $this->sizeXS;
-    }
-
-    public function setSizeXS(int $sizeXS): Product
-    {
-        $this->sizeXS = $sizeXS;
-        return $this;
-    }
-
-    public function getSizeS(): int
-    {
-        return $this->sizeS;
-    }
-
-    public function setSizeS(int $sizeS): Product
-    {
-        $this->sizeS = $sizeS;
-        return $this;
-    }
-
-    public function getSizeM(): int
-    {
-        return $this->sizeM;
-    }
-
-    public function setSizeM(int $sizeM): Product
-    {
-        $this->sizeM = $sizeM;
-        return $this;
-    }
-
-    public function getSizeL(): int
-    {
-        return $this->sizeL;
-    }
-
-    public function setSizeL(int $sizeL): Product
-    {
-        $this->sizeL = $sizeL;
-        return $this;
-    }
-
-    public function getSizeXL(): int
-    {
-        return $this->sizeXL;
-    }
-
-    public function setSizeXL(int $sizeXL): Product
-    {
-        $this->sizeXL = $sizeXL;
-        return $this;
-    }
-
     public function getBookedProduct(): ?Collection
     {
         return $this->bookedProduct;
@@ -314,5 +258,4 @@ class Product
 
         return $this;
     }
-
 }

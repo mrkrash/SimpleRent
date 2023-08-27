@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Prenota Subito{% endblock %}
+
+{% block body %}
+  <section class="hero is-primary is-small">
+    <div class="hero-body" style="padding: 8px 0 0;">
+      <div class="columns">
+        <div class="column">
+          <div class="container has-text-centered pb-3">
+            <p class="title">Scegli gli accessori che fanno per te</p>
+            <p class="subtitle">Noleggio dal {{ dateStart|date("d/m/Y") }} al {{ dateEnd|date("d/m/Y") }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="container mt-4" data-controller="cart">
+    <div id="conclude-button" class="has-text-centered {% if cart.totalItemsCount == 0 %}is-hidden{% endif %}">
+      <a href="{{ path('cart') }}" class="button is-success">
+        Procedi col Noleggio&nbsp;&nbsp;&nbsp;
+        <span class="icon is-small">
+          <i class="fas fa-shopping-cart"></i>
+        </span>
+      </a>
+    </div>
+    <div class="columns is-multiline">
+      {% for product in accessories %}
+        <div class="column is-3">
+          {% include 'home/partials/card.html.twig' with {'book': true} %}
+        </div>
+      {% endfor %}
+    </div>
+  </section>
+
+  {% include('home/partials/why_section.html.twig') %}
+{% endblock %}

@@ -7,15 +7,26 @@
   <div class="card-content">
     <div class="content has-text-centered">
       <p class="title is-4 pt-4" style="height: 6rem;">{{ product.name }}</p>
-
-      <p class="control mt-6">
-        <a class="button is-success" href="/book/{{ product.id }}">
-          <span class="icon is-small">
-              <i class="fas fa-share"></i>
-          </span>
-          <span>{{ 'noleggia'|trans }}</span>
-        </a>
-      </p>
+      {% if book %}
+        <p class="subtitle is-5">size: <strong>{{ product.size.value }}</strong></p>
+      {% endif %}
     </div>
   </div>
+
+  {% if book %}
+    <footer class="card-footer">
+      <button
+          class="button is-success card-footer-item"
+          type="button"
+          data-action="cart#addProductToCart"
+          data-cart-id-param="{{ product.idx }}"
+          data-cart-size-param="{{ product.size.value }}"
+      >
+          <span class="icon is-small">
+              <i class="fas fa-plus"></i>
+          </span>
+        <span>{{ 'aggiungi' }}</span>
+      </button>
+    </footer>
+  {% endif %}
 </div>

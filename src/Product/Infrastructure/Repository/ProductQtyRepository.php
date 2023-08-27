@@ -2,11 +2,23 @@
 
 namespace App\Product\Infrastructure\Repository;
 
+use App\Product\Domain\Entity\Product;
 use App\Product\Domain\Entity\ProductQty;
+use App\Product\Domain\Repository\ProductQtyRepositoryInterface;
+use App\Shared\Enum\ProductSize;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\Persistence\ManagerRegistry;
 
-class ProductQtyRepository extends ServiceEntityRepository
+/**
+ * @extends ServiceEntityRepository<ProductQty>
+ *
+ * @method ProductQty|null find($id, $lockMode = null, $lockVersion = null)
+ * @method ProductQty|null findOneBy(array $criteria, array $orderBy = null)
+ * @method ProductQty[]    findAll()
+ * @method ProductQty[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ */
+class ProductQtyRepository extends ServiceEntityRepository implements ProductQtyRepositoryInterface
 {
     public function __construct(ManagerRegistry $registry)
     {
@@ -29,5 +41,20 @@ class ProductQtyRepository extends ServiceEntityRepository
         if ($flush) {
             $this->getEntityManager()->flush();
         }
+    }
+
+    /**
+     * @throws NonUniqueResultException
+     */
+    public function getBySize(Product $product, ProductSize $size): ?ProductQty
+    {
+        return $this->createQueryBuilder('pq')
+            ->where('pq.product = :product')
+            ->andWhere('pq.size = :size')
+            ->setParameter('product', $product)
+            ->setParameter('size', $size)
+            ->setMaxResults(1)
+            ->getQuery()
+            ->getOneOrNullResult();
     }
 }

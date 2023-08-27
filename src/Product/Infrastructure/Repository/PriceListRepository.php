@@ -3,6 +3,7 @@
 namespace App\Product\Infrastructure\Repository;
 
 use App\Product\Domain\Entity\PriceList;
+use App\Product\Domain\Repository\PriceListRepositoryInterface;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -14,7 +15,7 @@ use Doctrine\Persistence\ManagerRegistry;
  * @method PriceList[]    findAll()
  * @method PriceList[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class PriceListRepository extends ServiceEntityRepository
+class PriceListRepository extends ServiceEntityRepository implements PriceListRepositoryInterface
 {
     public function __construct(ManagerRegistry $registry)
     {

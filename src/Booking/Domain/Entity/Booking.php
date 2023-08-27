@@ -3,7 +3,6 @@
 namespace App\Booking\Domain\Entity;
 
 use App\Booking\Infrastructure\Repository\BookingRepository;
-use App\Cart\Domain\Entity\Transaction;
 use App\Customer\Domain\Entity\Customer;
 use App\Shared\Traits\AutoCreatedAtTrait;
 use App\Shared\Traits\AutoDeletedAtTrait;
@@ -21,6 +20,7 @@ class Booking
     use AutoCreatedAtTrait;
     use AutoUpdatedAtTrait;
     use AutoDeletedAtTrait;
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
@@ -157,5 +157,4 @@ class Booking
 
         return $this;
     }
-
 }

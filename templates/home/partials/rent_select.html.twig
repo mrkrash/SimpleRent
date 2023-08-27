@@ -1,0 +1,29 @@
+<section class="hero is-primary is-small" data-controller="booking">
+  <div class="hero-body">
+    <div class="container has-text-centered">
+      <form id="dateRange" action="#" method="post">
+        <div class="field is-horizontal">
+          <div class="field-body">
+            <div class="field">
+              <div class="control">
+                <input class="input" type="date" id="dateStart" name="dateStart" value="{{ dateStart }}">
+              </div>
+            </div>
+            <div class="field">
+              <div class="control">
+                <input class="input" type="date" id="dateEnd" name="dateEnd" value="{{ dateEnd }}">
+              </div>
+            </div>
+            <div class="field">
+              <div class="control">
+                <button id="checkDate" class="button is-link" type="button">
+                  Inizia il Noleggio
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>

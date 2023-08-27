@@ -8,152 +8,73 @@
       <div class="columns">
         <div class="column">
           <div class="container has-text-centered pb-3">
-            <p class="title">Completa il noleggio</p>
-            <p class="subtitle">Dal {{ start|date("m/d/Y") }} al {{ end|date("m/d/Y") }} a sole <u>{{ rate|format_currency('EUR') }}</u></p>
+            <p class="title">Scegli le bici che fanno per te</p>
+            <p class="subtitle">Noleggio dal {{ dateStart|date("d/m/Y") }} al {{ dateEnd|date("d/m/Y") }}</p>
           </div>
         </div>
       </div>
     </div>
   </section>
-  <section class="container" data-controller='paypal'>
-    <input type="hidden" id="rate" value="{{ rate }}" />
-    <form name="customer_information" action="#">
+  <section class="container mt-4" data-controller="cart">
+    <div id="conclude-button" class="has-text-centered {% if cart.totalItemsCount == 0 %}is-hidden{% endif %}">
+      <a href="{{ path('book_select_accessory') }}" class="button is-success">
+        Aggiungi Accessori&nbsp;&nbsp;&nbsp;
+        <span class="icon is-small">
+          <i class="fas fa-plus"></i>
+        </span>
+      </a>
+      <a href="{{ path('cart') }}" class="button is-success">
+        Procedi col Noleggio&nbsp;&nbsp;&nbsp;
+        <span class="icon is-small">
+          <i class="fas fa-shopping-cart"></i>
+        </span>
+      </a>
+    </div>
+    <div class="tabs is-centered is-medium">
+      <ul>
+        <li class="tab is-active" data-action="click->cart#openTab" data-cart-tab-param="mountainbike"><a >MountainBike</a></li>
+        <li class="tab" data-action="click->cart#openTab" data-cart-tab-param="ebike"><a >eBike</a></li>
+        <li class="tab" data-action="click->cart#openTab" data-cart-tab-param="gravel"><a >Gravel</a></li>
+        <li class="tab" data-action="click->cart#openTab" data-cart-tab-param="racing"><a >Racing</a></li>
+      </ul>
+    </div>
+    <div id="mountainbike" class="content-tab">
       <div class="columns">
-        <div class="column is-5">
-          <section class="section is-small">
-            {% for product in products %}
-              <div class="columns">
-                <div class="column">
-                  <figure class="image is-128x128">
-                    <img src="/images/{{ product.image }}" alt="{{ product.name }}">
-                  </figure>
-                </div>
-                <div class="column">
-                  <p class="subtitle is-4">{{ product.name }}</p>
-                  <p>Qt. {{ product.qty }} - Size {{ product.size }}</p>
-                </div>
-              </div>
-            {% endfor %}
-          </section>
-          <section class="section">
-            <h4 class="subtitle is-4">Consegna</h4>
-            <div class="control">
-              <label class="radio">
-                <input type="radio" name="delivery" value="onsite" required data-action="paypal#delivery" data-paypal-delivery-param="onsite" checked>
-                Ritiro in agenzia
-              </label>
-            </div>
-            <div class="control">
-              <label class="radio">
-                <input type="radio" name="delivery" value="free" required data-action="paypal#delivery" data-paypal-delivery-param="free">
-                Consegna e Ritiro gratuiti presso una <a href="{{ path('where_to_stay') }}" target="_blank">struttura convenzionata</a> (min. 3 giorni di noleggio)
-              </label>
-            </div>
-            <div class="control">
-              <label class="radio">
-                <input type="radio" name="delivery" value="free" required data-action="paypal#delivery" data-paypal-delivery-param="free">
-                Consegna e Ritiro gratuiti a Ragusa, Ragusa Ibla, Marina di Ragusa, Punta Secca, Casuzze, Caucana e Santa Croce Camerina (min. 3 giorni di noleggio)
-              </label>
-            </div>
-            <div class="control">
-              <label class="radio">
-                <input type="radio" name="delivery" value="others" required data-action="paypal#delivery" data-paypal-delivery-param="others">
-                Consegna all'interno della provincia (€ 15,00)
-              </label>
-            </div>
-          </section>
-        </div>
-        <div class="column is-4">
-          <div class="pt-5">
-            <div class="has-text-centered pb-3">
-              <h4 class="subtitle is-4">Ci siamo quasi</h4>
-              <h5 class="subtitle is-5">Inserisci i tuoi dati nel form sottostante</h5>
-            </div>
-
-            <div>
-              <div class="columns">
-                <div class="column">
-                  <div class="field">
-                    <div class="control">
-                      <input id="firstname" class="input" name="firstname" placeholder="Nome *" required min="2">
-                    </div>
-                  </div>
-                </div>
-                <div class="column">
-                  <div class="field">
-                    <div class="control">
-                      <input id="lastname" class="input" name="lastname" placeholder="Cognome *" required min="2">
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="field">
-                <div class="control">
-                  <input id="email" class="input" name="email" placeholder="Email *" type="email" required>
-                </div>
-              </div>
-              <div class="field">
-                <div class="control">
-                  <input id="phone" class="input" name="phone" placeholder="Telefono *" type="tel" required min="9">
-                </div>
-              </div>
-
-              <div class="field">
-                <div class="control">
-                  <input class="input" name="hotel" placeholder="Struttura Ricettiva">
-                </div>
-              </div>
-              <div class="field">
-                <div class="control">
-                  <label class="checkbox">
-                    <input id="privacy" type="checkbox" name="privacy" required>
-                    Accetto i termini della <a href="{{ path('privacy') }}" target="_blank" title="Privacy Policy">Privacy Policy</a>
-                  </label>
-                </div>
-              </div>
-              <div class="field">
-                <div class="control">
-                  <label class="checkbox">
-                    <input id="newsletter" type="checkbox" name="newsletter">
-                    Desidero ricevere offerte esclusive e informazioni utili
-                  </label>
-                </div>
-              </div>
-            </div>
+        {% for product in products.mountainbike %}
+          <div class="column is-3">
+            {% include 'home/partials/card.html.twig' with {'book': true} %}
           </div>
-        </div>
-        <div class="column is-3">
-          <div class="mt-5 pt-5 has-text-centered">
-            <h5 class="subtitle is-5">Riepilogo</h5>
-            <div class="columns">
-              <div class="column has-text-left"><i>Noleggio</i></div>
-              <div class="column"><strong>{{ rate|format_currency('EUR') }}</strong></div>
-            </div>
-            <div class="columns">
-              <div class="column has-text-left"><i>Consegna</i></div>
-              <div class="column"><strong>€ <span id="delivery">-.--</span></strong></div>
-            </div>
-            <div class="columns total">
-              <div class="column has-text-left"><i>Totale</i></div>
-              <div class="column"><strong id="total">{{ rate|format_currency('EUR') }}</strong></div>
-            </div>
-
-            <div class="block mb-3">
-              Il Totale non include eventuali extra opzionali acquistabili in agenzia.
-            </div>
-
-            <div class="block mb-3">
-              Procedendo con il pagamento, confermi di aver compreso ed accetto le
-              <a href="{{ path('terms') }}" target="_blank" title="Termini e Condizioni">
-                Condizioni ed i Requisiti per il noleggio
-              </a>
-            </div>
-
-            <div id="paypal-button"></div>
-          </div>
-        </div>
+        {% endfor %}
       </div>
-    </form>
+    </div>
+    <div id="ebike" class="content-tab" style="display:none">
+      <div class="columns">
+        {% for product in products.ebike %}
+          <div class="column is-3">
+            {% include 'home/partials/card.html.twig' with {'book': true} %}
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+    <div id="gravel" class="content-tab" style="display:none">
+      <div class="columns">
+        {% for product in products.gravel %}
+          <div class="column is-3">
+            {% include 'home/partials/card.html.twig' with {'book': true} %}
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+    <div id="racing" class="content-tab" style="display:none">
+      <div class="columns">
+        {% for product in products.racing %}
+          <div class="column is-3">
+            {% include 'home/partials/card.html.twig' with {'book': true} %}
+          </div>
+        {% endfor %}
+      </div>
+    </div>
   </section>
+
   {% include('home/partials/why_section.html.twig') %}
 {% endblock %}

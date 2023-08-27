@@ -3,13 +3,13 @@
 {% block title %}MC Rent Bike Ragusa{% endblock %}
 
 {% block body %}
-
+    {% include 'home/partials/rent_select.html.twig' %}
     <section class="section">
         <div class="columns product">
             {% for product in products %}
                 {% if product is not null and product.qty > 0 %}
                     <div class="column is-one-quarter mt-3">
-                        {% include 'home/partials/card.html.twig' %}
+                        {% include 'home/partials/card.html.twig' with {'book': false} %}
                     </div>
                 {% endif %}
             {% endfor %}

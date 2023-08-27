@@ -1,46 +1,86 @@
-{% extends 'base.html.twig' %}
+{% extends 'admin.html.twig' %}
 
 {% block title %}Booking{% endblock %}
 
-{% block body %}
-    <h1>Booking</h1>
-
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ booking.id }}</td>
-            </tr>
-            <tr>
-                <th>DateStart</th>
-                <td>{{ booking.dateStart ? booking.dateStart|date('Y-m-d') : '' }}</td>
-            </tr>
-            <tr>
-                <th>DateEnd</th>
-                <td>{{ booking.dateEnd ? booking.dateEnd|date('Y-m-d') : '' }}</td>
-            </tr>
-            <tr>
-                <th>Notes</th>
-                <td>{{ booking.notes }}</td>
-            </tr>
-            <tr>
-                <th>CreatedAt</th>
-                <td>{{ booking.createdAt ? booking.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-            <tr>
-                <th>UpdatedAt</th>
-                <td>{{ booking.updatedAt ? booking.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-            <tr>
-                <th>DeletedAt</th>
-                <td>{{ booking.deletedAt ? booking.deletedAt|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-        </tbody>
-    </table>
-
-    <a href="{{ path('app_booking_index') }}">back to list</a>
-
-    <a href="{{ path('app_booking_edit', {'id': booking.id}) }}">edit</a>
-
-    {{ include('booking/_delete_form.html.twig') }}
+{% block content %}
+<section class="section">
+    <div class="container">
+        <div class="level">
+            <div class="level-left">
+                <div class="level-item">
+                    <h1 class="title">Prenotazione #{{ booking.id }}</h1>
+                </div>
+                <div class="level-item">
+                    <a class="button" href="{{ path('app_booking_edit', {'id': booking.id}) }}">
+                        <span class="icon is-small">
+                            <i class="fas fa-pencil"></i>
+                        </span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="columns">
+            <div class="column">
+                <table class="table">
+                    <tbody>
+                    <tr>
+                        <th>Data Ritiro</th>
+                        <td>{{ booking.dateStart ? booking.dateStart|date('d/m/Y') : '' }}</td>
+                    </tr>
+                    <tr>
+                        <th>Data Consegna</th>
+                        <td>{{ booking.dateEnd ? booking.dateEnd|date('d/m/Y') : '' }}</td>
+                    </tr>
+                    <tr>
+                        <th>Cliente</th>
+                        <td>{{ booking.customer.firstname }} {{ booking.customer.lastname }}</td>
+                    </tr>
+                    <tr>
+                        <th>Email</th>
+                        <td>{{ booking.customer.email }}</td>
+                    </tr>
+                    <tr>
+                        <th>Telefono</th>
+                        <td>{{ booking.customer.phone }}</td>
+                    </tr>
+                    <tr>
+                        <th>Id Transazione Paypal</th>
+                        <td>{{ booking.transaction.transportId }}</td>
+                    </tr>
+                    <tr>
+                        <th>Note</th>
+                        <td>{{ booking.notes }}</td>
+                    </tr>
+                    <tr>
+                        <th>Creata</th>
+                        <td>{{ booking.createdAt ? booking.createdAt|date('d/m/Y H:i:s') : '' }}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="column">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>Prodotto</th>
+                        <th>Size</th>
+                        <th>Qty</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for bookedProduct in booking.bookedProduct %}
+                        <tr>
+                            <td>{{ bookedProduct.product.name }}</td>
+                            <td>{{ bookedProduct.size }}</td>
+                            <td>{{ bookedProduct.qty }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
 {% endblock %}
