@@ -19,8 +19,6 @@ class CartController extends AbstractController
     ) {
     }
 
-
-
     #[Route('/', name: 'cart', methods: ['GET'])]
     public function book(
         ProductService $productService,

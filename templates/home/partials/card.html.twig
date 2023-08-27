@@ -7,7 +7,9 @@
   <div class="card-content">
     <div class="content has-text-centered">
       <p class="title is-4 pt-4" style="height: 6rem;">{{ product.name }}</p>
-      <p class="subtitle is-5">size: <strong>{{ product.size.value }}</strong></p>
+      {% if book %}
+        <p class="subtitle is-5">size: <strong>{{ product.size.value }}</strong></p>
+      {% endif %}
     </div>
   </div>
 

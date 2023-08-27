@@ -29,6 +29,7 @@ class InteractionController extends AbstractController
     ): Response {
         $cart = $this->cartService->handle();
         $cart->setDateStart($dateStart)->setDateEnd($dateEnd);
+        $this->cartService->save($cart);
 
         return $this->render('home/book.html.twig', [
             'cart' => $cart,
@@ -50,8 +51,8 @@ class InteractionController extends AbstractController
     ): Response {
         $cart = $this->cartService->handle();
 
-        $cart->setDateStart((new DateTimeImmutable())->setTimestamp($request->getPayload()->get('start') / 1000));
-        $cart->setDateEnd((new DateTimeImmutable())->setTimestamp($request->getPayload()->get('end') / 1000));
+        //$cart->setDateStart((new DateTimeImmutable())->setTimestamp($request->getPayload()->get('start') / 1000));
+        //$cart->setDateEnd((new DateTimeImmutable())->setTimestamp($request->getPayload()->get('end') / 1000));
         $cartItem = $this->cartService->getItemFromCart($cart, $request->getPayload()->get('id'));
         if ('product' === $request->getPayload()->get('type')) {
             $cartItem->setProductId($request->getPayload()->get('id'));
