@@ -6,6 +6,7 @@ use App\Booking\Application\Service\CartService;
 use App\Booking\Application\Service\RateService;
 use App\Product\Application\Service\ProductService;
 use App\Shared\Enum\BicycleType;
+use App\Shared\Enum\ProductType;
 use DateTimeImmutable;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -41,6 +42,19 @@ class InteractionController extends AbstractController
                 'gravel' => $this->productService->retrieveBicycleDtoByType(BicycleType::GRAVEL),
                 'racing' => $this->productService->retrieveBicycleDtoByType(BicycleType::RACINGBIKE),
             ],
+        ]);
+    }
+
+    #[Route('accessory', name: 'book_select_accessory', methods: ['GET'])]
+    public function selectAccessory(): Response
+    {
+        $cart = $this->cartService->handle();
+
+        return $this->render('home/accessories.html.twig', [
+            'cart' => $cart,
+            'dateStart' => $cart->getDateStart(),
+            'dateEnd' => $cart->getDateEnd(),
+            'accessories' => $this->productService->retrieveAccessoryDtoByType(),
         ]);
     }
 

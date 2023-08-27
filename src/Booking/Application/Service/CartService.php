@@ -57,4 +57,10 @@ final class CartService
         $this->cartRepository->save($cart, true);
         $this->requestStack->getSession()->set('cart', $cart);
     }
+
+    public function remove(Cart $cart): void
+    {
+        $this->cartRepository->remove($cart, true);
+        $this->requestStack->getSession()->remove('cart');
+    }
 }

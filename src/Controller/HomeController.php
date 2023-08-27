@@ -29,6 +29,7 @@ class HomeController extends AbstractController
             ],
             'dateStart' => $cart->getDateStart()?->format('Ymd'),
             'dateEnd' => $cart->getDateEnd()?->format('Ymd'),
+            'cart' => $cart,
         ]);
     }
 

@@ -66,6 +66,11 @@ final class ProductService
         return $this->productRepository->findAllSizeWithQtyByType(ProductType::BYCICLE, $bicycleType);
     }
 
+    public function retrieveAccessoryDtoByType(): array
+    {
+        return $this->productRepository->findAllSizeWithQtyByType(ProductType::ACCESSORY);
+    }
+
     public function retrieveQtyBySize(Product $product, ProductSize $size): ProductQty
     {
         $productQty = $this->qtyRepository->getBySize($product, $size);
