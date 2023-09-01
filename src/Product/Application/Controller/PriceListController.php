@@ -71,7 +71,12 @@ class PriceListController extends AbstractController
     #[Route('/{id}', name: 'app_price_list_delete', methods: ['POST'])]
     public function delete(Request $request, PriceList $priceList, PriceListRepository $priceListRepository): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$priceList->getId(), $request->request->get('_token'))) {
+        if (!empty($priceList->getProducts()->count())) {
+            $this->addFlash(
+                'error',
+                'Non puoi eliminare questo listino, ci sono prodotti associati!'
+            );
+        } elseif ($this->isCsrfTokenValid('delete' . $priceList->getId(), $request->request->get('_token'))) {
             $priceListRepository->remove($priceList, true);
         }
 
