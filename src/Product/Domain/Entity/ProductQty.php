@@ -28,7 +28,7 @@ class ProductQty
     private int $qty = 0;
 
     #[ORM\ManyToOne(cascade: ['persist', 'remove'], inversedBy: 'productQty')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: false, onDelete: 'cascade')]
     private ?Product $product = null;
 
     public function getSize(): ?ProductSize
