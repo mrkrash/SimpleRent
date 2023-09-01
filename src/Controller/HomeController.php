@@ -33,12 +33,6 @@ class HomeController extends AbstractController
         ]);
     }
 
-    #[Route('/chi-siamo', name: 'who_are')]
-    public function whoAre(): Response
-    {
-        return $this->render('coming.html.twig');
-    }
-
     #[Route('/tours', name: 'tours')]
     public function tours(): Response
     {
@@ -49,50 +43,6 @@ class HomeController extends AbstractController
     public function cyclingRoutes(): Response
     {
         return $this->render('coming.html.twig');
-    }
-
-    #[Route('/terms', name: 'terms')]
-    public function terms(PageRepository $pageRepository): Response
-    {
-        /** @var Page $page */
-        $page = $pageRepository->findOneBy(['slug' => 'terms']);
-        return $this->render('home/generic.html.twig', [
-            'title' => $page->getTitle(),
-            'content' => $page->getContent(),
-        ]);
-    }
-
-    #[Route('/accept-privacy', name: 'accept_privacy')]
-    public function acceptPrivacy(PageRepository $pageRepository): Response
-    {
-        /** @var Page $page */
-        $page = $pageRepository->findOneBy(['slug' => 'accept_privacy']);
-        return $this->render('home/generic.html.twig', [
-            'title' => $page->getTitle(),
-            'content' => $page->getContent(),
-        ]);
-    }
-
-    #[Route('/privacy', name: 'privacy')]
-    public function privacy(PageRepository $pageRepository): Response
-    {
-        /** @var Page $page */
-        $page = $pageRepository->findOneBy(['slug' => 'privacy']);
-        return $this->render('home/generic.html.twig', [
-            'title' => $page->getTitle(),
-            'content' => $page->getContent(),
-        ]);
-    }
-
-    #[Route('/cookies_policy', name: 'cookies_policy')]
-    public function cookie(PageRepository $pageRepository): Response
-    {
-        /** @var Page $page */
-        $page = $pageRepository->findOneBy(['slug' => 'cookie_policy']);
-        return $this->render('home/generic.html.twig', [
-            'title' => $page->getTitle(),
-            'content' => $page->getContent(),
-        ]);
     }
 
     #[Route('/scooter', name: 'scooter')]
