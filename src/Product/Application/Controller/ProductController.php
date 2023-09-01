@@ -107,6 +107,6 @@ class ProductController extends AbstractController
             $this->productService->remove($product);
         }
 
-        return $this->redirectToRoute('app_product_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('app_bicycle_index', [], Response::HTTP_SEE_OTHER);
     }
 }
