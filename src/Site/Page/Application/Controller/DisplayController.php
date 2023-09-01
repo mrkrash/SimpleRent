@@ -10,15 +10,94 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class DisplayController extends AbstractController
 {
-    #[Route('/ragusa-ibla', name: 'ragusa_ibla')]
-    public function ragusaIbla(PageRepository $pageRepository): Response
+    public function __construct(
+        private readonly PageRepository $pageRepository
+    ) {
+    }
+
+    #[Route('/chi-siamo', name: 'who_are')]
+    public function whoAre(): Response
     {
         /** @var Page $page */
-        $page = $pageRepository->findOneBy(['slug' => 'ragusa_ibla']);
+        $page = $this->pageRepository->findOneBy(['slug' => 'who_are']);
+        if (!$page) {
+            return $this->render('coming.html.twig');
+        }
         return $this->render('home/generic.html.twig', [
             'title' => $page->getTitle(),
             'content' => $page->getContent(),
             'slides' => $page->getSlides(),
+        ]);
+    }
+
+    #[Route('/ragusa-ibla', name: 'ragusa_ibla')]
+    public function ragusaIbla(): Response
+    {
+        /** @var Page $page */
+        $page = $this->pageRepository->findOneBy(['slug' => 'ragusa_ibla']);
+        if (!$page) {
+            return $this->render('coming.html.twig');
+        }
+        return $this->render('home/generic.html.twig', [
+            'title' => $page->getTitle(),
+            'content' => $page->getContent(),
+            'slides' => $page->getSlides(),
+        ]);
+    }
+
+    #[Route('/terms', name: 'terms')]
+    public function terms(): Response
+    {
+        /** @var Page $page */
+        $page = $this->pageRepository->findOneBy(['slug' => 'terms']);
+        if (!$page) {
+            return $this->render('coming.html.twig');
+        }
+        return $this->render('home/generic.html.twig', [
+            'title' => $page->getTitle(),
+            'content' => $page->getContent(),
+        ]);
+    }
+
+    #[Route('/accept-privacy', name: 'accept_privacy')]
+    public function acceptPrivacy(): Response
+    {
+        /** @var Page $page */
+        $page = $this->pageRepository->findOneBy(['slug' => 'accept_privacy']);
+        if (!$page) {
+            return $this->render('coming.html.twig');
+        }
+        return $this->render('home/generic.html.twig', [
+            'title' => $page->getTitle(),
+            'content' => $page->getContent(),
+        ]);
+    }
+
+    #[Route('/privacy', name: 'privacy')]
+    public function privacy(): Response
+    {
+        /** @var Page $page */
+        $page = $this->pageRepository->findOneBy(['slug' => 'privacy']);
+        if (!$page) {
+            return $this->render('coming.html.twig');
+        }
+        return $this->render('home/generic.html.twig', [
+            'title' => $page->getTitle(),
+            'content' => $page->getContent(),
+        ]);
+    }
+
+    #[Route('/cookies_policy', name: 'cookies_policy')]
+    public function cookie(): Response
+    {
+        /** @var Page $page */
+        $page = $this->pageRepository->findOneBy(['slug' => 'cookie_policy']);
+        if (!$page) {
+            return $this->render('coming.html.twig');
+        }
+        return $this->render('home/generic.html.twig', [
+            'title' => $page->getTitle(),
+            'content' => $page->getContent(),
         ]);
     }
 }

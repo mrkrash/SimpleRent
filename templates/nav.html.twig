@@ -74,6 +74,7 @@
             </a>
           </div>
         </div>
+        {% if cart is defined %}
         <div class="navbar-item">
           <div class="buttons">
             <a class="button button-cart is-primary" href="{{ path('cart') }}">
@@ -84,6 +85,7 @@
             </a>
           </div>
         </div>
+        {% endif %}
       </div>
     </div>
   </nav>
