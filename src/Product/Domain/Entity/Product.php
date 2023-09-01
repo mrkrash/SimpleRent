@@ -142,7 +142,7 @@ class Product
         return $this->priceList;
     }
 
-    public function setPriceList(PriceList $priceList): self
+    public function setPriceList(?PriceList $priceList): self
     {
         $this->priceList = $priceList;
 

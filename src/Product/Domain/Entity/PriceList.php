@@ -27,9 +27,6 @@ class PriceList
     private ?string $name = null;
 
     #[ORM\Column]
-    private ?int $priceHalfDay = null;
-
-    #[ORM\Column]
     private ?int $priceOneDay = null;
 
     #[ORM\Column]
@@ -60,17 +57,6 @@ class PriceList
     {
         $this->name = $name;
 
-        return $this;
-    }
-
-    public function getPriceHalfDay(): ?int
-    {
-        return $this->priceHalfDay;
-    }
-
-    public function setPriceHalfDay(?int $price): PriceList
-    {
-        $this->priceHalfDay = $price;
         return $this;
     }
 
@@ -122,7 +108,7 @@ class PriceList
     {
         if (!$this->products->contains($product)) {
             $this->products->add($product);
-            $product->setPriceListName($this);
+            $product->setPriceList($this);
         }
 
         return $this;
@@ -132,8 +118,8 @@ class PriceList
     {
         if ($this->products->removeElement($product)) {
             // set the owning side to null (unless already changed)
-            if ($product->getPriceListName() === $this) {
-                $product->setPriceListName(null);
+            if ($product->getPriceList() === $this) {
+                $product->setPriceList(null);
             }
         }
 
