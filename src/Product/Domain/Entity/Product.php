@@ -46,7 +46,7 @@ class Product
     /**
      * @var ArrayCollection|null<int|string, ProductQty>
      */
-    #[ORM\OneToMany(mappedBy: 'product', targetEntity: ProductQty::class, cascade:['persist'])]
+    #[ORM\OneToMany(mappedBy: 'product', targetEntity: ProductQty::class, cascade:['persist', 'remove'])]
     private ?Collection $productQty;
 
     #[ORM\ManyToOne(inversedBy: 'products')]

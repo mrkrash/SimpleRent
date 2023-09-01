@@ -31,7 +31,7 @@ class BookedProduct
     private ?Booking $booking = null;
 
     #[ORM\ManyToOne(cascade: ['persist', 'remove'], inversedBy: 'bookedProduct')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: true)]
     private ?Product $product = null;
 
     public function getId(): ?int
