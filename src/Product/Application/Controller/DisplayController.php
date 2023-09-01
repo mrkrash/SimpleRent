@@ -29,4 +29,19 @@ class DisplayController extends AbstractController
             'book' => false,
         ]);
     }
+
+    #[Route('/accessories', name: 'product_accessories')]
+    public function accessories(): Response
+    {
+        $products = $this->service->retrieveAccessoryDtoByType();
+        if (empty($products)) {
+            return $this->render('not-found.html.twig');
+        }
+
+        return $this->render('home/products.html.twig', [
+            'title' => 'Accessori',
+            'products' => $products,
+            'book' => false,
+        ]);
+    }
 }
