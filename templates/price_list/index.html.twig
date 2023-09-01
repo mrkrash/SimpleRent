@@ -23,7 +23,6 @@
             <thead>
             <tr>
                 <th>Nome</th>
-                <th>Prezzo Mezza Giornata</th>
                 <th>Prezzo Giornaliero</th>
                 <th>Prezzo a 3 giorni</th>
                 <th>Prezzo a 7 giorni</th>
@@ -33,7 +32,6 @@
             {% for price_list in price_lists %}
                 <tr>
                     <td>{{ price_list.name }}</td>
-                    <td>{{ (price_list.priceHalfDay/100)|format_currency('EUR') }}</td>
                     <td>{{ (price_list.priceOneDay/100)|format_currency('EUR') }}</td>
                     <td>{{ (price_list.priceThreeDays/100)|format_currency('EUR') }}</td>
                     <td>{{ (price_list.priceSevenDays/100)|format_currency('EUR') }}</td>
