@@ -16,14 +16,6 @@ class BookingFormType extends AbstractType
         $builder
             ->add('dateStart')
             ->add('dateEnd')
-            ->add('products', CollectionType::class, [
-                'entry_type' => ChoiceType::class,
-                'entry_options' => [
-                    'choices' => $options['productList_choices'],
-                    'choice_label' => 'name',
-                ],
-                'allow_add' => true,
-            ])
             ->add('notes')
         ;
     }

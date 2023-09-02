@@ -8,6 +8,7 @@ use App\Booking\Domain\Entity\Cart;
 use App\Booking\Domain\Entity\CartItem;
 use App\Booking\Domain\Repository\CartItemRepositoryInterface;
 use App\Booking\Domain\Repository\CartRepositoryInterface;
+use App\Product\Application\Service\ProductService;
 use Symfony\Component\HttpFoundation\RequestStack;
 
 final class CartService
@@ -15,6 +16,8 @@ final class CartService
     public function __construct(
         private readonly CartRepositoryInterface $cartRepository,
         private readonly CartItemRepositoryInterface $cartItemRepository,
+        private readonly ProductService $productService,
+        private readonly RateService $rateService,
         private readonly RequestStack $requestStack,
     ) {
     }
@@ -39,17 +42,34 @@ final class CartService
         return $cart;
     }
 
-    public function getItemFromCart(Cart $cart, int $productId): CartItem
+    public function getItemFromCart(Cart $cart, int $productId, int $productQtyId): CartItem
     {
         if (null === $cart->getId()) {
             return new CartItem();
         }
-        $cartItem = $this->cartItemRepository->getFromCart($cart, $productId);
+        $cartItem = $this->cartItemRepository->getFromCart($cart, $productId, $productQtyId);
         if (null === $cartItem) {
             $cartItem = new CartItem();
         }
 
         return $cartItem;
+    }
+
+    public function rate(Cart $cart): int
+    {
+        $rate = 0;
+        $days = $cart->getDateEnd()->diff($cart->getDateStart())->days;
+        foreach ($cart->getCartItems() as $item) {
+            $product = $this->productService->retrieveById($item->getProductId());
+            $rate += ($this->rateService->calc(
+                $days,
+                $product->getPriceList()->getPriceOneDay(),
+                $product->getPriceList()->getPriceThreeDays(),
+                $product->getPriceList()->getPriceSevenDays()
+            ) * $item->getQty());
+        }
+
+        return (int) $rate;
     }
 
     public function save(Cart $cart): void

@@ -33,6 +33,11 @@ final class ProductService
         return $this->productRepository->find($idx);
     }
 
+    public function retrieveSizeHumanReadable(int $idx): ?string
+    {
+        return $this->qtyRepository->find($idx)->getSize()->value;
+    }
+
     public function retrieveOneByType(BicycleType $type): ?Product
     {
         return $this->productRepository->findOneBy(['bicycleType' => $type]);
@@ -59,9 +64,9 @@ final class ProductService
     }
 
     /**
-     * @return ProductDto[]
+     * @return Product[]
      */
-    public function retrieveBicycleDtoByType(BicycleType $bicycleType): array
+    public function retrieveBicycleAvailableByType(BicycleType $bicycleType): array
     {
         return $this->productRepository->findAllSizeWithQtyByType(ProductType::BYCICLE, $bicycleType);
     }

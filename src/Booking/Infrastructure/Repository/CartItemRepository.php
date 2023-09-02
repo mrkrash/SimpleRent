@@ -25,15 +25,21 @@ class CartItemRepository extends ServiceEntityRepository implements CartItemRepo
     }
 
     /**
+     * @param Cart $cart
+     * @param int $productId
+     * @param int $productQtyId
+     * @return CartItem|null
      * @throws NonUniqueResultException
      */
-    public function getFromCart(Cart $cart, int $productId): ?CartItem
+    public function getFromCart(Cart $cart, int $productId, int $productQtyId): ?CartItem
     {
         return $this->createQueryBuilder('ci')
             ->where('ci.cart = :cart')
             ->andWhere('ci.productId = :productId')
+            ->andWhere('ci.size = :productQtyId')
             ->setParameter('cart', $cart)
             ->setParameter('productId', $productId)
+            ->setParameter('productQtyId', $productQtyId)
             ->getQuery()
             ->getOneOrNullResult();
     }

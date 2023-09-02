@@ -14,22 +14,27 @@
       </div>
     </div>
   </section>
-<section class="container" data-controller='paypal'>
+<section class="container" data-controller='cart'>
   <input type="hidden" id="rate" value="{{ cart.rate }}" />
   <form name="customer_information" action="#">
     <div class="columns">
       <div class="column is-5">
         <section class="section is-small">
-          {% for product in products %}
-            <div class="columns">
+          {% for item in items %}
+            <div id="item-{{ item.id }}" class="columns">
               <div class="column">
                 <figure class="image is-128x128">
-                  <img src="/images/{{ product.image }}" alt="{{ product.name }}">
+                  <img src="/images/{{ item.product.image }}" alt="{{ item.product.name }}">
                 </figure>
               </div>
               <div class="column">
-                <p class="subtitle is-4">{{ product.name }}</p>
-                <p>Qt. {{ product.qty }} - Size {{ product.size.value }}</p>
+                <p class="has-text-weight-medium">{{ item.product.name }}</p>
+                <p class="has-text-weight-light">Qt. {{ item.product.qty }} - Size {{ item.product.size }}</p>
+              </div>
+              <div class="column is-1" data-controller="cart">
+                <a href="#" data-action="cart#removeProductFromCart" data-cart-id-param="{{ item.id }}">
+                  <span class="icon has-text-grey"><i class="fas fa-trash"></i></span>
+                </a>
               </div>
             </div>
           {% endfor %}
@@ -38,25 +43,25 @@
           <h4 class="subtitle is-4">Consegna</h4>
           <div class="control">
             <label class="radio">
-              <input type="radio" name="delivery" value="onsite" required data-action="paypal#delivery" data-paypal-delivery-param="onsite" checked>
+              <input type="radio" name="delivery" value="onsite" required data-action="cart#delivery" data-cart-delivery-param="onsite" checked>
               Ritiro in agenzia
             </label>
           </div>
           <div class="control">
             <label class="radio">
-              <input type="radio" name="delivery" value="free" required data-action="paypal#delivery" data-paypal-delivery-param="free">
+              <input type="radio" name="delivery" value="free" required data-action="cart#delivery" data-cart-delivery-param="free">
               Consegna e Ritiro gratuiti presso una <a href="{{ path('where_to_stay') }}" target="_blank">struttura convenzionata</a> (min. 3 giorni di noleggio)
             </label>
           </div>
           <div class="control">
             <label class="radio">
-              <input type="radio" name="delivery" value="free" required data-action="paypal#delivery" data-paypal-delivery-param="free">
+              <input type="radio" name="delivery" value="free" required data-action="cart#delivery" data-cart-delivery-param="free">
               Consegna e Ritiro gratuiti a Ragusa, Ragusa Ibla, Marina di Ragusa, Punta Secca, Casuzze, Caucana e Santa Croce Camerina (min. 3 giorni di noleggio)
             </label>
           </div>
           <div class="control">
             <label class="radio">
-              <input type="radio" name="delivery" value="others" required data-action="paypal#delivery" data-paypal-delivery-param="others">
+              <input type="radio" name="delivery" value="others" required data-action="cart#delivery" data-cart-delivery-param="others">
               Consegna all'interno della provincia (€ 15,00)
             </label>
           </div>
@@ -126,7 +131,7 @@
           <h5 class="subtitle is-5">Riepilogo</h5>
           <div class="columns">
             <div class="column has-text-left"><i>Noleggio</i></div>
-            <div class="column"><strong>{{ cart.rate|format_currency('EUR') }}</strong></div>
+            <div class="column"><strong id="subtotal">{{ cart.rate|format_currency('EUR') }}</strong></div>
           </div>
           <div class="columns">
             <div class="column has-text-left"><i>Consegna</i></div>
@@ -148,7 +153,8 @@
             </a>
           </div>
 
-          <div id="paypal-button"></div>
+          <div data-controller="paypal"><div id="paypal-button"></div></div>
+
         </div>
       </div>
     </div>

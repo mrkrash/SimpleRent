@@ -8,17 +8,11 @@ const phone = document.getElementById('phone');
 const delivery = document.getElementById('delivery');
 const privacy = document.getElementById('privacy');
 const newsletter = document.getElementById('newsletter');
-const totalEl = document.getElementById('total');
-const products = document.getElementById('products');
-
-let rate = 0;
-let total = 0;
 
 export default class extends Controller {
-    connect() {
+    connect()
+    {
         const paypal_client_id = document.head.querySelector("meta[name=paypal_client_id]").content;
-        rate = document.getElementById('rate').value;
-        total = rate;
 
         loadScript({"client-id": paypal_client_id, "currency": "EUR"}).then((paypal) => {
             paypal.Buttons({
@@ -91,15 +85,5 @@ export default class extends Controller {
         }).catch((err) => {
             window.location = '/payment/cancel'
         });
-    }
-    delivery(e) {
-        if (e.params.delivery === 'others') {
-            delivery.innerHTML = '15.00';
-            total = parseInt(rate) + 15;
-            totalEl.innerHTML = '€ ' + total.toFixed(2);
-        } else {
-            delivery.innerHTML = '-.--';
-            totalEl.innerHTML = '€ ' + parseFloat(rate).toFixed(2);
-        }
     }
 }
