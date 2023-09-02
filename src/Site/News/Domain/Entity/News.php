@@ -1,36 +1,29 @@
 <?php
 
-namespace App\Site\Page\Domain\Entity;
+namespace App\Site\News\Domain\Entity;
 
 use App\Shared\Enum\Lang;
 use App\Shared\Traits\AutoCreatedAtTrait;
-use App\Shared\Traits\AutoDeletedAtTrait;
 use App\Shared\Traits\AutoUpdatedAtTrait;
-use App\Site\Page\Infrastructure\Repository\PageRepository;
+use App\Site\News\Infrastructure\Repository\NewsRepository;
+use App\Site\Shared\Domain\Entity\Slide;
 use DateTimeImmutable;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
 
-#[ORM\Entity(repositoryClass: PageRepository::class)]
+#[ORM\Entity(repositoryClass: NewsRepository::class)]
 #[ORM\HasLifecycleCallbacks]
-class Page
+class News
 {
     use AutoCreatedAtTrait;
     use AutoUpdatedAtTrait;
-    use AutoDeletedAtTrait;
-
-    public const STANDARD = 'standard';
-    public const NEWS = 'news';
 
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
-
-    #[ORM\Column(length: 8)]
-    private string $type = self::STANDARD;
 
     #[ORM\Column(length: 50)]
     private ?string $slug = null;
@@ -38,16 +31,16 @@ class Page
     #[ORM\Column(length: 50)]
     private ?string $title = null;
 
-    #[ORM\Column()]
-    private ?DateTimeImmutable $date = null;
-
     #[ORM\Column(type: "text")]
     private ?string $content = null;
+
+    #[ORM\Column]
+    private DateTimeImmutable $date;
 
     #[ORM\Column(length: 2)]
     private ?Lang $lang = null;
 
-    #[ORM\OneToMany(mappedBy: 'page', targetEntity: Slide::class, cascade: ['persist', 'remove'])]
+    #[ORM\OneToMany(mappedBy: 'news', targetEntity: Slide::class, cascade: ['persist', 'remove'])]
     private Collection $slides;
 
     /** @var File[]|null  */
@@ -63,14 +56,9 @@ class Page
         return $this->id;
     }
 
-    public function getType(): string
+    public function setId(?int $id): News
     {
-        return $this->type;
-    }
-
-    public function setType(string $type): Page
-    {
-        $this->type = $type;
+        $this->id = $id;
         return $this;
     }
 
@@ -79,7 +67,7 @@ class Page
         return $this->slug;
     }
 
-    public function setSlug(?string $slug): Page
+    public function setSlug(?string $slug): News
     {
         $this->slug = $slug;
         return $this;
@@ -90,21 +78,9 @@ class Page
         return $this->title;
     }
 
-    public function setTitle(string $title): self
+    public function setTitle(?string $title): News
     {
         $this->title = $title;
-
-        return $this;
-    }
-
-    public function getDate(): ?DateTimeImmutable
-    {
-        return $this->date;
-    }
-
-    public function setDate(?DateTimeImmutable $date): Page
-    {
-        $this->date = $date;
         return $this;
     }
 
@@ -113,10 +89,20 @@ class Page
         return $this->content;
     }
 
-    public function setContent(string $content): self
+    public function setContent(?string $content): News
     {
         $this->content = $content;
+        return $this;
+    }
 
+    public function getDate(): DateTimeImmutable
+    {
+        return $this->date;
+    }
+
+    public function setDate(DateTimeImmutable $date): News
+    {
+        $this->date = $date;
         return $this;
     }
 
@@ -125,7 +111,7 @@ class Page
         return $this->lang;
     }
 
-    public function setLang(?Lang $lang): Page
+    public function setLang(?Lang $lang): News
     {
         $this->lang = $lang;
         return $this;
@@ -164,7 +150,7 @@ class Page
         return $this->uploadSlides;
     }
 
-    public function setUploadSlides(?array $uploadSlides): Page
+    public function setUploadSlides(?array $uploadSlides): News
     {
         $this->uploadSlides = $uploadSlides;
         return $this;

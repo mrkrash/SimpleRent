@@ -1,0 +1,56 @@
+{% extends 'admin.html.twig' %}
+
+{% block title %}News{% endblock %}
+
+{% block content %}
+<section class="section">
+    <div class="container">
+        <div class="level">
+            <div class="level-left">
+                <div class="level-item">
+                    <h1 class="title">News</h1>
+                </div>
+            </div>
+            <div class="level-right">
+                <div class="level-item">
+                    <a href="{{ path('app_news_new') }}" class="button is-primary">Aggiungi una nuova news</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Titolo</th>
+                <th>Data</th>
+                <th>Contenuto</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for item in news %}
+            <tr>
+                <td>{{ item.title }}</td>
+                <td>{{ item.date|date('d/m/Y') }}</td>
+                <td>{{ item.content|truncate|raw }}</td>
+                <td>
+                    <p class="control">
+                        <a class="button" href="{{ path('app_news_edit', {'id': item.id}) }}">
+                                <span class="icon is-small">
+                                    <i class="fas fa-pencil"></i>
+                                </span>
+                            <span>Modifica</span>
+                        </a>
+                    </p>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}

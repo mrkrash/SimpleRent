@@ -1,0 +1,20 @@
+{% extends 'admin.html.twig' %}
+
+{% block title %}Aggiungi News{% endblock %}
+
+{% block content %}
+    <section class="section">
+        <div class="container">
+            <div class="level">
+                <div class="level-left">
+                    <div class="level-item">
+                        <h1 class="title">Nuova News</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {{ include('news/_form.html.twig') }}
+
+    </section>
+{% endblock %}
