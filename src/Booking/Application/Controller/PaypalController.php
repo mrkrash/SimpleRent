@@ -13,6 +13,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface;
@@ -22,6 +23,7 @@ use Symfony\Contracts\HttpClient\Exception\ServerExceptionInterface;
 class PaypalController extends AbstractController
 {
     public function __construct(
+        private readonly CartService $cartService,
         private readonly PaymentServiceInterface $paymentService,
         private readonly TransactionService $transactionService,
     ) {
@@ -36,10 +38,9 @@ class PaypalController extends AbstractController
     public function create(
         Request $request,
         BookingService $bookingService,
-        CartService $cartService,
         CustomerService $customerService,
     ): Response {
-        $cart = $cartService->handle();
+        $cart = $this->cartService->handle();
         $customer = $request->getPayload()->all()['customer'];
 
         $customer = $customerService->handle(new CustomerDto(
@@ -89,7 +90,12 @@ class PaypalController extends AbstractController
         $transaction = $this->transactionService->retrieveByTransportId($order['orderID']);
 
         if (null !== $transaction && $this->paymentService->checkoutOrder($order['orderID'], $transaction)) {
-            $this->transactionService->notifyPeers($transaction);
+            try {
+                $this->transactionService->notifyPeers($transaction);
+            } catch (TransportExceptionInterface $e) {
+            }
+            $cart = $this->cartService->handle();
+            $this->cartService->remove($cart);
             return new RedirectResponse('/payment/landing');
         }
 

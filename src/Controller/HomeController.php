@@ -27,8 +27,8 @@ class HomeController extends AbstractController
                 $productService->retrieveOneByType(BicycleType::GRAVEL),
                 $productService->retrieveOneByType(BicycleType::RACINGBIKE),
             ],
-            'dateStart' => $cart->getDateStart()?->format('Ymd'),
-            'dateEnd' => $cart->getDateEnd()?->format('Ymd'),
+            'dateStart' => $cart->getDateStart()?->format('Y-m-d'),
+            'dateEnd' => $cart->getDateEnd()?->format('Y-m-d'),
             'cart' => $cart,
         ]);
     }

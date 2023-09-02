@@ -37,10 +37,10 @@ class InteractionController extends AbstractController
             'dateStart' => $dateStart,
             'dateEnd' => $dateEnd,
             'products' => [
-                'mountainbike' => $this->productService->retrieveBicycleDtoByType(BicycleType::MOUNTAINBIKE),
-                'ebike' => $this->productService->retrieveBicycleDtoByType(BicycleType::EBIKE),
-                'gravel' => $this->productService->retrieveBicycleDtoByType(BicycleType::GRAVEL),
-                'racing' => $this->productService->retrieveBicycleDtoByType(BicycleType::RACINGBIKE),
+                'mountainbike' => $this->productService->retrieveBicycleAvailableByType(BicycleType::MOUNTAINBIKE),
+                'ebike' => $this->productService->retrieveBicycleAvailableByType(BicycleType::EBIKE),
+                'gravel' => $this->productService->retrieveBicycleAvailableByType(BicycleType::GRAVEL),
+                'racing' => $this->productService->retrieveBicycleAvailableByType(BicycleType::RACINGBIKE),
             ],
         ]);
     }
@@ -56,42 +56,5 @@ class InteractionController extends AbstractController
             'dateEnd' => $cart->getDateEnd(),
             'accessories' => $this->productService->retrieveAccessoryDtoByType(),
         ]);
-    }
-
-    #[Route('/addToCart', name: 'add_to_cart', methods: ['POST'])]
-    public function addToCart(
-        Request $request,
-        RateService $rateService
-    ): Response {
-        $cart = $this->cartService->handle();
-
-        //$cart->setDateStart((new DateTimeImmutable())->setTimestamp($request->getPayload()->get('start') / 1000));
-        //$cart->setDateEnd((new DateTimeImmutable())->setTimestamp($request->getPayload()->get('end') / 1000));
-        $cartItem = $this->cartService->getItemFromCart($cart, $request->getPayload()->get('id'));
-        if ('product' === $request->getPayload()->get('type')) {
-            $cartItem->setProductId($request->getPayload()->get('id'));
-        } else {
-            $cartItem->setAccessoryId($request->getPayload()->get('id'));
-        }
-        $cartItem->setSize($request->getPayload()->get('size'));
-        $cartItem->setQty($cartItem->getQty() + 1);
-        $cart->addCartItem($cartItem);
-
-        $rate = 0;
-        $days = $cart->getDateEnd()->diff($cart->getDateStart())->days;
-        foreach ($cart->getCartItems() as $item) {
-            $product = $this->productService->retrieveById($item->getProductId());
-            $rate += ($rateService->calc(
-                $days,
-                $product->getPriceList()->getPriceOneDay(),
-                $product->getPriceList()->getPriceThreeDays(),
-                $product->getPriceList()->getPriceSevenDays()
-            ) * $item->getQty());
-        }
-        $cart->setRate($rate);
-
-        $this->cartService->save($cart);
-
-        return new JsonResponse($cart);
     }
 }

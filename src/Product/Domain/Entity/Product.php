@@ -152,7 +152,7 @@ class Product
     /**
      * @return ArrayCollection<int|string, ProductQty>
      */
-    public function getProductQty(): ArrayCollection
+    public function getProductQty(): Collection
     {
         return $this->productQty;
     }

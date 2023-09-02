@@ -9,6 +9,7 @@ use App\Shared\DTO\ProductDto;
 use App\Shared\Enum\BicycleType;
 use App\Shared\Enum\ProductType;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Mapping\ClassMetadataInfo;
 use Doctrine\ORM\Query\Expr;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -63,8 +64,8 @@ class ProductRepository extends ServiceEntityRepository implements ProductReposi
     public function findAllSizeWithQtyByType(ProductType $type, ?BicycleType $bicycleType = null): array
     {
         $qbr = $this->createQueryBuilder('p')
-            ->select(sprintf('NEW %s(p.id, p.name, p.image, pq.size, pq.qty)', ProductDto::class))
-            ->join(ProductQty::class, 'pq', Expr\Join::WITH, 'pq.product = p AND pq.qty > 0')
+            //->select(sprintf('NEW %s(p.id, p.name, p.image, pq.size, pq.qty)', ProductDto::class))
+            ->leftJoin('p.productQty', 'pq')
             ->where('p.enabled = true')
             ->andWhere('p.type = :type')
             ->setParameter('type', $type);
@@ -73,6 +74,7 @@ class ProductRepository extends ServiceEntityRepository implements ProductReposi
         }
 
         return $qbr->getQuery()
+            //->setFetchMode(ProductQty::class, 'productQty', ClassMetadataInfo::FETCH_EAGER)
             ->getResult();
     }
 

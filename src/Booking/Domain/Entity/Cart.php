@@ -28,7 +28,12 @@ class Cart implements JsonSerializable
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\OneToMany(mappedBy: 'cart', targetEntity: CartItem::class, cascade: ['persist'])]
+    #[ORM\OneToMany(
+        mappedBy: 'cart',
+        targetEntity: CartItem::class,
+        cascade: ['persist', 'remove'],
+        orphanRemoval: true
+    )]
     private Collection $cartItems;
 
     #[ORM\Column]
@@ -150,6 +155,7 @@ class Cart implements JsonSerializable
             'id' => $this->id,
             'validUntil' => $this->validUntil,
             'count' => $this->getTotalItemsCount(),
+            'rate' => $this->rate,
         ];
     }
 }

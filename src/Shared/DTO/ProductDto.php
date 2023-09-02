@@ -2,7 +2,7 @@
 
 namespace App\Shared\DTO;
 
-use App\Shared\Enum\ProductSize;
+use App\Product\Domain\Entity\ProductQty;
 
 class ProductDto
 {
@@ -10,7 +10,7 @@ class ProductDto
         private readonly int $idx,
         private readonly string $name,
         private readonly string $image,
-        private readonly ProductSize $size,
+        private readonly string $size,
         private readonly int $qty,
     ) {
     }
@@ -30,7 +30,7 @@ class ProductDto
         return $this->image;
     }
 
-    public function getSize(): ProductSize
+    public function getSize(): string
     {
         return $this->size;
     }

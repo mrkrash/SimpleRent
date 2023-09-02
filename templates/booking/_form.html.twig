@@ -12,13 +12,4 @@
     </div>
 </div>
 
-<div class="columns">
-    <div class="column" {{ stimulus_controller('form-collection') }}
-        data-booking-index-value="{{ form.products|length > 0 ? form.products|last.vars.name + 1 : 0 }}"
-        data-booking-prototype-value="{{ form_widget(form.products.vars.prototype)|e('html_attr') }}"
-    >
-        <ul {{ stimulus_target('booking', 'collectionContainer') }}></ul>
-        <button type="button" {{ stimulus_action('booking', 'addCollectionElement') }}>Aggiungi un prodotto</button>
-    </div>
-</div>
 {{ form_end(form) }}

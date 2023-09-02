@@ -31,6 +31,11 @@ class ProductQty
     #[ORM\JoinColumn(nullable: false, onDelete: 'cascade')]
     private ?Product $product = null;
 
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
     public function getSize(): ?ProductSize
     {
         return $this->size;

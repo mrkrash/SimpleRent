@@ -40,17 +40,9 @@
                     <p class="control">
                         <a class="button" href="{{ path('app_booking_show', {'id': booking.id}) }}">
                                 <span class="icon is-small">
-                                    <i class="fas fa-pencil"></i>
+                                    <i class="fas fa-eye-open"></i>
                                 </span>
                             <span>Visualizza</span>
-                        </a>
-                    </p>
-                    <p class="control">
-                        <a class="button" href="{{ path('app_booking_edit', {'id': booking.id}) }}">
-                                <span class="icon is-small">
-                                    <i class="fas fa-pencil"></i>
-                                </span>
-                            <span>Modifica</span>
                         </a>
                     </p>
                 </td>
@@ -62,4 +54,5 @@
         {% endfor %}
         </tbody>
     </table>
+</section>
 {% endblock %}

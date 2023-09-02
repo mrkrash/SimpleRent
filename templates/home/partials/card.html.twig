@@ -1,14 +1,20 @@
 <div class="card" style="padding: 3rem;">
   <div class="card-image">
     <figure class="image is-4by3">
-      <img src="/images/{{ product.image }}" alt="{{ product.name }}">
+      <img src="/images/{{ product.image }}" alt="{{ product.name }}" >
     </figure>
   </div>
   <div class="card-content">
     <div class="content has-text-centered">
       <p class="title is-4 pt-4" style="height: 6rem;">{{ product.name }}</p>
       {% if book %}
-        <p class="subtitle is-5">size: <strong>{{ product.size.value }}</strong></p>
+        <div class="select">
+          <select id="size-{{ product.id }}">
+            {% for productQty in product.productQty %}
+              <option value="{{ productQty.id }}">size: {{ productQty.size.value }}</option>
+            {% endfor %}
+          </select>
+        </div>
       {% endif %}
     </div>
   </div>
@@ -19,8 +25,7 @@
           class="button is-success card-footer-item"
           type="button"
           data-action="cart#addProductToCart"
-          data-cart-id-param="{{ product.idx }}"
-          data-cart-size-param="{{ product.size.value }}"
+          data-cart-id-param="{{ product.id }}"
       >
           <span class="icon is-small">
               <i class="fas fa-plus"></i>

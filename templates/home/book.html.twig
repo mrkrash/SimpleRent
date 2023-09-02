@@ -39,7 +39,7 @@
       </ul>
     </div>
     <div id="mountainbike" class="content-tab">
-      <div class="columns">
+      <div class="columns is-multiline">
         {% for product in products.mountainbike %}
           <div class="column is-3">
             {% include 'home/partials/card.html.twig' with {'book': true} %}
@@ -48,7 +48,7 @@
       </div>
     </div>
     <div id="ebike" class="content-tab" style="display:none">
-      <div class="columns">
+      <div class="columns is-multiline">
         {% for product in products.ebike %}
           <div class="column is-3">
             {% include 'home/partials/card.html.twig' with {'book': true} %}
@@ -57,7 +57,7 @@
       </div>
     </div>
     <div id="gravel" class="content-tab" style="display:none">
-      <div class="columns">
+      <div class="columns is-multiline">
         {% for product in products.gravel %}
           <div class="column is-3">
             {% include 'home/partials/card.html.twig' with {'book': true} %}
@@ -66,7 +66,7 @@
       </div>
     </div>
     <div id="racing" class="content-tab" style="display:none">
-      <div class="columns">
+      <div class="columns is-multiline">
         {% for product in products.racing %}
           <div class="column is-3">
             {% include 'home/partials/card.html.twig' with {'book': true} %}
