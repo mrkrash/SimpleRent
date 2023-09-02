@@ -1327,10 +1327,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@creativebulma/bulma-badge@francesco-loreti/bulma-badge#head=calc_deprecation_warning":
+"@creativebulma/bulma-badge@npm:^1.0.1":
   version: 1.0.1
-  resolution: "@creativebulma/bulma-badge@https://github.com/francesco-loreti/bulma-badge.git#commit=a8e290948d1a99b9b2b6a86b477ac5f741f262fb"
-  checksum: af14f45d22a1cf4e8b7b7824c9c0b22b4c69dfc62f898c4c490e4d0c1a3466e4ceae588b53d52e7a28df41643104009244f7036323469fc48b8d0c6176dfd875
+  resolution: "@creativebulma/bulma-badge@npm:1.0.1"
+  checksum: 33c2189194da4253139da01624f4c7d5d4b7cfcc8f370fab41c2db75b2af45cf6884211f65d2a0b7bf8024c44d1fa889348b0041ee1dffd2d61e3f4d7476ef4c
   languageName: node
   linkType: hard
 
@@ -6077,7 +6077,7 @@ __metadata:
   dependencies:
     "@babel/core": ^7.17.0
     "@babel/preset-env": ^7.16.0
-    "@creativebulma/bulma-badge": "francesco-loreti/bulma-badge#head=calc_deprecation_warning"
+    "@creativebulma/bulma-badge": ^1.0.1
     "@fullcalendar/core": ^6.1.8
     "@fullcalendar/daygrid": ^6.1.8
     "@fullcalendar/interaction": ^6.1.8

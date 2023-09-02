@@ -23,7 +23,7 @@
         "build": "encore production --progress"
     },
     "dependencies": {
-        "@creativebulma/bulma-badge": "francesco-loreti/bulma-badge#head=calc_deprecation_warning",
+        "@creativebulma/bulma-badge": "^1.0.1",
         "@fullcalendar/core": "^6.1.8",
         "@fullcalendar/daygrid": "^6.1.8",
         "@fullcalendar/interaction": "^6.1.8",
