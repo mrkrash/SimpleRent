@@ -28,7 +28,7 @@ class Product
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 7)]
+    #[ORM\Column(length: 9)]
     private ProductType $type;
 
     #[ORM\Column(length: 16, nullable: true)]
