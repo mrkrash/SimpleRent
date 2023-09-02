@@ -17,7 +17,7 @@ export default class extends Controller {
 
     addProductToCart(evt)
     {
-        fetch(` / cart / addToCart`, {
+        fetch(`/cart/addToCart`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -25,7 +25,7 @@ export default class extends Controller {
             body: JSON.stringify({
                 id: evt.params.id,
                 type: 'product',
-                size: document.getElementById(`size - ${evt.params.id}`).value
+                size: document.getElementById(`size-${evt.params.id}`).value
             })
         })
             .then(res => res.json())
@@ -51,11 +51,11 @@ export default class extends Controller {
     removeProductFromCart(evt)
     {
         fetch(
-            ` / cart / deleteFromCart / ${evt.params.id}`,
+            `/cart/deleteFromCart/${evt.params.id}`,
             {method: "DELETE", headers: {"Content-Type": "application/json"}}
         ).then(res => res.json()).then(result => {
             if (result.success) {
-                document.getElementById(`item - ${evt.params.id}`).remove();
+                document.getElementById(`item-${evt.params.id}`).remove();
                 document.getElementById('cart-badge').textContent = result.cart.count;
                 document.getElementById('rate').value = result.cart.rate;
                 subtotalEl.innerHTML = '€ ' + parseFloat(result.cart.rate).toFixed(2);
