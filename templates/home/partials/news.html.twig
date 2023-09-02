@@ -1,0 +1,21 @@
+<div class="card">
+  <div class="card-image">
+    <figure class="image is-4by3">
+      <img src="{{ news.primaryImage }}" alt="{{ news.title }}">
+    </figure>
+  </div>
+  <div class="card-content">
+    <div class="media">
+      <div class="media-content">
+        <p class="title is-4">{{ news.title }}</p>
+      </div>
+    </div>
+
+    <div class="content">
+      {{ item.content|truncate|raw }}.
+      <a href="{{ path('/news/', {'slug': news.slug})) }}">leggi</a>
+      <br>
+      <time datetime="{{ news.date|date('Y-m-d') }}">{{ news.date|date('d/m/Y') }}</time>
+    </div>
+  </div>
+</div>
