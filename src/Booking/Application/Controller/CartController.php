@@ -7,6 +7,7 @@ use App\Booking\Application\Service\RateService;
 use App\Booking\Domain\Entity\CartItem;
 use App\Product\Application\Service\ProductService;
 use App\Shared\DTO\ProductDto;
+use App\Site\Page\Infrastructure\Repository\PageRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -18,6 +19,7 @@ class CartController extends AbstractController
 {
     public function __construct(
         private readonly CartService $cartService,
+        private readonly PageRepository $pageRepository,
     ) {
     }
 
@@ -45,6 +47,7 @@ class CartController extends AbstractController
         return $this->render('home/cart.html.twig', [
             'items' => $cartItems,
             'cart' => $cart,
+            'news_list' => $this->pageRepository->findAll(),
         ]);
     }
 

@@ -36,6 +36,9 @@
     </div>
     <div id="main-menu" class="navbar-menu">
       <div class="navbar-end">
+        <div class="navbar-item is-hoverable">
+          <a href="{{ path('app_home') }}" title="Home" class="uppercase">Home</a>
+        </div>
         <div class="navbar-item has-dropdown is-hoverable">
           <a title="{{ 'biciclette'|trans }}" class="navbar-link uppercase">
             {{ 'biciclette'|trans }}
@@ -58,6 +61,18 @@
         <div class="navbar-item">
           <a href="{{ path('product_accessories') }}" title="{{ 'accessori'|trans }}" class="uppercase">{{ 'accessori'|trans }}</a>
         </div>
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a title="{{ 'news'|trans }}" class="navbar-link uppercase">
+            {{ 'news'|trans }}
+          </a>
+          <div class="navbar-dropdown">
+            {% for news in news_list %}
+              <a class="navbar-item uppercase" href="/news/{{ news.slug }}">
+                {{ news.title }}
+              </a>
+            {% endfor %}
+          </div>
+        </div>
         <div class="navbar-item">
           <a href="{{ path('ragusa_ibla') }}" title="Ragusa Ibla" class="uppercase">Ragusa Ibla</a>
         </div>
@@ -66,7 +81,6 @@
             <a class="button is-primary" href="tel://3349826963">
               <span class="icon-text">
                 <span class="icon"><i class="fas fa-phone"></i></span>
-                <span><strong>334/9826963</strong></span>
               </span>
             </a>
           </div>

@@ -7,6 +7,7 @@ use App\Booking\Application\Service\RateService;
 use App\Product\Application\Service\ProductService;
 use App\Shared\Enum\BicycleType;
 use App\Shared\Enum\ProductType;
+use App\Site\Page\Infrastructure\Repository\PageRepository;
 use DateTimeImmutable;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -19,6 +20,7 @@ class InteractionController extends AbstractController
 {
     public function __construct(
         private readonly CartService $cartService,
+        private readonly PageRepository $pageRepository,
         private readonly ProductService $productService,
     ) {
     }
@@ -42,6 +44,7 @@ class InteractionController extends AbstractController
                 'gravel' => $this->productService->retrieveBicycleAvailableByType(BicycleType::GRAVEL),
                 'racing' => $this->productService->retrieveBicycleAvailableByType(BicycleType::RACINGBIKE),
             ],
+            'news_list' => $this->pageRepository->findAll(),
         ]);
     }
 
@@ -55,6 +58,7 @@ class InteractionController extends AbstractController
             'dateStart' => $cart->getDateStart(),
             'dateEnd' => $cart->getDateEnd(),
             'accessories' => $this->productService->retrieveAccessoryDtoByType(),
+            'news_list' => $this->pageRepository->findAll(),
         ]);
     }
 }
