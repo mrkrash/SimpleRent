@@ -2,7 +2,7 @@
 ## A simple booking web software without any claim
 
 This software, which started as a small demonstration website, aims to rent bicycle products (bicycles, helmets,
-pedals..).
+pedals).
 
 There are many electronic carts but, the need was for something simple, that would do just three things and be 
 maintainable in the long run.
