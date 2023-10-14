@@ -5,14 +5,18 @@ namespace App\Product\Application\Controller;
 use App\Product\Application\Service\ProductService;
 use App\Shared\Enum\BicycleType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class DisplayController extends AbstractController
 {
+    private bool $isBooking;
     public function __construct(
         private readonly ProductService $service,
+        RequestStack $requestStack,
     ) {
+        $this->isBooking = $requestStack->getSession()->has('cart');
     }
 
     #[Route('/bicycle/{type}', name: 'product_bycicle')]
@@ -26,7 +30,7 @@ class DisplayController extends AbstractController
         return $this->render('home/products.html.twig', [
             'title' => $type,
             'products' => $products,
-            'book' => true,
+            'book' => $this->isBooking,
         ]);
     }
 
@@ -41,7 +45,7 @@ class DisplayController extends AbstractController
         return $this->render('home/products.html.twig', [
             'title' => 'Accessori',
             'products' => $products,
-            'book' => true,
+            'book' => $this->isBooking,
         ]);
     }
 }
