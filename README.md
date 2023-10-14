@@ -2,7 +2,7 @@
 ## A simple booking web software without any claim
 
 This software, which started as a small demonstration website, aims to rent bicycle products (bicycles, helmets,
-pedals..).
+pedals).
 
 There are many electronic carts but, the need was for something simple, that would do just three things and be 
 maintainable in the long run.
@@ -29,6 +29,8 @@ database (in my case [MariaDB](https://mariadb.org/)).
 
 Nothing prohibits the use of SQLite, a database that is more than reliable and sufficient to be able to handle medium 
 workloads.
+
+Instead, the theme is based on the [Bulma](https://bulma.io).
 
 ### Installation
 Installation can be done with the classic:
