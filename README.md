@@ -30,6 +30,8 @@ database (in my case [MariaDB](https://mariadb.org/)).
 Nothing prohibits the use of SQLite, a database that is more than reliable and sufficient to be able to handle medium 
 workloads.
 
+Instead, the theme is based on the [Bulma](https://bulma.io).
+
 ### Installation
 Installation can be done with the classic:
 ```shell
