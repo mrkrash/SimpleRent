@@ -20,7 +20,7 @@ Initially, the code respected the [MVC](https://en.wikipedia.org/wiki/Model%E2%8
 but as the code evolved, a [DDD](https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller) approach was 
 decided upon.
 
-### Developing
+### Develop
 To enable local development, without the need for containers, [SQLite](https://www.sqlite.org) is used. This implies 
 that migrations created locally, are only fine locally.
 
@@ -29,3 +29,13 @@ database (in my case [MariaDB](https://mariadb.org/)).
 
 Nothing prohibits the use of SQLite, a database that is more than reliable and sufficient to be able to handle medium 
 workloads.
+
+### Installation
+Installation can be done with the classic:
+```shell
+composer install
+```
+There is no default user, so it will be necessary to create one with the command:
+```shell
+php bin/console user:create <username> <password>
+```
