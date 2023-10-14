@@ -23,6 +23,7 @@ class CreateUserCommand extends Command
         private readonly UserPasswordHasherInterface $passwordHasher,
         private readonly UserRepository $userRepository
     ) {
+        parent::__construct();
     }
 
     protected function configure(): void
@@ -46,7 +47,7 @@ class CreateUserCommand extends Command
             'Username: ' . $username,
         ]);
 
-        $user = (new User())->setUsername($username);
+        $user = (new User())->setUsername($username)->setRoles(['ROLE_ADMIN']);
         $user->setPassword($this->passwordHasher->hashPassword($user, $password));
         $this->userRepository->save($user, true);
 
