@@ -53,8 +53,9 @@ class ProductController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $product = $this->productService->handleQty($product, $form);
             $product->setImage($this->fileUploader->upload($form['uploadImage']->getData()));
+            $this->productService->persist($product);
+            $product = $this->productService->handleQty($product, $form);
             $this->productService->persist($product);
 
             return $this->redirectToRoute('app_bicycle_index', [], Response::HTTP_SEE_OTHER);
