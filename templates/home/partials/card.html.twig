@@ -19,8 +19,8 @@
     </div>
   </div>
 
-  {% if book %}
-    <footer class="card-footer">
+  <footer class="card-footer">
+    {% if book %}
       <button
           class="button is-success card-footer-item"
           type="button"
@@ -32,6 +32,10 @@
           </span>
         <span>{{ 'aggiungi' }}</span>
       </button>
-    </footer>
-  {% endif %}
+    {% else %}
+      <div class="has-text-grey-light">
+        Seleziona un range di date per vederne la disponibilità
+      </div>
+    {% endif %}
+  </footer>
 </div>

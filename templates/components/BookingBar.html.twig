@@ -6,12 +6,12 @@
           <div class="field-body">
             <div class="field">
               <div class="control">
-                <input class="input" type="date" id="dateStart" name="dateStart" value="{{ dateStart|date('Y-m-d') }}">
+                <input class="input" type="date" id="dateStart" name="dateStart" value="{% if dateStart is not empty %} {{ dateStart|date('Y-m-d') }} {% endif %}">
               </div>
             </div>
             <div class="field">
               <div class="control">
-                <input class="input" type="date" id="dateEnd" name="dateEnd" value="{{ dateEnd|date('Y-m-d') }}">
+                <input class="input" type="date" id="dateEnd" name="dateEnd" value="{% if dateEnd is not empty %} {{ dateEnd|date('Y-m-d') }} {% endif %}">
               </div>
             </div>
             <div class="field">
