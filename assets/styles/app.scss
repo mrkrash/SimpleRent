@@ -42,6 +42,8 @@ $fa-font-path: "../../public/webfonts";
 
 @import "quill/dist/quill.snow.css";
 
+@import "./ribbon";
+
 .navbar {
   background-color: transparent;
 }

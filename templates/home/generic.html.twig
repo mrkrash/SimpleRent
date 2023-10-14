@@ -5,13 +5,16 @@
 {% block body %}
   <section class="container">
     <h1 class="title is-1">{{ title }}</h1>
-    <p class="">
+    <p class="has-ribbon">
+      {% if date is defined %}
+        <div class="ribbon is-large is-primary">{{ date|date('d/m/Y') }}</div>
+      {% endif %}
       {{ content|raw }}
     </p>
   </section>
   {% if slides is not empty %}
-    <section class="hero is-large has-carousel" data-controller='carousel'>
-      <div class="hero-carousel carousel">
+    <section class="section is-large has-carousel" data-controller='carousel'>
+      <div class="carousel">
         {% for slide in slides %}
         <div class="item">
           <figure class="image" style="display: flex; justify-content: center; height: 600px;">

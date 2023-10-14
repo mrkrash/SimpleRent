@@ -7,6 +7,7 @@ use App\Booking\Application\Service\RateService;
 use App\Booking\Domain\Entity\CartItem;
 use App\Product\Application\Service\ProductService;
 use App\Shared\DTO\ProductDto;
+use App\Site\Page\Infrastructure\Repository\PageRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;

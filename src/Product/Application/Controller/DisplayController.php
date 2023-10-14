@@ -5,6 +5,7 @@ namespace App\Product\Application\Controller;
 use App\Booking\Application\Service\CartService;
 use App\Product\Application\Service\ProductService;
 use App\Shared\Enum\BicycleType;
+use App\Site\Page\Infrastructure\Repository\PageRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;

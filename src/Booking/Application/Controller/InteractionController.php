@@ -7,6 +7,7 @@ use App\Booking\Application\Service\RateService;
 use App\Product\Application\Service\ProductService;
 use App\Shared\Enum\BicycleType;
 use App\Shared\Enum\ProductType;
+use App\Site\Page\Infrastructure\Repository\PageRepository;
 use DateTimeImmutable;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;

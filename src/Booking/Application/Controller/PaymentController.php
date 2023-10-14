@@ -2,6 +2,7 @@
 
 namespace App\Booking\Application\Controller;
 
+use App\Site\Page\Infrastructure\Repository\PageRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -9,10 +10,6 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/payment')]
 class PaymentController extends AbstractController
 {
-    public function __construct()
-    {
-    }
-
     #[Route('/landing', name: 'payment_landing')]
     public function landing(): Response
     {

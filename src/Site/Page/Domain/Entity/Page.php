@@ -11,6 +11,7 @@ use DateTimeImmutable;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Exception;
 use Symfony\Component\HttpFoundation\File\File;
 
 #[ORM\Entity(repositoryClass: PageRepository::class)]
@@ -49,6 +50,8 @@ class Page
 
     #[ORM\OneToMany(mappedBy: 'page', targetEntity: Slide::class, cascade: ['persist', 'remove'])]
     private Collection $slides;
+
+    private ?string $primaryImage = null;
 
     /** @var File[]|null  */
     private ?array $uploadSlides;
@@ -168,5 +171,17 @@ class Page
     {
         $this->uploadSlides = $uploadSlides;
         return $this;
+    }
+
+    /**
+     * @throws Exception
+     */
+    public function getPrimaryImage(): ?string
+    {
+        if ($this->slides->count() > 0) {
+            return $this->slides->getIterator()[0]->getName();
+        }
+
+        return null;
     }
 }

@@ -11,8 +11,19 @@ use Symfony\Component\Routing\Annotation\Route;
 class DisplayController extends AbstractController
 {
     public function __construct(
-        private readonly PageRepository $pageRepository
+        private readonly PageRepository $pageRepository,
     ) {
+    }
+
+    #[Route('/news/{slug}', name: 'news_page')]
+    public function show(Page $news): Response
+    {
+        return $this->render('home/generic.html.twig', [
+            'title' => $news->getTitle(),
+            'content' => $news->getContent(),
+            'slides' => $news->getSlides(),
+            'date' => $news->getDate(),
+        ]);
     }
 
     #[Route('/chi-siamo', name: 'who_are')]
