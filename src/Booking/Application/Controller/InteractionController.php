@@ -3,15 +3,10 @@
 namespace App\Booking\Application\Controller;
 
 use App\Booking\Application\Service\CartService;
-use App\Booking\Application\Service\RateService;
 use App\Product\Application\Service\ProductService;
 use App\Shared\Enum\BicycleType;
-use App\Shared\Enum\ProductType;
-use App\Site\Page\Infrastructure\Repository\PageRepository;
 use DateTimeImmutable;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -34,9 +29,6 @@ class InteractionController extends AbstractController
         $this->cartService->save($cart);
 
         return $this->render('home/book.html.twig', [
-            'cart' => $cart,
-            'dateStart' => $dateStart,
-            'dateEnd' => $dateEnd,
             'products' => [
                 'mountainbike' => $this->productService->retrieveBicycleAvailableByType(BicycleType::MOUNTAINBIKE),
                 'ebike' => $this->productService->retrieveBicycleAvailableByType(BicycleType::EBIKE),
@@ -49,12 +41,7 @@ class InteractionController extends AbstractController
     #[Route('accessory', name: 'book_select_accessory', methods: ['GET'])]
     public function selectAccessory(): Response
     {
-        $cart = $this->cartService->handle();
-
         return $this->render('home/accessories.html.twig', [
-            'cart' => $cart,
-            'dateStart' => $cart->getDateStart(),
-            'dateEnd' => $cart->getDateEnd(),
             'accessories' => $this->productService->retrieveAccessoryDtoByType(),
         ]);
     }

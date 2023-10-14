@@ -3,33 +3,8 @@
 {% block title %}Prenota Subito{% endblock %}
 
 {% block body %}
-  <section class="hero is-primary is-small">
-    <div class="hero-body" style="padding: 8px 0 0;">
-      <div class="columns">
-        <div class="column">
-          <div class="container has-text-centered pb-3">
-            <p class="title">Scegli le bici che fanno per te</p>
-            <p class="subtitle">Noleggio dal {{ dateStart|date("d/m/Y") }} al {{ dateEnd|date("d/m/Y") }}</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+  <twig:BookingBar />
   <section class="container mt-4" data-controller="cart">
-    <div id="conclude-button" class="has-text-centered {% if cart.totalItemsCount == 0 %}is-hidden{% endif %}">
-      <a href="{{ path('book_select_accessory') }}" class="button is-success">
-        Aggiungi Accessori&nbsp;&nbsp;&nbsp;
-        <span class="icon is-small">
-          <i class="fas fa-plus"></i>
-        </span>
-      </a>
-      <a href="{{ path('cart') }}" class="button is-success">
-        Procedi col Noleggio&nbsp;&nbsp;&nbsp;
-        <span class="icon is-small">
-          <i class="fas fa-shopping-cart"></i>
-        </span>
-      </a>
-    </div>
     <div class="tabs is-centered is-medium">
       <ul>
         <li class="tab is-active" data-action="click->cart#openTab" data-cart-tab-param="mountainbike"><a >MountainBike</a></li>
