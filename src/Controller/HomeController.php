@@ -33,7 +33,6 @@ class HomeController extends AbstractController
             ],
             'dateStart' => $cart->getDateStart()?->format('Y-m-d'),
             'dateEnd' => $cart->getDateEnd()?->format('Y-m-d'),
-            'cart' => $cart,
             'news_list' => $this->pageRepository->findAll(),
         ]);
     }
