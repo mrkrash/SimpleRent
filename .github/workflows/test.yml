@@ -1,9 +1,7 @@
-name: BuildAndTest
+name: PRTest
 
 on:
   pull_request:
-    branches: [ "main" ]
-  push:
     branches: [ "main" ]
 
 permissions:
@@ -56,18 +54,8 @@ jobs:
       - name: Install Dependencies
         run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
 
-      - name: Use Node.js 16
-        uses: actions/setup-node@v2
-        with:
-          node-version: '16'
-
-      - name: 🔨 Build Project
-        run: |
-          yarn install
-          yarn build
-
       - name: Execute tests (Unit and Feature tests) via PHPUnit
-        run: composer test
+        run: vendor/bin/phpunit --testsuite integration --coverage-clover ./coverage.xml
 
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v3
