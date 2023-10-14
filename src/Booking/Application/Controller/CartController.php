@@ -19,7 +19,6 @@ class CartController extends AbstractController
 {
     public function __construct(
         private readonly CartService $cartService,
-        private readonly PageRepository $pageRepository,
     ) {
     }
 
@@ -47,7 +46,6 @@ class CartController extends AbstractController
         return $this->render('home/cart.html.twig', [
             'items' => $cartItems,
             'cart' => $cart,
-            'news_list' => $this->pageRepository->findAll(),
         ]);
     }
 

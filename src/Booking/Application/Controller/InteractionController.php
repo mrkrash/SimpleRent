@@ -20,7 +20,6 @@ class InteractionController extends AbstractController
 {
     public function __construct(
         private readonly CartService $cartService,
-        private readonly PageRepository $pageRepository,
         private readonly ProductService $productService,
     ) {
     }
@@ -44,7 +43,6 @@ class InteractionController extends AbstractController
                 'gravel' => $this->productService->retrieveBicycleAvailableByType(BicycleType::GRAVEL),
                 'racing' => $this->productService->retrieveBicycleAvailableByType(BicycleType::RACINGBIKE),
             ],
-            'news_list' => $this->pageRepository->findAll(),
         ]);
     }
 
@@ -58,7 +56,6 @@ class InteractionController extends AbstractController
             'dateStart' => $cart->getDateStart(),
             'dateEnd' => $cart->getDateEnd(),
             'accessories' => $this->productService->retrieveAccessoryDtoByType(),
-            'news_list' => $this->pageRepository->findAll(),
         ]);
     }
 }

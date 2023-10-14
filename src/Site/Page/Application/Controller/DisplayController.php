@@ -22,7 +22,7 @@ class DisplayController extends AbstractController
             'title' => $news->getTitle(),
             'content' => $news->getContent(),
             'slides' => $news->getSlides(),
-            'news_list' => $this->pageRepository->findAll(),
+            'date' => $news->getDate(),
         ]);
     }
 
@@ -32,13 +32,12 @@ class DisplayController extends AbstractController
         /** @var Page $page */
         $page = $this->pageRepository->findOneBy(['slug' => 'who_are']);
         if (!$page) {
-            return $this->render('coming.html.twig', ['news_list' => $this->pageRepository->findAll(),]);
+            return $this->render('coming.html.twig');
         }
         return $this->render('home/generic.html.twig', [
             'title' => $page->getTitle(),
             'content' => $page->getContent(),
             'slides' => $page->getSlides(),
-            'news_list' => $this->pageRepository->findAll(),
         ]);
     }
 
@@ -48,13 +47,12 @@ class DisplayController extends AbstractController
         /** @var Page $page */
         $page = $this->pageRepository->findOneBy(['slug' => 'ragusa_ibla']);
         if (!$page) {
-            return $this->render('coming.html.twig', ['news_list' => $this->pageRepository->findAll(),]);
+            return $this->render('coming.html.twig');
         }
         return $this->render('home/generic.html.twig', [
             'title' => $page->getTitle(),
             'content' => $page->getContent(),
             'slides' => $page->getSlides(),
-            'news_list' => $this->pageRepository->findAll(),
         ]);
     }
 
@@ -64,12 +62,11 @@ class DisplayController extends AbstractController
         /** @var Page $page */
         $page = $this->pageRepository->findOneBy(['slug' => 'terms']);
         if (!$page) {
-            return $this->render('coming.html.twig', ['news_list' => $this->pageRepository->findAll(),]);
+            return $this->render('coming.html.twig');
         }
         return $this->render('home/generic.html.twig', [
             'title' => $page->getTitle(),
             'content' => $page->getContent(),
-            'news_list' => $this->pageRepository->findAll(),
         ]);
     }
 
@@ -79,12 +76,11 @@ class DisplayController extends AbstractController
         /** @var Page $page */
         $page = $this->pageRepository->findOneBy(['slug' => 'accept_privacy']);
         if (!$page) {
-            return $this->render('coming.html.twig', ['news_list' => $this->pageRepository->findAll(),]);
+            return $this->render('coming.html.twig');
         }
         return $this->render('home/generic.html.twig', [
             'title' => $page->getTitle(),
             'content' => $page->getContent(),
-            'news_list' => $this->pageRepository->findAll(),
         ]);
     }
 
@@ -94,12 +90,11 @@ class DisplayController extends AbstractController
         /** @var Page $page */
         $page = $this->pageRepository->findOneBy(['slug' => 'privacy']);
         if (!$page) {
-            return $this->render('coming.html.twig', ['news_list' => $this->pageRepository->findAll(),]);
+            return $this->render('coming.html.twig');
         }
         return $this->render('home/generic.html.twig', [
             'title' => $page->getTitle(),
             'content' => $page->getContent(),
-            'news_list' => $this->pageRepository->findAll(),
         ]);
     }
 
@@ -109,12 +104,11 @@ class DisplayController extends AbstractController
         /** @var Page $page */
         $page = $this->pageRepository->findOneBy(['slug' => 'cookie_policy']);
         if (!$page) {
-            return $this->render('coming.html.twig', ['news_list' => $this->pageRepository->findAll(),]);
+            return $this->render('coming.html.twig');
         }
         return $this->render('home/generic.html.twig', [
             'title' => $page->getTitle(),
             'content' => $page->getContent(),
-            'news_list' => $this->pageRepository->findAll(),
         ]);
     }
 }

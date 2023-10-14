@@ -29,8 +29,10 @@ class NewsFormType extends AbstractType
             ->add('uploadSlides', FileType::class, [
                 'attr' => [
                     'accept' => 'image/*',
+                    'multiple' => 'multiple',
                 ],
                 'data_class' => null,
+                'multiple' => true,
                 'required' => $options['require_main_image'],
             ])
             ->add('save', SubmitType::class)

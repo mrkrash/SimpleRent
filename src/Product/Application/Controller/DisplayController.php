@@ -14,7 +14,6 @@ class DisplayController extends AbstractController
 {
     public function __construct(
         private readonly CartService $cartService,
-        private readonly PageRepository $pageRepository,
         private readonly ProductService $service,
     ) {
     }
@@ -35,7 +34,6 @@ class DisplayController extends AbstractController
             'dateStart' => $cart->getDateStart()?->format('Y-m-d'),
             'dateEnd' => $cart->getDateEnd()?->format('Y-m-d'),
             'cart' => $cart,
-            'news_list' => $this->pageRepository->findAll(),
         ]);
     }
 
@@ -55,7 +53,6 @@ class DisplayController extends AbstractController
             'dateStart' => $cart->getDateStart()?->format('Y-m-d'),
             'dateEnd' => $cart->getDateEnd()?->format('Y-m-d'),
             'cart' => $cart,
-            'news_list' => $this->pageRepository->findAll(),
         ]);
     }
 }
