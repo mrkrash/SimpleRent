@@ -33,7 +33,6 @@ class DisplayController extends AbstractController
             'book' => true,
             'dateStart' => $cart->getDateStart()?->format('Y-m-d'),
             'dateEnd' => $cart->getDateEnd()?->format('Y-m-d'),
-            'cart' => $cart,
         ]);
     }
 
@@ -52,7 +51,6 @@ class DisplayController extends AbstractController
             'book' => true,
             'dateStart' => $cart->getDateStart()?->format('Y-m-d'),
             'dateEnd' => $cart->getDateEnd()?->format('Y-m-d'),
-            'cart' => $cart,
         ]);
     }
 }
