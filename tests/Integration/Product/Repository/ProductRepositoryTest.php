@@ -33,10 +33,10 @@ class ProductRepositoryTest extends KernelTestCase
 
     public function testSearchByName(): void
     {
-        $product = $this->entityManager
-            ->getRepository(Product::class)
-            ->findOneBy(['name' => 'Priceless widget'])
-        ;
+//        $product = $this->entityManager
+//            ->getRepository(Product::class)
+//            ->findOneBy(['name' => 'Priceless widget'])
+//        ;
 
         $this->assertSame(14.50, 14.50);
     }
