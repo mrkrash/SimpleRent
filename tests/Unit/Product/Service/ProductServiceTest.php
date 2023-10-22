@@ -12,6 +12,7 @@ use App\Shared\Enum\ProductType;
 use PHPUnit\Framework\TestCase;
 
 /**
+ * @covers \App\Product\Application\Service\ProductService
  * @covers \App\Product\Domain\Entity\Product
  */
 class ProductServiceTest extends TestCase
