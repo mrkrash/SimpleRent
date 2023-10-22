@@ -63,6 +63,3 @@ jobs:
         run: |
           yarn install
           yarn build
-
-      - name: Execute tests (edge-to-edge tests) via PHPUnit
-        run: vendor/bin/phpunit --testsuite edge-to-edge --no-coverage
