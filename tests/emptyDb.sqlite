@@ -1,0 +1,262 @@
+create table main.affiliate
+(
+    id         INTEGER      not null
+        primary key autoincrement,
+    name       VARCHAR(255) not null,
+    address    VARCHAR(255) not null,
+    web        VARCHAR(255) default NULL,
+    created_at DATETIME     not null,
+    updated_at DATETIME     not null,
+    deleted_at VARCHAR(255) default NULL,
+    image      VARCHAR(255) not null
+);
+
+create table main.cart
+(
+    id          INTEGER  not null
+        primary key autoincrement,
+    date_start  DATE     not null,
+    date_end    DATE     not null,
+    valid_until DATETIME not null,
+    created_at  DATETIME not null,
+    updated_at  DATETIME not null,
+    deleted_at  VARCHAR(255) default NULL,
+    rate        INTEGER  not null
+);
+
+create table main.cart_item
+(
+    id           INTEGER      not null
+        primary key autoincrement,
+    cart_id      INTEGER      not null
+        constraint FK_F0FE25271AD5CDBF
+            references main.cart,
+    product_id   INTEGER      default NULL,
+    accessory_id INTEGER      default NULL,
+    qty          INTEGER      not null,
+    size         VARCHAR(255) not null,
+    created_at   DATETIME     not null,
+    updated_at   DATETIME     not null,
+    deleted_at   VARCHAR(255) default NULL
+);
+
+create index main.IDX_F0FE25271AD5CDBF
+    on main.cart_item (cart_id);
+
+create table main.customer
+(
+    id         INTEGER      not null
+        primary key autoincrement,
+    firstname  VARCHAR(100) not null,
+    lastname   VARCHAR(100) not null,
+    email      VARCHAR(150) not null,
+    phone      VARCHAR(15)  default NULL,
+    created_at DATETIME     not null,
+    updated_at DATETIME     not null,
+    deleted_at VARCHAR(255) default NULL,
+    newsletter BOOLEAN      not null,
+    privacy    BOOLEAN      not null
+);
+
+create table main.doctrine_migration_versions
+(
+    version        VARCHAR(191) not null
+        primary key,
+    executed_at    DATETIME default NULL,
+    execution_time INTEGER  default NULL
+);
+
+create table main.messenger_messages
+(
+    id           INTEGER      not null
+        primary key autoincrement,
+    body         CLOB         not null,
+    headers      CLOB         not null,
+    queue_name   VARCHAR(190) not null,
+    created_at   DATETIME     not null,
+    available_at DATETIME     not null,
+    delivered_at DATETIME default NULL
+);
+
+create index main.IDX_75EA56E016BA31DB
+    on main.messenger_messages (delivered_at);
+
+create index main.IDX_75EA56E0E3BD61CE
+    on main.messenger_messages (available_at);
+
+create index main.IDX_75EA56E0FB7336F0
+    on main.messenger_messages (queue_name);
+
+create table main.page
+(
+    id         INTEGER     not null
+        primary key autoincrement,
+    type       VARCHAR(8)  not null,
+    slug       VARCHAR(50) not null,
+    title      VARCHAR(50) not null,
+    date       DATETIME    not null,
+    content    CLOB        not null,
+    lang       VARCHAR(2)  not null,
+    created_at DATETIME    not null,
+    updated_at DATETIME    not null,
+    deleted_at VARCHAR(255) default NULL
+);
+
+create table main.price_list
+(
+    id               INTEGER     not null
+        primary key autoincrement,
+    name             VARCHAR(50) not null,
+    created_at       DATETIME    not null,
+    updated_at       DATETIME    not null,
+    deleted_at       VARCHAR(255) default NULL,
+    price_one_day    INTEGER     not null,
+    price_three_days INTEGER     not null,
+    price_seven_days INTEGER     not null
+);
+
+create table main.product
+(
+    id            INTEGER      not null
+        primary key autoincrement,
+    price_list_id INTEGER      not null
+        constraint FK_D34A04AD5688DED7
+            references main.price_list,
+    name          VARCHAR(255) not null,
+    description   VARCHAR(1500) default NULL,
+    created_at    DATETIME     not null,
+    updated_at    DATETIME     not null,
+    deleted_at    VARCHAR(255)  default NULL,
+    image         VARCHAR(255) not null,
+    gender        VARCHAR(255) not null,
+    enabled       BOOLEAN      not null,
+    ordering      INTEGER      not null,
+    type          VARCHAR(7)   not null,
+    bicycle_type  VARCHAR(16)   default NULL
+);
+
+create index main.IDX_D34A04AD5688DED7
+    on main.product (price_list_id);
+
+create table main.product_qty
+(
+    id         INTEGER      not null
+        primary key autoincrement,
+    product_id INTEGER      not null
+        constraint FK_28D7FA004584665A
+            references main.product
+            on delete cascade,
+    created_at DATETIME     not null,
+    updated_at DATETIME     not null,
+    deleted_at VARCHAR(255) default NULL,
+    size       VARCHAR(255) not null,
+    qty        INTEGER      not null
+);
+
+create index main.IDX_28D7FA004584665A
+    on main.product_qty (product_id);
+
+create table main.slide
+(
+    id         INTEGER      not null
+        primary key autoincrement,
+    page_id    INTEGER      not null
+        constraint FK_72EFEE62C4663E4
+            references main.page,
+    name       VARCHAR(255) not null,
+    created_at DATETIME     not null,
+    updated_at DATETIME     not null
+);
+
+create index main.IDX_72EFEE62C4663E4
+    on main.slide (page_id);
+
+create table main.sqlite_master
+(
+    type     TEXT,
+    name     TEXT,
+    tbl_name TEXT,
+    rootpage INT,
+    sql      TEXT
+);
+
+create table main.sqlite_sequence
+(
+    name,
+    seq
+);
+
+create table main.transations
+(
+    id                INTEGER     not null
+        primary key autoincrement,
+    transport         VARCHAR(6)  not null,
+    transport_id      VARCHAR(32) not null,
+    transport_status  VARCHAR(40) not null,
+    transport_details CLOB        not null,
+    amount            INTEGER     not null,
+    levied            INTEGER     not null,
+    created_at        DATETIME    not null,
+    updated_at        DATETIME    not null,
+    deleted_at        VARCHAR(255) default NULL,
+    request_id        VARCHAR(36) not null
+);
+
+create table main.booking
+(
+    id             INTEGER  not null
+        primary key autoincrement,
+    customer_id    INTEGER  not null
+        constraint FK_E00CEDDE9395C3F3
+            references main.customer,
+    transaction_id INTEGER      default NULL
+        constraint FK_E00CEDDE2FC0CB0F
+            references main.transations,
+    date_start     DATE     not null,
+    date_end       DATE     not null,
+    notes          CLOB         default NULL,
+    created_at     DATETIME not null,
+    updated_at     DATETIME not null,
+    deleted_at     VARCHAR(255) default NULL,
+    rate           INTEGER  not null
+);
+
+create table main.booked_product
+(
+    id         INTEGER      not null
+        primary key autoincrement,
+    booking_id INTEGER      not null
+        constraint FK_48D9FA083301C60
+            references main.booking,
+    product_id INTEGER default NULL
+        constraint FK_48D9FA084584665A
+            references main.product,
+    qty        INTEGER      not null,
+    size       VARCHAR(255) not null,
+    created_at DATETIME     not null,
+    updated_at DATETIME     not null
+);
+
+create index main.IDX_48D9FA083301C60
+    on main.booked_product (booking_id);
+
+create index main.IDX_48D9FA084584665A
+    on main.booked_product (product_id);
+
+create index main.IDX_E00CEDDE9395C3F3
+    on main.booking (customer_id);
+
+create unique index main.UNIQ_E00CEDDE2FC0CB0F
+    on main.booking (transaction_id);
+
+create table main.user
+(
+    id       INTEGER      not null
+        primary key autoincrement,
+    username VARCHAR(180) not null,
+    roles    CLOB         not null,
+    password VARCHAR(255) not null
+);
+
+create unique index main.UNIQ_8D93D649F85E0677
+    on main.user (username);
