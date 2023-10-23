@@ -1,19 +1,22 @@
-name: BuildAndTest
+name: Deploy
 
 on:
-  pull_request:
-    branches: [ "main" ]
-  push:
-    branches: [ "main" ]
+  workflow_run:
+    workflows:
+      - BuildAndTest
+    types:
+      - completed
+    branches:
+      - main
 
 permissions:
   contents: read
 
 jobs:
-  tests:
+  deploy:
     runs-on: ubuntu-latest
     env:
-      extensions: gd intl zip
+      extensions: grpc
       key: cache-v1
       php-version: '8.2'
     steps:
@@ -48,13 +51,12 @@ jobs:
         with:
           php-version: ${{ env.php-versions }}
           extensions: ${{ env.extensions }}
-          coverage: xdebug
 
-      - name: Copy .env.test.local
-        run: php -r "file_exists('.env.test.local') || copy('.env.test', '.env.test.local');"
+      - name: Remove Development Dependencies
+        run: APP_ENV=prod composer install --no-ansi --no-interaction --no-progress --prefer-dist --no-dev --optimize-autoloader
 
-      - name: Install Dependencies
-        run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
+      - name: Build .env
+        run: composer dump-env prod
 
       - name: Use Node.js 16
         uses: actions/setup-node@v2
@@ -66,10 +68,17 @@ jobs:
           yarn install
           yarn build
 
-      - name: Execute tests (Unit and Feature tests) via PHPUnit
-        run: composer test
-
-      - name: Upload coverage reports to Codecov
-        uses: codecov/codecov-action@v3
+      - name: 📂 Sync files
+        uses: easingthemes/ssh-deploy@main
         env:
-          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+          SSH_PRIVATE_KEY: ${{ secrets.RSA_PRIVATE_KEY }}
+          ARGS: "-rltgoDzvO --delete"
+          SOURCE: "./"
+          REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
+          REMOTE_USER: ${{ secrets.REMOTE_USER }}
+          TARGET: ${{ secrets.REMOTE_TARGET }}
+          EXCLUDE: "/.git/, /.github/, /var/cache/, /node_modules/, /.env.local, /.env.prod.local, /public/images/"
+          SCRIPT_AFTER: |
+            ${{ secrets.EXECUTER }} composer dump-env prod
+            ${{ secrets.EXECUTER }} php bin/console doctrine:migrations:migrate --no-interaction --allow-no-migration
+            ${{ secrets.EXECUTER }} php bin/console cache:clear
