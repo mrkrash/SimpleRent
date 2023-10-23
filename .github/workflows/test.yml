@@ -54,9 +54,6 @@ jobs:
       - name: Install Dependencies
         run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
 
-      - name: Create Test Database
-        run: mkdir var && cat tests/emptyDb.sqlite | sqlite3 var/app.db
-
       - name: Execute tests (Unit and Feature tests) via PHPUnit
         run: vendor/bin/phpunit --testsuite integration --coverage-clover ./coverage.xml
 
