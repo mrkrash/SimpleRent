@@ -55,7 +55,7 @@ jobs:
         run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
 
       - name: Create Test Database
-        run: cat tests/emptyDb.sql | sqlite3 var/app.db
+        run: cat tests/emptyDb.sqlite | sqlite3 var/app.db
 
       - name: Execute tests (Unit and Feature tests) via PHPUnit
         run: vendor/bin/phpunit --testsuite integration --coverage-clover ./coverage.xml
