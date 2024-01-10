@@ -1570,10 +1570,8 @@ __metadata:
 
 "@symfony/ux-dropzone@file:vendor/symfony/ux-dropzone/assets::locator=root-workspace-0b6124%40workspace%3A.":
   version: 1.1.0
-  resolution: "@symfony/ux-dropzone@file:vendor/symfony/ux-dropzone/assets#vendor/symfony/ux-dropzone/assets::hash=bac024&locator=root-workspace-0b6124%40workspace%3A."
-  peerDependencies:
-    "@hotwired/stimulus": ^3.0.0
-  checksum: 9449e3e6aaee03005b81cb8c4ef18ef1dedb446a4aea77ee8712e2f14d206a0f56c3951920ed948f72013fa943cec40761b51df4d4d319eb67c68467b82c7143
+  resolution: "@symfony/ux-dropzone@file:vendor/symfony/ux-dropzone/assets#vendor/symfony/ux-dropzone/assets::hash=a10790&locator=root-workspace-0b6124%40workspace%3A."
+  checksum: 70dd7a01da921978dd19a02bb03837e3e913b3146fdf51a04b483845ad583c779ce1ee5e3c4a67c80444bd33c23f3a0983a8aedcfb4555f746c3bdd259fd05f5
   languageName: node
   linkType: hard
 
@@ -3705,12 +3703,12 @@ __metadata:
   linkType: hard
 
 "follow-redirects@npm:^1.0.0":
-  version: 1.15.2
-  resolution: "follow-redirects@npm:1.15.2"
+  version: 1.15.4
+  resolution: "follow-redirects@npm:1.15.4"
   peerDependenciesMeta:
     debug:
       optional: true
-  checksum: faa66059b66358ba65c234c2f2a37fcec029dc22775f35d9ad6abac56003268baf41e55f9ee645957b32c7d9f62baf1f0b906e68267276f54ec4b4c597c2b190
+  checksum: e178d1deff8b23d5d24ec3f7a94cde6e47d74d0dc649c35fc9857041267c12ec5d44650a0c5597ef83056ada9ea6ca0c30e7c4f97dbf07d035086be9e6a5b7b6
   languageName: node
   linkType: hard
 
