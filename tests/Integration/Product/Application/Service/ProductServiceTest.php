@@ -113,9 +113,13 @@ class ProductServiceTest extends KernelTestCase
 
     public function testRemove(): void
     {
+        $previous = count($this->productService->retrieveBicycleAvailableByType(BicycleType::RACINGBIKE));
         $product = $this->productService->retrieveOneByType(BicycleType::RACINGBIKE);
         $this->productService->remove($product);
-        self::assertNull($this->productService->retrieveOneByType(BicycleType::RACINGBIKE));
+        assertEquals(
+            $previous - 1,
+            count($this->productService->retrieveBicycleAvailableByType(BicycleType::RACINGBIKE))
+        );
     }
 
     public function testPersist(): void

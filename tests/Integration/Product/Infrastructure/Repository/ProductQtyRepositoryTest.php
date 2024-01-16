@@ -11,7 +11,7 @@ use App\Shared\Enum\BicycleType;
 use App\Shared\Enum\Gender;
 use App\Shared\Enum\ProductSize;
 use App\Shared\Enum\ProductType;
-use DataFixtures\PriceListFixture;
+use App\DataFixtures\PriceListFixture;
 use Mockery;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace DataFixtures;
+namespace App\DataFixtures;
 
 use App\Product\Domain\Entity\Product;
 use App\Product\Domain\Entity\ProductQty;
