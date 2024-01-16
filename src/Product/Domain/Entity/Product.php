@@ -49,7 +49,7 @@ class Product
     #[ORM\OneToMany(mappedBy: 'product', targetEntity: ProductQty::class, cascade:['persist', 'remove'])]
     private ?Collection $productQty;
 
-    #[ORM\ManyToOne(inversedBy: 'products')]
+    #[ORM\ManyToOne(cascade: ['persist'], inversedBy: 'products')]
     #[ORM\JoinColumn(nullable: false)]
     private ?PriceList $priceList = null;
 

@@ -3,14 +3,10 @@
 namespace App\Product\Infrastructure\Repository;
 
 use App\Product\Domain\Entity\Product;
-use App\Product\Domain\Entity\ProductQty;
 use App\Product\Domain\Repository\ProductRepositoryInterface;
-use App\Shared\DTO\ProductDto;
 use App\Shared\Enum\BicycleType;
 use App\Shared\Enum\ProductType;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\ORM\Mapping\ClassMetadataInfo;
-use Doctrine\ORM\Query\Expr;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -45,21 +41,26 @@ class ProductRepository extends ServiceEntityRepository implements ProductReposi
         }
     }
 
-    /**
-     * @return Product[] Returns an array of Product objects
-     */
-    public function findEnabled(): array
-    {
-        return $this->createQueryBuilder('p')
-            ->andWhere('p.enabled = :val')
-            ->setParameter('val', true)
-            ->orderBy('p.ordering', 'ASC')
-            ->setMaxResults(6)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
+//    /**
+//     * @return Product[] Returns an array of Product objects
+//     */
+//    public function findEnabled(): array
+//    {
+//        return $this->createQueryBuilder('p')
+//            ->andWhere('p.enabled = :val')
+//            ->setParameter('val', true)
+//            ->orderBy('p.ordering', 'ASC')
+//            ->setMaxResults(6)
+//            ->getQuery()
+//            ->getResult()
+//        ;
+//    }
 
+    /**
+     * @param ProductType $type
+     * @param BicycleType|null $bicycleType
+     * @return array|Product[]
+     */
     public function findAllSizeWithQtyByType(ProductType $type, ?BicycleType $bicycleType = null): array
     {
         $qbr = $this->createQueryBuilder('p')

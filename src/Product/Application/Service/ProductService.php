@@ -8,8 +8,6 @@ use App\Product\Domain\Entity\Product;
 use App\Product\Domain\Entity\ProductQty;
 use App\Product\Domain\Repository\ProductQtyRepositoryInterface;
 use App\Product\Domain\Repository\ProductRepositoryInterface;
-use App\Product\Infrastructure\Repository\ProductRepository;
-use App\Shared\DTO\ProductDto;
 use App\Shared\Enum\BicycleType;
 use App\Shared\Enum\ProductSize;
 use App\Shared\Enum\ProductType;
@@ -51,17 +49,17 @@ final class ProductService
         return $this->productRepository->findBy(['type' => $type]);
     }
 
-    /**
-     * @return Product[]
-     */
-    public function retrieveBicycleByType(BicycleType $type, bool $enabled = false): array
-    {
-        $criteria = ['type' => ProductType::BYCICLE, 'bicycleType' => $type];
-        if ($enabled) {
-            $criteria['enabled'] = true;
-        }
-        return $this->productRepository->findBy($criteria);
-    }
+//    /**
+//     * @return Product[]
+//     */
+//    public function retrieveBicycleByType(BicycleType $type, bool $enabled = false): array
+//    {
+//        $criteria = ['type' => ProductType::BYCICLE, 'bicycleType' => $type];
+//        if ($enabled) {
+//            $criteria['enabled'] = true;
+//        }
+//        return $this->productRepository->findBy($criteria);
+//    }
 
     /**
      * @return Product[]
@@ -71,6 +69,9 @@ final class ProductService
         return $this->productRepository->findAllSizeWithQtyByType(ProductType::BYCICLE, $bicycleType);
     }
 
+    /**
+     * @return Product[]
+     */
     public function retrieveAccessoryDtoByType(): array
     {
         return $this->productRepository->findAllSizeWithQtyByType(ProductType::ACCESSORY);
