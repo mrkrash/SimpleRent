@@ -1,8 +1,7 @@
 <?php
 
-namespace App\Tests\Integration\Product\Repository;
+namespace Tests\Integration\Product\Repository;
 
-use App\Product\Domain\Entity\Product;
 use Doctrine\ORM\EntityManager;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 

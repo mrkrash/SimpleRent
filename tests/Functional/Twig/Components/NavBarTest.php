@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Tests\Functional\Twig\Components;
+namespace Tests\Functional\Twig\Components;
 
 use App\Twig\Components\NavBar;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
