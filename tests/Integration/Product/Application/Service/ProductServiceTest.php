@@ -124,7 +124,8 @@ class ProductServiceTest extends KernelTestCase
         $product->setName('Product Aaaargh');
         $product->setDescription('Product Aaaargh description');
         $product->setImage('imagePath');
-        $product->setType(ProductType::ACCESSORY);
+        $product->setType(ProductType::BYCICLE);
+        $product->setBicycleType(BicycleType::RACINGBIKE);
         $product->setEnabled(false);
         $product->setGender(Gender::UNISEX);
         $product->setOrdering(20);
