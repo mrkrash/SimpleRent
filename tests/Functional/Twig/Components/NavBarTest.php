@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Tests\Functional\Twig\Components;
+namespace Tests\Functional\Twig\Components;
 
 use App\Twig\Components\NavBar;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Session\Storage\MockArraySessionStorage;
 use Symfony\UX\TwigComponent\Test\InteractsWithTwigComponents;
 
 /**
- * @coversNothing
+ * @covers \App\Twig\Components\NavBar
  */
 class NavBarTest extends KernelTestCase
 {
@@ -30,5 +30,4 @@ class NavBarTest extends KernelTestCase
 
         self::assertInstanceOf(NavBar::class, $component);
     }
-
 }

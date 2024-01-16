@@ -2,13 +2,14 @@
 
 namespace App\Product\Domain\Entity;
 
+use App\Product\Infrastructure\Repository\ProductQtyRepository;
 use App\Shared\Enum\ProductSize;
 use App\Shared\Traits\AutoCreatedAtTrait;
 use App\Shared\Traits\AutoDeletedAtTrait;
 use App\Shared\Traits\AutoUpdatedAtTrait;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity]
+#[ORM\Entity(repositoryClass: ProductQtyRepository::class)]
 #[ORM\HasLifecycleCallbacks]
 class ProductQty
 {
