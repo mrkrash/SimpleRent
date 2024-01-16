@@ -2,13 +2,12 @@
 
 namespace Tests\Unit\Product\Domain\Entity;
 
-use App\Booking\Domain\Entity\BookedProduct;
 use App\Product\Domain\Entity\PriceList;
 use App\Product\Domain\Entity\Product;
-use Doctrine\Common\Collections\Collection;
 use Mockery;
 use ReflectionClass;
 use PHPUnit\Framework\TestCase;
+
 use function PHPUnit\Framework\assertEmpty;
 
 /**

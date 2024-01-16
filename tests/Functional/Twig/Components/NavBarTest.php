@@ -30,5 +30,4 @@ class NavBarTest extends KernelTestCase
 
         self::assertInstanceOf(NavBar::class, $component);
     }
-
 }
