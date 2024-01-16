@@ -12,11 +12,11 @@ interface ProductRepositoryInterface
     public function find($id, $lockMode = null, $lockVersion = null);
     public function save(Product $entity, bool $flush = false): void;
     public function remove(Product $entity, bool $flush = false): void;
-    public function findEnabled(): array;
+    //public function findEnabled(): array;
     public function findOneBy(array $criteria, ?array $orderBy = null): ?Product;
 
     /**
-     * @return ProductDto[]
+     * @return Product[]
      */
     public function findAllSizeWithQtyByType(ProductType $type, ?BicycleType $bicycleType = null): array;
 }

@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Session\Storage\MockArraySessionStorage;
 use Symfony\UX\TwigComponent\Test\InteractsWithTwigComponents;
 
 /**
- * @coversNothing
+ * @covers \App\Twig\Components\NavBar
  */
 class NavBarTest extends KernelTestCase
 {
