@@ -119,6 +119,7 @@ class Cart implements JsonSerializable
         return $this->cartItems;
     }
 
+    // @todo If two cart items have same detail, we must increment qty
     public function addCartItem(CartItem $item): self
     {
         if (!$this->cartItems->contains($item)) {
