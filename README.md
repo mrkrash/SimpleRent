@@ -1,3 +1,5 @@
+[![codecov](https://codecov.io/github/mrkrash/SimpleRent/graph/badge.svg?token=YMEU9M9W3V)](https://codecov.io/github/mrkrash/SimpleRent)
+
 # SimpleRent
 ## A simple booking web software without any claim
 
