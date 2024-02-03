@@ -43,9 +43,10 @@ class CustomerRepositoryTest extends KernelTestCase
      */
     public function testRemoveCustomer(): void
     {
+        $previous = count($this->customerRepository->findAll());
         $customer = $this->customerRepository->findOneBy(['email' => 'pippo@pluto.local']);
         $this->customerRepository->remove($customer, true);
-        self::assertNull($this->customerRepository->findOneBy(['email' => 'pippo@pluto.local']));
+        self::assertEquals($previous - 1, count($this->customerRepository->findAll()));
     }
 
     public function testFindByDto(): void
