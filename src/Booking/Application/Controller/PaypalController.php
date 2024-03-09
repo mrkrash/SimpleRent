@@ -63,8 +63,8 @@ class PaypalController extends AbstractController
         $order = $this->paymentService->createOrder(
             $cart->getRate(),
             $booking->getId(),
-            $request->server->get('HTTP_HOST') . $this->generateUrl('payment_landing'),
-            $request->server->get('HTTP_HOST') . $this->generateUrl('payment_cancel'),
+            'https://' . $request->server->get('HTTP_HOST') . $this->generateUrl('payment_landing'),
+            'https://' . $request->server->get('HTTP_HOST') . $this->generateUrl('payment_cancel'),
         );
 
         $transaction = $this->transactionService->save(
