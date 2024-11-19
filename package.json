@@ -35,6 +35,5 @@
         "bulma-pageloader": "^0.3.0",
         "dotenv": "^16.3.1",
         "quill": "2.0.0-beta.0"
-    },
-    "packageManager": "yarn@3.3.1+sha256.1d2760eb5c0e525abe9c5306fac5fe0b5628c0955072a0da2f4043524497526a"
+    }
 }

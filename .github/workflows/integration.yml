@@ -71,9 +71,8 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '20'
-          cache: 'yarn'
 
       - name: 🔨 Build Project
         run: |
-          yarn install
-          yarn build
+          npm install
+          npm run build

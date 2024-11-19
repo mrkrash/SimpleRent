@@ -65,12 +65,11 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '20'
-          cache: 'yarn'
 
       - name: 🔨 Build Project
         run: |
-          yarn install
-          yarn build
+          npm install
+          npme run build
 
       - name: 📂 Sync files
         uses: easingthemes/ssh-deploy@main
