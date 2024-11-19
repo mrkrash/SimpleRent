@@ -1691,8 +1691,10 @@ __metadata:
 
 "@symfony/ux-dropzone@file:vendor/symfony/ux-dropzone/assets::locator=root-workspace-0b6124%40workspace%3A.":
   version: 1.1.0
-  resolution: "@symfony/ux-dropzone@file:vendor/symfony/ux-dropzone/assets#vendor/symfony/ux-dropzone/assets::hash=a10790&locator=root-workspace-0b6124%40workspace%3A."
-  checksum: 70dd7a01da921978dd19a02bb03837e3e913b3146fdf51a04b483845ad583c779ce1ee5e3c4a67c80444bd33c23f3a0983a8aedcfb4555f746c3bdd259fd05f5
+  resolution: "@symfony/ux-dropzone@file:vendor/symfony/ux-dropzone/assets#vendor/symfony/ux-dropzone/assets::hash=b68cec&locator=root-workspace-0b6124%40workspace%3A."
+  peerDependencies:
+    "@hotwired/stimulus": ^3.0.0
+  checksum: 3fdf3ea7ec47b4d5154a333941f4f9aa9dda30ee24222180232348b57130b0d0d5c4922ee664261c3ed121f18db03599b247509f0a13e3c134bfde71630fec1b
   languageName: node
   linkType: hard
 
