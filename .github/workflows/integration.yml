@@ -65,6 +65,8 @@ jobs:
         env:
           CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
 
+      - name: Enable Corepack
+        run: corepack enable
       - name: Use Node.js 20
         uses: actions/setup-node@v4
         with:

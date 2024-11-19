@@ -59,6 +59,8 @@ jobs:
       - name: Build .env
         run: composer dump-env prod
 
+      - name: Enable Corepack
+        run: corepack enable
       - name: Use Node.js 20
         uses: actions/setup-node@v4
         with:
