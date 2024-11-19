@@ -69,7 +69,7 @@ jobs:
       - name: 🔨 Build Project
         run: |
           npm install
-          npme run build
+          npm run build
 
       - name: 📂 Sync files
         uses: easingthemes/ssh-deploy@main
