@@ -59,10 +59,11 @@ jobs:
       - name: Build .env
         run: composer dump-env prod
 
-      - name: Use Node.js 18
-        uses: actions/setup-node@v2
+      - name: Use Node.js 20
+        uses: actions/setup-node@v4
         with:
-          node-version: '18'
+          node-version: '20'
+          cache: 'yarn'
 
       - name: 🔨 Build Project
         run: |
