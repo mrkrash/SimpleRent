@@ -4,7 +4,7 @@ services:
 ###> doctrine/doctrine-bundle ###
   database:
     ports:
-      - "5432"
+      - "54321:5432"
 ###< doctrine/doctrine-bundle ###
 
 ###> symfony/mailer ###
@@ -12,3 +12,12 @@ services:
     image: schickling/mailcatcher
     ports: ["1025", "1080"]
 ###< symfony/mailer ###
+
+  app:
+    image: php83-caddy
+    ports:
+      - "8000:80"
+    volumes:
+      - .:/app
+    depends_on:
+      - database
