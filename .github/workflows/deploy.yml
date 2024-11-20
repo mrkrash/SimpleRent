@@ -56,9 +56,6 @@ jobs:
       - name: Remove Development Dependencies
         run: APP_ENV=prod composer install --no-ansi --no-interaction --no-progress --prefer-dist --no-dev --optimize-autoloader
 
-      - name: Build .env
-        run: composer dump-env prod
-
       - name: Enable Corepack
         run: corepack enable
       - name: Use Node.js 20

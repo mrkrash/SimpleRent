@@ -1,6 +1,11 @@
 twig:
+    default_path: '%kernel.project_dir%/templates'
+    form_themes:
+        - 'form/quill_widget.html.twig'
+        - 'bulma_layout.html.twig'
+    globals:
+        paypal_client_id: '%env(PAYPAL_CLIENT_ID)%'
     file_name_pattern: '*.twig'
-
 when@test:
     twig:
         strict_variables: true
